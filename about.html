@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI — O'zbekiston Iqtisodiyoti Assambleyasi haqida." />
+  <title>Biz haqimizda — TIJORAT MARKAZI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+          <em>Milliy savdo platformasi</em>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" class="active" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" data-i18n="d_home2">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero hero-sub">
+    <div class="container hero-inner hero-inner-center">
+      <div class="hero-copy">
+        <span class="pill"><span class="dot"></span> <span data-i18n="ab_pill">Biz haqimizda</span></span>
+        <h1 data-i18n-html="ab_h1">O'zbekiston Iqtisodiyoti <span class="grad">Assambleyasi</span></h1>
+        <p class="lead" data-i18n-html="ab_lead">Assambleya — milliy integrator.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISSION ===== -->
+  <section class="section" id="mission">
+    <div class="container">
+      <div class="about-split">
+        <div class="section-head about-head-left">
+          <span class="eyebrow" data-i18n="ab_mission_e">Missiyamiz</span>
+          <h2 data-i18n-html="ab_mission_h">Yangi O'zbekiston — <span class="grad">Yangi Renessans</span></h2>
+        </div>
+        <p class="about-body" data-i18n="ab_mission_p">2035-yilgacha O'zbekistonni yetakchi markazga aylantirish.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STRUCTURE ===== -->
+  <section class="section" id="structure">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="ab_struct_e">Tuzilma</span>
+        <h2 data-i18n-html="ab_struct_h">To'rt yo'nalishdagi <span class="grad">aloqalar</span></h2>
+        <p data-i18n="ab_struct_p">Assambleya Raisi strategik boshqaruvni amalga oshiradi.</p>
+      </div>
+      <div class="centers-grid" id="structGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== 5 PILLARS ===== -->
+  <section class="section" id="pillars">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="ab_pillars_e">5 ustunli model</span>
+        <h2 data-i18n-html="ab_pillars_h">Ekotizim <span class="grad">tayanchlari</span></h2>
+      </div>
+      <div class="future-grid" id="pillarsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== VALUES ===== -->
+  <section class="section" id="values">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="ab_values_e">Qadriyatlarimiz</span>
+        <h2 data-i18n-html="ab_values_h">Bizni <span class="grad">yo'naltiradigan</span> tamoyillar</h2>
+      </div>
+      <div class="values-grid" id="valuesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS ===== -->
+  <section class="section" id="results">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="ab_res_e">Kutilayotgan natijalar</span>
+        <h2 data-i18n-html="ab_res_h">2030–2035 <span class="grad">maqsadlar</span></h2>
+      </div>
+      <div class="results-grid" id="resultsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section" id="about-cta">
+    <div class="container">
+      <div class="cta-band panel">
+        <div>
+          <h2 data-i18n="ab_cta_h">Birgalikda barpo etamiz</h2>
+          <p data-i18n="ab_cta_p">Loyihalarni ko'ring yoki biz bilan bog'laning.</p>
+        </div>
+        <a class="btn btn-primary btn-lg" href="projects.html" data-i18n="nav_projects">Loyihalar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="about.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+</body>
+</html>

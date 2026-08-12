@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIJORAT MARKAZI — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- LOGIN -->
+  <div class="admin-login" id="adminLogin">
+    <form id="loginForm">
+      <h2 id="lgTitle">Admin panel</h2>
+      <p id="lgSub">TIJORAT MARKAZI boshqaruv paneli</p>
+      <div class="err" id="lgErr"></div>
+      <input type="password" id="lgPass" placeholder="••••••••" autocomplete="off" />
+      <button class="btn btn-primary btn-lg" type="submit" id="lgBtn" style="width:100%">Kirish</button>
+      <p class="hint" id="lgHint">Demo parol: admin</p>
+    </form>
+  </div>
+
+  <!-- SHELL -->
+  <div class="admin-shell" id="adminShell" hidden>
+    <aside class="admin-side">
+      <div class="admin-brand">
+        <div><b>TIJORAT MARKAZI</b><span>Admin</span></div>
+      </div>
+      <nav class="admin-nav" id="adminNav"></nav>
+      <a class="admin-back" href="index.html" id="backSite">← Saytga qaytish</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1 id="viewTitle">Dashboard</h1>
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button">UZ</button>
+        <button class="btn btn-ghost" id="logoutBtn" type="button">Logout</button>
+      </div>
+
+      <section class="admin-view" id="view-dashboard"></section>
+      <section class="admin-view" id="view-associations"></section>
+      <section class="admin-view" id="view-members"></section>
+      <section class="admin-view" id="view-companies"></section>
+      <section class="admin-view" id="view-leads"></section>
+      <section class="admin-view" id="view-questions"></section>
+      <section class="admin-view" id="view-projects"></section>
+      <section class="admin-view" id="view-chat"></section>
+      <section class="admin-view" id="view-report"></section>
+      <section class="admin-view" id="view-conference"></section>
+      <section class="admin-view" id="view-settings"></section>
+    </main>
+  </div>
+
+  <!-- OFFICIAL LETTER VIEWER -->
+  <div class="letter-modal" id="letterModal" hidden>
+    <div class="letter-box">
+      <div class="letter-head"><b id="ltrTo">—</b><button class="icon-btn" id="ltrClose" type="button">✕</button></div>
+      <pre class="letter-body" id="ltrBody"></pre>
+      <div class="letter-foot">
+        <button class="btn btn-primary" id="ltrCopy" type="button">Nusxa olish</button>
+        <button class="btn btn-ghost" id="ltrDl" type="button">Yuklab olish</button>
+        <button class="btn btn-ghost" id="ltrPrint" type="button">Chop etish</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="chart.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "assoc:ajn1zoyo8o8": [
+    {
+      "from": "assoc",
+      "fromId": "ajn1zoyo8o8",
+      "fromName": "Komoliddin Ikromov",
+      "text": "Assalomu alaykum, oylik hisobotlarni yuboring.",
+      "time": 1786458668801
+    },
+    {
+      "from": "company",
+      "fromId": "cd7gvoso8ra",
+      "fromName": "GreenAgro LLC",
+      "text": "Xo'p bo'ladi, ertaga yuboraman.",
+      "time": 1786458668887
+    }
+  ],
+  "assoc:arudvfuo8o8": [
+    {
+      "from": "company",
+      "fromId": "chnw2ph8g2r",
+      "fromName": "hello",
+      "text": "hello",
+      "time": 1786460236457
+    }
+  ],
+  "dm:ajn1zoyo8o8|cd7gvoso8ra": [
+    {
+      "from": "company",
+      "fromId": "cd7gvoso8ra",
+      "fromName": "GreenAgro LLC",
+      "text": "Rais, shaxsiy savolim bor.",
+      "time": 1786460425403
+    }
+  ],
+  "dm:arudvfuo8o8|rais": [
+    {
+      "from": "assoc",
+      "fromId": "arudvfuo8o8",
+      "fromName": "U. Abdullayev",
+      "text": "salom",
+      "time": 1786460615946
+    }
+  ]
+}

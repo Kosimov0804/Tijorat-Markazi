@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant — TIJORAT MARKAZI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+          <em>Milliy savdo platformasi</em>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" id="homeBtn" data-i18n="d_home">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- LOGIN OVERLAY -->
+  <div class="asst-login" id="asstLogin" hidden>
+    <form class="lcard" id="emailForm">
+      <button type="button" class="lcard-close" id="loginClose" aria-label="Yopish" title="Yopish">✕</button>
+      <span class="ai-avatar">AI</span>
+      <h2 data-i18n="asst_login_title">Tizimga kirish</h2>
+      <p data-i18n="asst_login_sub">Login va parol kiriting — panelingizga kirasiz.</p>
+      <div class="err" id="emailErr"></div>
+      <input type="text" id="loginInput" data-i18n-ph="asst_login_ph" placeholder="Login" autocomplete="username" />
+      <input type="password" id="passInput" data-i18n-ph="asst_pass_ph" placeholder="Parol" autocomplete="current-password" />
+      <button class="btn btn-primary btn-lg" type="submit" style="width:100%" data-i18n="asst_enter">Kirish →</button>
+      <div class="asst-login-or"><span data-i18n="asst_demo_or">yoki</span></div>
+      <input type="email" id="demoEmailInput" data-i18n-ph="asst_demo_email_ph" placeholder="email@gmail.com" autocomplete="email" />
+      <div class="err" id="demoErr"></div>
+      <button class="btn btn-ghost btn-lg" type="button" id="demoBtn" style="width:100%" data-i18n="asst_demo_btn">Demo — AI bilan suhbat</button>
+    </form>
+  </div>
+
+  <main class="asst-page" id="asstApp" hidden>
+    <div class="container">
+      <div class="asst-grid">
+        <!-- sidebar -->
+        <aside class="asst-aside">
+          <div class="panel">
+            <div class="asst-userbox">
+              <div class="uemail"><span class="ai-avatar">@</span><span id="uEmail">—</span></div>
+              <span class="demo-pill" id="aiStatus">Demo</span>
+              <div class="urow">
+                <button class="btn btn-primary" id="newChatBtn" type="button" data-i18n="asst_new">+ Yangi suhbat</button>
+              </div>
+              <button class="asst-logout-link" id="switchEmail" type="button" data-i18n="asst_logout">Boshqa email</button>
+            </div>
+          </div>
+          <div class="panel" id="histPanel">
+            <h4 data-i18n="asst_history">Suhbatlar tarixi</h4>
+            <div class="session-list" id="sessionList"></div>
+          </div>
+        </aside>
+
+        <!-- chat -->
+        <div>
+          <div class="chat">
+            <div class="chat-top">
+              <span class="ai-avatar">AI</span>
+              <div><b>TIJORAT MARKAZI</b><em id="chatStatus" data-i18n="chat_online">onlayn</em></div>
+              <button class="chat-clear" id="chatClear" type="button" data-i18n="asst_new">+ Yangi suhbat</button>
+            </div>
+            <div class="chat-body" id="chatBody"></div>
+            <div class="ex-bar">
+              <span class="ex-bar-t" data-i18n="asst_examples">Misol so'rovlar</span>
+              <div class="ex-chips" id="exList"></div>
+              <span class="limit-note" id="limitNote" hidden></span>
+            </div>
+            <div class="chat-attach" id="attachChip" hidden></div>
+            <form class="chat-input" id="chatForm">
+              <button type="button" class="ci-btn" id="attachBtn" data-i18n-title="attach_title" title="Attach" aria-label="Attach">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l9-9a3.3 3.3 0 0 1 4.7 4.7l-9 9a1.6 1.6 0 0 1-2.3-2.3l8.3-8.3"/></svg>
+              </button>
+              <input type="file" id="fileInput" accept="image/*,.txt,.md,.csv,.json,.log,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" hidden />
+              <input type="text" id="chatText" data-i18n-ph="chat_ph" placeholder="Savolingizni yozing…" autocomplete="off" />
+              <button type="button" class="ci-btn" id="micBtn" data-i18n-title="mic_title" title="Voice" aria-label="Voice">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
+              </button>
+              <button type="submit" class="ci-send" aria-label="Send">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+              </button>
+            </form>
+          </div>
+          <p class="asst-disclaimer" data-i18n="asst_disclaimer">Bu AI yordamchisi.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div>
+          <strong>TIJORAT MARKAZI</strong>
+          <p data-i18n="foot_tagline">Milliy savdo platformasi</p>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4 data-i18n="foot_col3">Aloqa</h4>
+          <a href="tel:+998999999999">+998 99 999 99 99</a>
+          <a href="mailto:info@tijoratmarkazi.uz">info@tijoratmarkazi.uz</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="assistant.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+</body>
+</html>

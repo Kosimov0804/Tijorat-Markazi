@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI — Assambleyaning strategik loyihalari." />
+  <title>Loyihalar — TIJORAT MARKAZI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+          <em>Milliy savdo platformasi</em>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" data-i18n="d_home2">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero hero-sub">
+    <div class="container hero-inner hero-inner-center">
+      <div class="hero-copy">
+        <span class="pill"><span class="dot"></span> <span data-i18n="pr_pill">Assambleya loyihalari</span></span>
+        <h1 data-i18n-html="pr_h1">Yangi O'zbekistonni quruvchi <span class="grad">strategik loyihalar</span></h1>
+        <p class="lead" data-i18n-html="pr_lead">Assambleya strategik loyihalar ekotizimini boshqaradi.</p>
+        <div class="hero-stats">
+          <div class="stat"><b data-count="23">0</b><span data-i18n="pr_stat1">Strategik loyiha</span></div>
+          <div class="stat"><b data-count="6">0</b><span data-i18n="pr_stat2">Yo'nalish</span></div>
+          <div class="stat"><b>2035</b><span data-i18n="pr_stat3">Maqsad yili</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="block-tabs" id="projTabs"></div>
+      <div class="centers-grid" id="projectsGrid"></div>
+      <p class="empty-note" id="projEmpty" hidden data-i18n="pr_empty">Bu yo'nalishda loyiha topilmadi.</p>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section" id="proj-cta">
+    <div class="container">
+      <div class="cta-band panel">
+        <div>
+          <h2 data-i18n="pr_cta_h">Loyihaga qo'shiling</h2>
+          <p data-i18n="pr_cta_p">Hamkorlik, investitsiya yoki loyihaga ulanish bo'yicha biz bilan bog'laning.</p>
+        </div>
+        <a class="btn btn-primary btn-lg" href="assistant.html" data-i18n="pr_cta_btn">Bog'lanish</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="projects.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+</body>
+</html>

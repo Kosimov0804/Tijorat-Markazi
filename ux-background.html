@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fon variantlari — TIJORAT MARKAZI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="bg-lab.css" />
+</head>
+<body>
+<div class="lab">
+
+  <div class="lab-top">
+    <div class="kick">TIJORAT MARKAZI · fon variantlari</div>
+    <h1>O'nta fon, bitta sarlavha</h1>
+    <p>Har birida bir xil matn turibdi — chunki yagona muhim savol shu: sarlavha baribir
+      o'qiladimi? Hammasi faqat chiziq bilan chizilgan, rangli surat yo'q. Sichqonchani
+      ustiga olib boring: qatlamlar chuqurlikka qarab siljiydi.</p>
+    <div class="lab-jump" id="labJump"></div>
+  </div>
+
+  <div id="labOptions"></div>
+
+  <section class="pick">
+    <h2>Taqqoslash</h2>
+    <p>Fon sahifaning bosh qahramoni emas. Shuning uchun oxirgi ustun eng muhimi: matn
+      ustida turganda xalaqit beradimi yoki yo'qmi.</p>
+    <table>
+      <tr><th>Variant</th><th>Kuchli tomoni</th><th>Zaif tomoni</th><th>Matn ustida</th></tr>
+      <tr><td>1 · Ufq chizig'i</td><td>Darhol tanilади — Registon ohangi.</td><td>Chiziq ko'p, pastki qism band bo'ladi.</td><td>Yaxshi</td></tr>
+      <tr><td>2 · Yagona peshtoq</td><td>Eng monumental va eng jim.</td><td>Bitta shakl — tez zerikishi mumkin.</td><td>Eng yaxshi</td></tr>
+      <tr><td>3 · Chizma</td><td>Zamonaviy, texnik, o'ziga xos.</td><td>«Ishlanmoqda» degan taassurot berishi mumkin.</td><td>Yaxshi</td></tr>
+      <tr><td>4 · Gorizontal</td><td>Juda zamonaviy, grafik jihatdan kuchli.</td><td>Yodgorlik tanilmay qolishi mumkin.</td><td>Yaxshi</td></tr>
+      <tr><td>5 · Girih</td><td>Butun ekranni to'ldiradi, sof naqsh.</td><td>Bino yo'q — milliylik faqat geometriyada.</td><td>O'rtacha</td></tr>
+      <tr><td>6 · Gumbaz ichi</td><td>Eng ta'sirchan, markazga tortadi.</td><td>Aylanish diqqatni bo'lishi mumkin.</td><td>O'rtacha</td></tr>
+      <tr><td>7 · Ravoqlar yo'lagi</td><td>Haqiqiy chuqurlik hissi.</td><td>Markaz band — matn chetga suriladi.</td><td>Qiyin</td></tr>
+      <tr><td>8 · Minoralar</td><td>Eng yengil va eng tinch.</td><td>Kamtarona — kuchli taassurot qoldirmaydi.</td><td>Eng yaxshi</td></tr>
+      <tr><td>9 · Abr</td><td>Yumshoq, harakatli, to'qimachilik ohangi.</td><td>Me'morchilikdan uzoq.</td><td>Yaxshi</td></tr>
+      <tr><td>10 · Suzani oy</td><td>Iliq, qo'lda ishlangandek.</td><td>Doiralar matn ortida chalg'itishi mumkin.</td><td>O'rtacha</td></tr>
+    </table>
+    <p class="note">Tavsiyam: <b>8 · Minoralar</b> — eng yengil, matnga umuman xalaqit bermaydi va
+      tik ritmi jadval bilan tabiiy kelishadi. Kuchliroq taassurot kerak bo'lsa —
+      <b>2 · Yagona peshtoq</b>: bitta ulkan darvoza, boshqa hech narsa.
+      Raqamini ayting, saytga o'shani qo'yaman. Aralashtirsa ham bo'ladi —
+      masalan «8 ning minoralari + 3 ning o'lcham chiziqlari».</p>
+  </section>
+
+</div>
+
+<script src="skyline.js"></script>
+<script src="bg-lab.js"></script>
+<script>
+(function(){
+  var theme = localStorage.getItem("kg_theme"); if(theme) document.documentElement.dataset.theme = theme;
+  var lang = localStorage.getItem("kg_lang") || "uz";
+  var li = {uz:0, ru:1, en:2}[lang]; if(li == null) li = 0;
+
+  var COPY = {
+    uz:{eyebrow:"Milliy savdo platformasi", h:"O'zbekiston biznesini boshqaruvchi <em>Yagona Tijorat Markazi</em>",
+        p:"Ellik uyushma, mingdan ortiq kompaniya — bitta joyda.", b:"Platformani ko'rish →"},
+    ru:{eyebrow:"Национальная торговая платформа", h:"<em>Единый Торговый Центр</em> для бизнеса Узбекистана",
+        p:"Пятьдесят ассоциаций, более тысячи компаний — в одном месте.", b:"Смотреть платформу →"},
+    en:{eyebrow:"National trade platform", h:"The <em>Single Trade Centre</em> powering Uzbekistan's business",
+        p:"Fifty associations, over a thousand companies — in one place.", b:"Explore the platform →"}
+  }[lang] || null;
+  var c = COPY || {eyebrow:"", h:"", p:"", b:""};
+
+  var jump = document.getElementById("labJump");
+  var wrap = document.getElementById("labOptions");
+
+  KG_BACKGROUNDS.forEach(function(opt, i){
+    jump.insertAdjacentHTML("beforeend",
+      '<a href="#o' + (i+1) + '">' + (i+1) + ' · ' + opt.name + '</a>');
+
+    var sec = document.createElement("section");
+    sec.className = "opt";
+    sec.id = "o" + (i+1);
+    sec.innerHTML =
+      '<div class="opt-head"><span class="opt-num">' + String(i+1).padStart(2,"0") + '</span>' +
+        '<h2>' + opt.name + '</h2><span class="opt-id">' + opt.id + '</span></div>' +
+      '<p class="opt-note">' + opt.note[li] + '</p>' +
+      '<div class="stage"><div class="stage-bg"></div>' +
+        '<div class="stage-copy"><span class="eyebrow">' + c.eyebrow + '</span>' +
+          '<h3>' + c.h + '</h3><p>' + c.p + '</p>' +
+          '<span class="stage-btn">' + c.b + '</span></div>' +
+      '</div>';
+    wrap.appendChild(sec);
+    kgMountBackground(sec.querySelector(".stage-bg"), opt);
+  });
+
+  jump.insertAdjacentHTML("beforeend", '<a href="#pick">Jadval</a>');
+  jump.insertAdjacentHTML("beforeend", '<a class="alt" href="index.html">← Saytga qaytish</a>');
+})();
+</script>
+</body>
+</html>

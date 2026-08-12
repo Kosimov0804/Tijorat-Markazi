@@ -1,0 +1,367 @@
+{
+  "associations": [
+    {
+      "id": "ajn1zoyo8o8",
+      "name": "Agrobiznes Association",
+      "chairman": "Komoliddin Ikromov",
+      "login": "agrobiznesasso",
+      "password": "konglomerat-agro-2894"
+    },
+    {
+      "id": "awnb6dso8o8",
+      "name": "Association of Jewellers of Uzbekistan “Oʻzbekzargarsanoati”",
+      "chairman": "Davron Samarov",
+      "login": "associationofj",
+      "password": "konglomerat-zargar-3843"
+    },
+    {
+      "id": "apl1689o8o8",
+      "name": "Chamber of Auditors",
+      "chairman": "Nematulla Karimov",
+      "login": "chamberofaudit",
+      "password": "konglomerat-audit-5382"
+    },
+    {
+      "id": "a56tgp3o8o8",
+      "name": "Association of Bankers of Uzbekistan",
+      "chairman": "Doniyor aka",
+      "login": "associationofb",
+      "password": "konglomerat-bank-4937"
+    },
+    {
+      "id": "a1kytopo8o8",
+      "name": "Association of Business Women \"Tadbirkor Ayol\"",
+      "chairman": "Mahmudova Gulnora G'ulomnazarovna",
+      "login": "associationofb2",
+      "password": "konglomerat-bizwomen-2937"
+    },
+    {
+      "id": "arudvfuo8o8",
+      "name": "Association of Craftsmen \"Hunarmand\"",
+      "chairman": "U. Abdullayev",
+      "login": "associationofc",
+      "password": "konglomerat-hunarmand-5428"
+    },
+    {
+      "id": "angm6pyo8o8",
+      "name": "Association of Customs Brokers",
+      "chairman": "Arsen Olegovich",
+      "login": "associationofc2",
+      "password": "konglomerat-customs-9892"
+    },
+    {
+      "id": "abvpwh2o8o8",
+      "name": "Association of Constructors (Builders) of Uzbekistan",
+      "chairman": "Jorabek Matiyakubov",
+      "login": "associationofc3",
+      "password": "konglomerat-constructors-6957"
+    },
+    {
+      "id": "aiccpklo8o8",
+      "name": "Association of Exporters of Uzbekistan",
+      "chairman": "Yorqin Malikov",
+      "login": "associationofe",
+      "password": "konglomerat-export-4823"
+    },
+    {
+      "id": "aov59d0o8o8",
+      "name": "Association of Medical Equipment Manufacturers and Suppliers",
+      "chairman": "",
+      "login": "associationofm",
+      "password": "konglomerat-medequip-3595"
+    },
+    {
+      "id": "aic26ado8o8",
+      "name": "Association of Miners of Uzbekistan",
+      "chairman": "Sarvar Mirzayev",
+      "login": "associationofm2",
+      "password": "konglomerat-miners-3683"
+    },
+    {
+      "id": "aerd1sdo8o8",
+      "name": "Association of Non-governmental Educational Institutions",
+      "chairman": "Anvar Yusupov",
+      "login": "associationofn",
+      "password": "konglomerat-education-5423"
+    },
+    {
+      "id": "ajlnj0bo8o8",
+      "name": "Association of Oil Traders of the Republic of Uzbekistan",
+      "chairman": "Saidalim Saidabboshon",
+      "login": "associationofo",
+      "password": "konglomerat-oil-7342"
+    },
+    {
+      "id": "anznac3o8o8",
+      "name": "Association of Textile Workers of Uzbekistan",
+      "chairman": "",
+      "login": "associationoft",
+      "password": "konglomerat-textile-3842"
+    },
+    {
+      "id": "am3lbfso8o8",
+      "name": "Employers' Association",
+      "chairman": "",
+      "login": "employersassoc",
+      "password": "konglomerat-employers-3469"
+    },
+    {
+      "id": "aee16vso8o8",
+      "name": "Food Industry Association of Uzbekistan",
+      "chairman": "Bahodir Umirshayxov",
+      "login": "foodindustryas",
+      "password": "konglomerat-food-4744"
+    },
+    {
+      "id": "alzc235o8o8",
+      "name": "Franchise Association of Uzbekistan",
+      "chairman": "Murod Azamov",
+      "login": "franchiseassoc",
+      "password": "konglomerat-franchise-2779"
+    },
+    {
+      "id": "afuqxc4o8o8",
+      "name": "Fruits and Vegetables Association",
+      "chairman": "Komolliddin",
+      "login": "fruitsandveget",
+      "password": "konglomerat-fruits-5762"
+    },
+    {
+      "id": "af4pdimo8o8",
+      "name": "Furniture and Woodworking Industry Association MEYOS",
+      "chairman": "Aziz",
+      "login": "furnitureandwo",
+      "password": "konglomerat-meyos-7356"
+    },
+    {
+      "id": "ax8vfbbo8o8",
+      "name": "Alternative Energy Association",
+      "chairman": "Aziz",
+      "login": "alternativeene",
+      "password": "konglomerat-energy-7663"
+    },
+    {
+      "id": "ata0ndio8o8",
+      "name": "Hoteliers Association of Uzbekistan",
+      "chairman": "F. Abdullayeva",
+      "login": "hoteliersassoc",
+      "password": "konglomerat-hotels-4438"
+    },
+    {
+      "id": "a96o5mmo8o8",
+      "name": "Marketing Association of Uzbekistan",
+      "chairman": "Diyor Mirzamuhammedov",
+      "login": "marketingassoc",
+      "password": "konglomerat-marketing-6676"
+    },
+    {
+      "id": "anbc6q6o8o8",
+      "name": "Uzbekistan & Turkey Business People Association \"UTID\"",
+      "chairman": "Ulugbek",
+      "login": "uzbekistanturk",
+      "password": "konglomerat-utid-6375"
+    },
+    {
+      "id": "azr8fv5o8o8",
+      "name": "Expeditors Association",
+      "chairman": "Hokim Matchonov",
+      "login": "expeditorsasso",
+      "password": "konglomerat-expeditors-8278"
+    },
+    {
+      "id": "a74bqpeo8o8",
+      "name": "Association of Builders",
+      "chairman": "Holmatov",
+      "login": "associationofb3",
+      "password": "konglomerat-builders-2453"
+    },
+    {
+      "id": "a2n8l6no8o8",
+      "name": "Volonteers Association",
+      "chairman": "",
+      "login": "volonteersasso",
+      "password": "konglomerat-volonteers-2822"
+    },
+    {
+      "id": "anxm2i2o8o8",
+      "name": "Hi China International Youth Development Alliance",
+      "chairman": "",
+      "login": "hichinainterna",
+      "password": "konglomerat-hichina-6893"
+    },
+    {
+      "id": "asf709co8o8",
+      "name": "Santexniklar uyushmasi",
+      "chairman": "Sadikov Maruf",
+      "login": "santexniklaruy",
+      "password": "konglomerat-santexnik-5589"
+    },
+    {
+      "id": "azwd0i7o8o8",
+      "name": "Association for Sustainable Development of Tourism",
+      "chairman": "",
+      "login": "associationfor",
+      "password": "konglomerat-ecotourism-5865"
+    },
+    {
+      "id": "arcgx47o8o8",
+      "name": "Association of Drivers of Uzbekistan",
+      "chairman": "Ravshan Agzamov",
+      "login": "associationofd",
+      "password": "konglomerat-drivers-8939"
+    },
+    {
+      "id": "a0sb4mfo8o8",
+      "name": "Association of Gastronomic Tourism of Uzbekistan",
+      "chairman": "Gulnoza Odilova",
+      "login": "associationofg",
+      "password": "konglomerat-gastro-4799"
+    },
+    {
+      "id": "aqm6d37o8o8",
+      "name": "Uzbekistan internet businessman association",
+      "chairman": "S. Akbarxo'djayeva",
+      "login": "uzbekistaninte",
+      "password": "konglomerat-internet-4227"
+    },
+    {
+      "id": "aezcnumo8o8",
+      "name": "Association of Tourism and Investors",
+      "chairman": "",
+      "login": "associationoft2",
+      "password": "konglomerat-tourinvest-9696"
+    },
+    {
+      "id": "awhhe48o8o8",
+      "name": "National Transport Association",
+      "chairman": "",
+      "login": "nationaltransp",
+      "password": "konglomerat-transport-7274"
+    },
+    {
+      "id": "a787ghxo8o8",
+      "name": "Tourism Development Association",
+      "chairman": "Dilshod Odilov",
+      "login": "tourismdevelop",
+      "password": "konglomerat-tourism-7284"
+    },
+    {
+      "id": "aw2e5ogo8o8",
+      "name": "E commerce association",
+      "chairman": "",
+      "login": "ecommerceassoc",
+      "password": "konglomerat-ecommerce-7666"
+    },
+    {
+      "id": "a1faypto8o8",
+      "name": "Association of Umrah Pilgrimage Travel Agencies",
+      "chairman": "",
+      "login": "associationofu",
+      "password": "konglomerat-umrah-2846"
+    },
+    {
+      "id": "adckhf0o8o8",
+      "name": "HR BUSINESS PARTNERS ASSOCIATION",
+      "chairman": "Madina Bilalova",
+      "login": "hrbusinesspart",
+      "password": "konglomerat-hrbp-3269"
+    },
+    {
+      "id": "ag3dl44o8o8",
+      "name": "Uzbekistan Business Development Association (UBDA)",
+      "chairman": "",
+      "login": "uzbekistanbusi",
+      "password": "konglomerat-ubda-2727"
+    },
+    {
+      "id": "au4koowo8o8",
+      "name": "Women and Girls Association",
+      "chairman": "",
+      "login": "womenandgirlsa",
+      "password": "konglomerat-women-4628"
+    },
+    {
+      "id": "alo06sqo8o8",
+      "name": "Association of Professional Managers and Housing Services Organizations",
+      "chairman": "",
+      "login": "associationofp",
+      "password": "konglomerat-housing-9368"
+    }
+  ],
+  "companies": [
+    {
+      "id": "cd7gvoso8ra",
+      "name": "GreenAgro LLC",
+      "assocId": "ajn1zoyo8o8",
+      "sector": "Agriculture",
+      "login": "greenagro",
+      "password": "pass123",
+      "showroom": [
+        {
+          "name": "Tomatoes",
+          "price": "$2/kg",
+          "desc": "Fresh",
+          "img": ""
+        },
+        {
+          "name": "Consulting",
+          "price": "договорная",
+          "desc": "",
+          "img": ""
+        }
+      ],
+      "created": 1782570873430,
+      "bizrows": [
+        {
+          "product": "машина",
+          "sales": "40000$",
+          "price": "35000$",
+          "composition": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "cax4y83zwej",
+      "name": "Agro One",
+      "assocId": "ajn1zoyo8o8",
+      "sector": "Agro",
+      "login": "agroone",
+      "password": "a1",
+      "showroom": [],
+      "created": 1782571417291
+    },
+    {
+      "id": "chnw2ph8g2r",
+      "name": "hello",
+      "assocId": "arudvfuo8o8",
+      "sector": "",
+      "login": "hello",
+      "password": "hello",
+      "showroom": [
+        {
+          "name": "s",
+          "price": "2",
+          "desc": "sdf",
+          "img": "/uploads/imght0mz6bxi1.jpg"
+        }
+      ],
+      "created": 1786458447459
+    },
+    {
+      "id": "cr5l15hqhvc",
+      "name": "d",
+      "assocId": "arudvfuo8o8",
+      "sector": "d",
+      "login": "fff",
+      "password": "fff",
+      "showroom": [],
+      "created": 1786464328440
+    }
+  ],
+  "rais": {
+    "login": "rais",
+    "password": "rais2024",
+    "tgChat": ""
+  }
+}

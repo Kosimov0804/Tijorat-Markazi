@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Admin — TIJORAT MARKAZI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- ===== PUBLIC ASSOCIATION PAGE (opened with ?id=) ===== -->
+  <main class="co-page" id="asPublic" hidden>
+    <div class="container">
+      <a class="co-back" href="associations.html" id="backDir">← Uyushmalar</a>
+      <div class="co-head">
+        <span class="co-eyebrow" id="pubKicker">Uyushma</span>
+        <h1 class="co-name" id="pubName">—</h1>
+        <span class="co-sector" id="pubChair"></span>
+      </div>
+      <div class="panel co-panel">
+        <div class="co-panel-head"><span class="co-ic">🏢</span><h2 id="pubCmpTitle">A'zo kompaniyalar</h2>
+          <span class="ac-sub" id="pubCount" style="margin-left:auto;color:var(--muted)"></span>
+        </div>
+        <div class="dir-grid" id="pubCompanies"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== LOGIN ===== -->
+  <div class="admin-login" id="asLogin" hidden>
+    <form id="asForm">
+      <h2 id="lgTitle">Super Admin paneli</h2>
+      <p id="lgSub">Login va parol bilan kiring (admin bergan).</p>
+      <div class="err" id="asErr"></div>
+      <input type="text" id="asLoginInp" placeholder="login" autocomplete="username" />
+      <input type="password" id="asPassInp" placeholder="parol" autocomplete="current-password" />
+      <button class="btn btn-primary btn-lg" type="submit" id="lgBtn" style="width:100%">Kirish →</button>
+    </form>
+  </div>
+
+  <!-- ===== SHELL (admin-style) ===== -->
+  <div class="admin-shell" id="asShell" hidden>
+    <aside class="admin-side">
+      <div class="admin-brand">
+        <div><b>TIJORAT MARKAZI</b><span>Super Admin</span></div>
+      </div>
+      <nav class="admin-nav" id="asNav"></nav>
+      <a class="admin-back" href="index.html" id="backSite">← Saytga qaytish</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1 id="viewTitle">Dashboard</h1>
+        <a class="btn btn-primary" id="aiNav" href="assistant.html" style="margin-left:auto">🤖 AI Assistant</a>
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button">UZ</button>
+        <button class="btn btn-ghost" id="logoutBtn" type="button">Logout</button>
+      </div>
+
+      <section class="admin-view" id="view-dashboard"></section>
+      <section class="admin-view" id="view-companies"></section>
+      <section class="admin-view" id="view-questions"></section>
+      <section class="admin-view" id="view-news"></section>
+      <section class="admin-view" id="view-report"></section>
+      <section class="admin-view" id="view-conference"></section>
+    </main>
+  </div>
+
+  <!-- OFFICIAL LETTER VIEWER -->
+  <div class="letter-modal" id="letterModal" hidden>
+    <div class="letter-box">
+      <div class="letter-head"><b id="ltrTo">—</b><button class="icon-btn" id="ltrClose" type="button">✕</button></div>
+      <pre class="letter-body" id="ltrBody"></pre>
+      <div class="letter-foot">
+        <button class="btn btn-primary" id="ltrCopy" type="button">Nusxa olish</button>
+        <button class="btn btn-ghost" id="ltrPrint" type="button">Chop etish</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="chart.js"></script>
+  <script src="association.js"></script>
+</body>
+</html>

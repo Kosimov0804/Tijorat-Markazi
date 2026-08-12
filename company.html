@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kompaniya paneli — TIJORAT MARKAZI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- LOGIN -->
+  <div class="admin-login" id="coLogin" hidden>
+    <form id="coForm">
+      <h2 id="lgTitle">Kompaniya paneli</h2>
+      <p id="lgSub">Login va parol bilan kiring (admin bergan).</p>
+      <div class="err" id="coErr"></div>
+      <input type="text" id="coLoginInp" placeholder="login" autocomplete="username" />
+      <input type="password" id="coPassInp" placeholder="parol" autocomplete="current-password" />
+      <button class="btn btn-primary btn-lg" type="submit" style="width:100%" id="lgBtn">Kirish →</button>
+    </form>
+  </div>
+
+  <!-- SHELL (admin-style) -->
+  <div class="admin-shell" id="coApp" hidden>
+    <aside class="admin-side">
+      <div class="admin-brand">
+        <div><b>TIJORAT MARKAZI</b><span>Company</span></div>
+      </div>
+      <nav class="admin-nav" id="coNav"></nav>
+      <a class="admin-back" href="index.html" id="backSite">← Saytga qaytish</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1 id="viewTitle">Dashboard</h1>
+        <a class="btn btn-primary" id="aiNav" href="assistant.html" style="margin-left:auto">🤖 AI Assistant</a>
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button">UZ</button>
+        <button class="btn btn-ghost" id="logoutBtn" type="button">Logout</button>
+      </div>
+
+      <div style="padding:20px 26px 0">
+        <div class="conf-banner" id="coBanner" hidden></div>
+        <div class="co-head">
+          <div>
+            <span class="co-eyebrow" id="coAssoc">—</span>
+            <h2 class="co-name" id="coName" style="font-size:24px">—</h2>
+            <span class="co-sector" id="coSector"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div class="admin-view" id="view-dashboard">
+        <div class="dash-grid">
+          <div class="panel dash-card dash-kpi-card">
+            <span class="dash-card-t" id="kpiLabel">Mahsulotlar</span>
+            <b class="dash-kpi-val" id="kpiVal">0</b>
+            <div class="dash-kpi-mini" id="kpiMini"></div>
+          </div>
+          <div class="panel dash-card dash-span2">
+            <span class="dash-card-t" id="evoTitle">Faturamiya dinamikasi</span>
+            <div id="chartMonth"></div>
+          </div>
+          <div class="panel dash-card">
+            <span class="dash-card-t" id="donutTitle">Mahsulotlar tarkibi</span>
+            <div id="chartDonut"></div>
+          </div>
+          <div class="panel dash-card dash-span2">
+            <span class="dash-card-t" id="qtyTitle">Sotuvlar dinamikasi</span>
+            <div id="chartArea"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHOWROOM -->
+      <div class="admin-view" id="view-showroom">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">🛍️</span><h2 id="shTitle">Showroom</h2>
+            <span class="ac-sub" id="shSaved" style="opacity:0;margin-left:auto"></span>
+          </div>
+          <p class="co-sub" id="shSub">Mahsulot va xizmatlaringizni qo'shing.</p>
+          <div class="show-grid" id="showGrid"></div>
+          <form class="admin-form sh-form" id="shForm">
+            <input id="sh-name" placeholder="Nomi" required>
+            <input id="sh-price" placeholder="Narxi">
+            <input id="sh-desc" placeholder="Tavsif">
+            <label class="sh-file-btn" id="shFileBtn">📷 <span id="shFileLabel">Rasm yuklash</span>
+              <input type="file" id="sh-file" accept="image/*" hidden>
+            </label>
+            <input id="sh-img" placeholder="yoki Rasm URL">
+            <button class="btn btn-primary" type="submit" id="shAdd">+ Qo'shish</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- INVEST PROJECTS -->
+      <div class="admin-view" id="view-invest">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">💰</span><h2 id="invTitle">Invest loyihalar</h2></div>
+          <p class="co-sub" id="invSub">Investitsiya loyihalaringizni joylang.</p>
+          <div class="mod-list" id="invList"></div>
+          <form class="admin-form mb-form" id="invForm">
+            <input id="inv-title" placeholder="Loyiha nomi" required>
+            <input id="inv-amount" placeholder="Summa (masalan $500K)">
+            <input id="inv-status" placeholder="Holati (qidirilmoqda…)">
+            <input id="inv-body" placeholder="Tavsif">
+            <button class="btn btn-primary" type="submit">+ Qo'shish</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SALES / PRODUCT DATA -->
+      <div class="admin-view" id="view-bizdata">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">📋</span><h2 id="bdTitle">Savdo &amp; mahsulot</h2>
+            <span class="ac-sub" id="bdSaved" style="opacity:0;margin-left:auto"></span>
+          </div>
+          <p class="co-sub" id="bdSub">Savdo, mahsulot tarkibi va boshqa ma'lumotlarni qo'lda kiriting.</p>
+          <div style="overflow:auto"><table class="admin-table bd-table" id="bdTable"></table></div>
+          <div class="bd-actions">
+            <button class="btn btn-ghost" id="bdAddRow" type="button">+ <span id="bdAddRowT">Qator</span></button>
+            <button class="btn btn-primary" id="bdSave" type="button">Saqlash</button>
+            <button class="btn btn-primary" id="bdAnalyze" type="button">🤖 <span id="bdAnalyzeT">AI tahlil</span></button>
+          </div>
+          <div class="bd-analysis" id="bdAnalysis" hidden></div>
+        </div>
+      </div>
+
+      <!-- NEWS (sector news, read-only) -->
+      <div class="admin-view" id="view-news">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">📰</span><h2 id="newsTitle">Yangiliklar</h2></div>
+          <p class="co-sub" id="newsSub">Sohangizga oid yangiliklar.</p>
+          <div class="mod-list" id="newsList"></div>
+        </div>
+      </div>
+
+      <!-- PROJECT CHAT (company ↔ admin) -->
+      <div class="admin-view" id="view-chat">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">💬</span><h2 id="chTitle">Admin bilan aloqa</h2></div>
+          <p class="co-sub" id="chSub">Loyihangiz bo'yicha savol yozing — admin javob beradi.</p>
+          <div class="pchat-box" id="coChatBox"></div>
+          <form class="admin-form" id="coChatForm" style="grid-template-columns:1fr auto;margin-top:12px">
+            <input id="coChatText" placeholder="Savol yozing…" autocomplete="off" required>
+            <button class="btn btn-primary" type="submit" id="coChatSend">Yuborish</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- MEETING -->
+      <div class="admin-view" id="view-meeting">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">🎥</span><h2 id="cfTitle">Uchrashuv xonasi</h2></div>
+          <div id="cfBody"></div>
+        </div>
+      </div>
+
+      <!-- R&D -->
+      <div class="admin-view" id="view-rnd">
+        <div class="panel co-panel">
+          <div class="co-panel-head"><span class="co-ic">🔬</span><h2 id="rndTitle">R&D xona</h2></div>
+          <p class="co-sub" id="rndSub">Tadqiqot, ishlanma va g'oyalaringiz.</p>
+          <div class="mod-list" id="rndList"></div>
+          <form class="admin-form mb-form" id="rndForm">
+            <input id="rnd-title" placeholder="Mavzu" required>
+            <input id="rnd-status" placeholder="Holati (g'oya / ishlab chiqilmoqda…)">
+            <input id="rnd-body" placeholder="Tavsif">
+            <button class="btn btn-primary" type="submit">+ Qo'shish</button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="company.js"></script>
+</body>
+</html>

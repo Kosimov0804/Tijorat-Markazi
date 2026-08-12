@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Secrets — API keys, bot tokens, TLS material
+.claude/
+.claude/settings.local.json
+*.key
+*.pem
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+
+# Expo
+.expo/

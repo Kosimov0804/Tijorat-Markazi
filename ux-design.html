@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dizayn yo'nalishlari — TIJORAT MARKAZI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Grotesk:wght@400;500;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Four design directions for TIJORAT MARKAZI, same content in each
+   so the comparison is fair. Every demo is self-contained — this
+   sheet does not load the product stylesheet, so nothing here can
+   leak into the site or be affected by it.
+
+   The banna'i tile is loaded once as a MASK, not an image, so each
+   direction can paint it in its own colour from a single asset.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --bannai:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'64'%20height%3D'64'%20viewBox%3D'0%200%2064%2064'%3E%3Cg%20fill%3D'%23000'%3E%3Crect%20x%3D'0.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --sheet-bg:#f7f7fa; --sheet-ink:#16151c; --sheet-mut:#75737f; --sheet-line:#e4e3ec;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sheet-bg);color:var(--sheet-ink);font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 120px}
+
+/* ── sheet masthead ─────────────────────────────────────────── */
+.sheet-top{padding:60px 0 34px;border-bottom:1px solid var(--sheet-line)}
+.sheet-top .kick{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--sheet-mut)}
+.sheet-top h1{font-size:clamp(30px,4.4vw,52px);font-weight:800;letter-spacing:-.04em;margin:12px 0 14px;line-height:1.05}
+.sheet-top p{max-width:64ch;color:#4d4b58;font-size:17px}
+.jump{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.jump a{border:1px solid var(--sheet-line);background:#fff;border-radius:999px;padding:8px 17px;
+  font-size:13px;font-weight:600;transition:border-color .2s,transform .2s}
+.jump a:hover{border-color:var(--sheet-ink);transform:translateY(-1px)}
+
+/* ── per-direction wrapper ──────────────────────────────────── */
+.dir{margin-top:76px;scroll-margin-top:20px}
+.dir-meta{display:grid;grid-template-columns:1fr 300px;gap:34px;align-items:end;margin-bottom:20px}
+@media(max-width:820px){.dir-meta{grid-template-columns:1fr;gap:16px}}
+.dir-meta .tag{font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--sheet-mut)}
+.dir-meta h2{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.035em;margin:8px 0 10px;line-height:1.1}
+.dir-meta .why{font-size:15px;color:#4d4b58;max-width:60ch}
+.traits{list-style:none;display:grid;gap:7px;font-size:12.5px;color:var(--sheet-mut)}
+.traits li{display:grid;grid-template-columns:auto 1fr;gap:9px}
+.traits li::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;margin-top:8px;opacity:.5}
+.traits b{color:var(--sheet-ink);font-weight:600}
+
+/* browser frame around every demo */
+.frame{border:1px solid var(--sheet-line);border-radius:14px;overflow:hidden;background:#fff;
+  box-shadow:0 26px 60px -34px rgba(20,18,30,.4)}
+.frame-bar{display:flex;align-items:center;gap:6px;padding:9px 13px;background:#efeef4;border-bottom:1px solid var(--sheet-line)}
+.frame-bar i{width:9px;height:9px;border-radius:50%;background:#d3d1dc}
+.frame-bar span{margin-left:9px;font-size:11px;color:#8b8996;font-family:ui-monospace,Menlo,monospace}
+
+/* ═══════════════ shared demo skeleton ═══════════════════════
+   Structure is identical across directions; each direction
+   overrides tokens, type, spacing, depth and layout below.     */
+.demo{--ac:#5a5ae0;--gd:#fff;--fg:#16151c;--mu:#75737f;--ln:#e6e5ee;--srf:#fff;--rad:16px;
+  background:var(--gd);color:var(--mu);font-size:15px}
+.d-head{display:flex;align-items:center;gap:20px;padding:16px 30px;border-bottom:1px solid var(--ln)}
+.d-brand{font-weight:800;font-size:14px;letter-spacing:-.01em;color:var(--fg);white-space:nowrap}
+.d-nav{display:flex;gap:20px;flex:1;font-size:13px;font-weight:500;flex-wrap:wrap}
+.d-nav span{cursor:default}
+.d-nav span:first-child{color:var(--ac);font-weight:700}
+.d-signin{font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;background:var(--fg);color:var(--gd);white-space:nowrap}
+
+.d-hero{padding:64px 30px 56px;position:relative;overflow:hidden}
+.d-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ac)}
+.d-h1{font-size:clamp(30px,4.6vw,54px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg);margin:16px 0 18px;max-width:17ch}
+.d-h1 em{font-style:normal;color:var(--ac)}
+.d-lead{font-size:16.5px;max-width:46ch;line-height:1.62}
+.d-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.d-b1{padding:12px 24px;border-radius:999px;background:var(--fg);color:var(--gd);font-size:13.5px;font-weight:700}
+.d-b2{padding:12px 24px;border-radius:999px;border:1px solid var(--ln);color:var(--fg);font-size:13.5px;font-weight:700}
+.d-stats{display:flex;gap:38px;margin-top:40px;flex-wrap:wrap}
+.d-stat b{display:block;font-size:30px;font-weight:800;color:var(--fg);letter-spacing:-.03em;line-height:1}
+.d-stat span{font-size:12px;color:var(--mu)}
+
+.d-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 30px 58px}
+@media(max-width:760px){.d-cards{grid-template-columns:1fr}}
+.d-card{background:var(--srf);border:1px solid var(--ln);border-radius:var(--rad);padding:24px;position:relative;overflow:hidden;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1),border-color .3s}
+.d-card:hover{transform:translateY(-4px);border-color:var(--ac)}
+.d-card h3{font-size:17px;font-weight:700;color:var(--fg);margin-bottom:8px;letter-spacing:-.02em}
+.d-card p{font-size:13.5px;line-height:1.6}
+.d-card .n{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--ac);margin-bottom:14px;display:block}
+
+.d-strip{padding:34px 30px;border-top:1px solid var(--ln);display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap}
+.d-strip b{font-size:19px;font-weight:700;color:var(--fg);letter-spacing:-.02em}
+
+/* the naqsh, painted from one mask */
+.naqsh{position:absolute;pointer-events:none;
+  -webkit-mask-image:var(--bannai);mask-image:var(--bannai);
+  -webkit-mask-size:56px 56px;mask-size:56px 56px}
+
+/* ═══════════════ A · Milliy editorial ═══════════════════════
+   Printed-page logic: serif display, hairlines instead of boxes,
+   flush-left asymmetry, no shadows, one suzani red.            */
+.demo-a{--ac:#b8342b;--gd:#faf7f1;--fg:#1c1a17;--mu:#6b6459;--ln:#ded6c8;--srf:#fffdf9;--rad:2px}
+.demo-a .d-head{border-bottom-width:2px;border-color:var(--fg);padding-block:14px}
+.demo-a .d-brand{font-family:'Source Serif 4',serif;font-size:17px;font-weight:700;letter-spacing:.01em}
+.demo-a .d-nav{font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:600}
+.demo-a .d-signin{border-radius:0;background:transparent;color:var(--fg);border-bottom:2px solid var(--ac);padding:2px 0;font-size:12px;text-transform:uppercase;letter-spacing:.09em}
+.demo-a .d-hero{display:grid;grid-template-columns:1fr 190px;gap:40px;align-items:start;padding-block:56px 46px}
+@media(max-width:760px){.demo-a .d-hero{grid-template-columns:1fr}}
+.demo-a .d-eyebrow{border-top:2px solid var(--ac);padding-top:9px;display:inline-block;color:var(--fg)}
+.demo-a .d-h1{font-family:'Source Serif 4',serif;font-weight:700;letter-spacing:-.02em;line-height:1.02;font-size:clamp(34px,5.4vw,62px)}
+.demo-a .d-h1 em{font-style:italic;color:var(--ac)}
+.demo-a .d-lead{font-family:'Source Serif 4',serif;font-size:18px;line-height:1.55}
+.demo-a .d-b1{border-radius:0;padding:13px 26px}
+.demo-a .d-b2{border-radius:0;border-width:2px;border-color:var(--fg)}
+.demo-a .d-stats{border-top:1px solid var(--ln);padding-top:20px;margin-top:36px}
+.demo-a .d-stat b{font-family:'Source Serif 4',serif;font-weight:600}
+.demo-a .d-cards{gap:0;border-top:2px solid var(--fg)}
+.demo-a .d-card{border:0;border-right:1px solid var(--ln);border-radius:0;background:transparent;padding:26px 24px 26px 0}
+.demo-a .d-card:last-child{border-right:0}
+.demo-a .d-card:hover{transform:none;background:#fff}
+.demo-a .d-card h3{font-family:'Source Serif 4',serif;font-size:20px}
+.demo-a .naqsh{inset:0 auto 0 0;width:190px;background:var(--ac);opacity:.14;
+  -webkit-mask-size:44px 44px;mask-size:44px 44px}
+.demo-a .hero-rule{grid-column:2;height:100%;min-height:210px;position:relative;overflow:hidden;
+  border-left:1px solid var(--ln);border-right:1px solid var(--ln)}
+@media(max-width:760px){.demo-a .hero-rule{display:none}}
+.demo-a .d-strip{border-top-width:2px;border-color:var(--fg)}
+
+/* ═══════════════ B · Bento panel ════════════════════════════
+   Platform logic: unequal tiles, layered depth, numbers on the
+   surface. Reads as a product, not a brochure.                 */
+.demo-b{--ac:#5a5ae0;--gd:#f4f5fb;--fg:#14141c;--mu:#6f6e80;--ln:#e5e6f0;--srf:#fff;--rad:20px}
+.demo-b .d-head{background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-radius:0}
+.demo-b .d-hero{padding-block:52px 30px}
+.demo-b .d-h1{font-weight:800;letter-spacing:-.045em}
+.demo-b .d-b1{box-shadow:0 14px 26px -12px rgba(90,90,224,.6);background:var(--ac);color:#fff}
+.demo-b .d-b2{background:#fff;box-shadow:0 2px 6px -2px rgba(20,20,28,.12)}
+.demo-b .d-stats{display:none}
+.demo-b .d-cards{grid-template-columns:1.6fr 1fr 1fr;grid-auto-rows:minmax(0,auto);gap:14px;padding-bottom:52px}
+@media(max-width:760px){.demo-b .d-cards{grid-template-columns:1fr}}
+.demo-b .d-card{box-shadow:0 3px 8px -4px rgba(20,20,28,.1),0 18px 40px -28px rgba(20,20,28,.3)}
+.demo-b .d-card:hover{box-shadow:0 6px 14px -6px rgba(90,90,224,.28),0 28px 56px -30px rgba(90,90,224,.4)}
+.demo-b .tile-lg{grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(155deg,#5a5ae0,#3f3fc0);border-color:transparent;color:rgba(255,255,255,.78)}
+.demo-b .tile-lg h3,.demo-b .tile-lg .big{color:#fff}
+.demo-b .tile-lg .n{color:rgba(255,255,255,.72)}
+.demo-b .tile-lg:hover{transform:translateY(-4px)}
+.demo-b .big{font-size:44px;font-weight:800;letter-spacing:-.045em;line-height:1;margin-bottom:4px}
+.demo-b .delta{font-size:12px;font-weight:700;color:#15795c;background:#15795c14;padding:3px 9px;border-radius:999px;display:inline-block}
+.demo-b .naqsh{inset:auto -30px -40px auto;width:200px;height:200px;background:#fff;opacity:.13}
+.demo-b .d-strip{background:#fff;border-radius:20px;margin:0 30px 46px;border:1px solid var(--ln);padding:26px 28px}
+
+/* ═══════════════ C · Swiss grid ═════════════════════════════
+   International Typographic Style: hard grid, no radius, no
+   shadow, one red, everything sits on a rule.                  */
+.demo-c{--ac:#e02b20;--gd:#fff;--fg:#000;--mu:#5c5c5c;--ln:#000;--srf:#fff;--rad:0}
+.demo-c .d-head{border-bottom-width:2px;padding:14px 26px}
+.demo-c .d-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.02em;text-transform:uppercase}
+.demo-c .d-nav{font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-weight:500;gap:26px}
+.demo-c .d-signin{border-radius:0;background:var(--ac);color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.11em;padding:7px 15px}
+.demo-c .d-hero{padding:0;display:grid;grid-template-columns:repeat(12,1fr);border-bottom:2px solid #000}
+.demo-c .hero-l{grid-column:1/8;padding:44px 26px 40px;border-right:1px solid #000}
+.demo-c .hero-r{grid-column:8/13;position:relative;overflow:hidden;min-height:260px;background:#000}
+@media(max-width:760px){.demo-c .hero-l{grid-column:1/13;border-right:0}.demo-c .hero-r{grid-column:1/13;min-height:150px}}
+.demo-c .d-eyebrow{font-family:'Space Grotesk',sans-serif;color:var(--ac);letter-spacing:.18em}
+.demo-c .d-h1{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.045em;line-height:.98;font-size:clamp(32px,5vw,56px);text-transform:uppercase}
+.demo-c .d-h1 em{color:var(--ac)}
+.demo-c .d-lead{font-size:15px;max-width:40ch}
+.demo-c .d-b1{border-radius:0;background:var(--ac);color:#fff;text-transform:uppercase;letter-spacing:.1em;font-size:11px;padding:13px 22px}
+.demo-c .d-b2{border-radius:0;border-width:2px;border-color:#000;text-transform:uppercase;letter-spacing:.1em;font-size:11px;padding:13px 22px}
+.demo-c .d-stats{gap:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #000;margin-top:34px}
+.demo-c .d-stat{padding:16px 14px 4px;border-right:1px solid #000}
+.demo-c .d-stat:last-child{border-right:0}
+.demo-c .d-stat b{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700}
+.demo-c .d-stat span{text-transform:uppercase;letter-spacing:.1em;font-size:10px}
+.demo-c .d-cards{gap:0;padding:0 0 0 0}
+.demo-c .d-card{border:0;border-right:1px solid #000;border-bottom:2px solid #000;padding:26px}
+.demo-c .d-card:last-child{border-right:0}
+.demo-c .d-card:hover{transform:none;background:var(--ac);color:#fff}
+.demo-c .d-card:hover h3,.demo-c .d-card:hover .n{color:#fff}
+.demo-c .d-card h3{font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+.demo-c .naqsh{inset:0;background:var(--ac);-webkit-mask-size:78px 78px;mask-size:78px 78px}
+.demo-c .d-strip{border-top:0;padding:26px}
+
+/* ═══════════════ D · Kecha (night) ══════════════════════════
+   Dark ground, gold hairlines, a lit medallion behind the type.
+   Ceremonial rather than commercial.                           */
+.demo-d{--ac:#d4a24c;--gd:#0d0e14;--fg:#f2efe8;--mu:#8f8c85;--ln:#26262f;--srf:#14151d;--rad:14px}
+.demo-d .d-head{border-bottom-color:#d4a24c33}
+.demo-d .d-brand{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.demo-d .d-nav{font-size:12px;letter-spacing:.06em}
+.demo-d .d-nav span:first-child{color:var(--ac)}
+.demo-d .d-signin{background:transparent;border:1px solid var(--ac);color:var(--ac)}
+.demo-d .d-hero{text-align:center;padding-block:74px 60px}
+.demo-d .d-hero > *{position:relative;z-index:1}
+.demo-d .d-h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(38px,6vw,70px);
+  letter-spacing:.005em;line-height:1.04;margin-inline:auto;max-width:15ch}
+.demo-d .d-h1 em{color:var(--ac);font-style:italic;font-weight:400}
+.demo-d .d-eyebrow{letter-spacing:.28em}
+.demo-d .d-lead{margin-inline:auto;text-align:center}
+.demo-d .d-cta{justify-content:center}
+.demo-d .d-b1{background:var(--ac);color:#12100b;box-shadow:0 0 40px -8px #d4a24c66}
+.demo-d .d-b2{border-color:#d4a24c40;color:var(--fg)}
+.demo-d .d-stats{justify-content:center;gap:52px}
+.demo-d .d-stat{text-align:center}
+.demo-d .d-stat b{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:38px;color:var(--ac)}
+.demo-d .d-card{background:linear-gradient(170deg,#171821,#101119);border-color:#d4a24c1f}
+.demo-d .d-card:hover{border-color:#d4a24c66;box-shadow:0 0 0 1px #d4a24c22,0 30px 60px -34px #000}
+.demo-d .d-card .n{color:var(--ac)}
+.demo-d .naqsh{inset:-70px 0 auto 50%;transform:translateX(-50%);width:620px;height:420px;
+  background:var(--ac);opacity:.09;-webkit-mask-size:84px 84px;mask-size:84px 84px;
+  -webkit-mask-repeat:repeat;mask-repeat:repeat;
+  filter:blur(.2px)}
+.demo-d .d-hero::after{content:'';position:absolute;inset:-70px 0 auto 50%;transform:translateX(-50%);
+  width:620px;height:420px;background:radial-gradient(ellipse 50% 50% at 50% 40%,#d4a24c22,transparent 70%);pointer-events:none}
+.demo-d .d-strip{border-top-color:#d4a24c33}
+
+/* ── decision block ─────────────────────────────────────────── */
+.pick{margin-top:86px;border:1px solid var(--sheet-ink);border-radius:16px;background:#fff;padding:34px 36px}
+.pick h2{font-size:27px;font-weight:800;letter-spacing:-.035em;margin-bottom:10px}
+.pick > p{max-width:70ch;color:#4d4b58;margin-bottom:24px}
+.pick table{width:100%;border-collapse:collapse;font-size:13.5px}
+.pick th,.pick td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--sheet-line);vertical-align:top}
+.pick th{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--sheet-mut);font-weight:700}
+.pick td:first-child{font-weight:700;white-space:nowrap}
+.pick tr:last-child td{border-bottom:0}
+.note{margin-top:22px;padding-top:18px;border-top:1px solid var(--sheet-line);font-size:13.5px;color:var(--sheet-mut);line-height:1.65}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="sheet-top">
+    <div class="kick">TIJORAT MARKAZI · dizayn yo'nalishlari</div>
+    <h1>To'rtta yo'nalish, bir xil kontent</h1>
+    <p>Har birida bir xil matn, bir xil bloklar va o'sha banna'i naqshi ishlatilgan — farq faqat
+      dizayn tilida: shrift, ritm, chuqurlik, rang va naqsh qanday qo'llanilganida. Sichqonchani
+      kartochkalar ustiga olib boring, holatlar ham har xil. Bittasini tanlang — yoki
+      «A ning shrifti, B ning kartochkalari» deb ayting.</p>
+    <div class="jump">
+      <a href="#a">A · Milliy editorial</a>
+      <a href="#b">B · Bento panel</a>
+      <a href="#c">C · Shveys tarkibi</a>
+      <a href="#d">D · Kecha</a>
+      <a href="#pick">Taqqoslash jadvali</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ A -->
+  <section class="dir" id="a">
+    <div class="dir-meta">
+      <div>
+        <div class="tag">A variant</div>
+        <h2>Milliy editorial</h2>
+        <p class="why">Bosma nashr mantig'i: yirik serif sarlavha, quti o'rniga ingichka chiziqlar,
+          soyasiz yuza, chapga tekislangan assimetriya. Davlat nashriga o'xshaydi — savdo saytiga emas.
+          Naqsh matn yonidagi vertikal hoshiya bo'lib turadi.</p>
+      </div>
+      <ul class="traits">
+        <li><b>Shrift</b> Source Serif 4 + Inter</li>
+        <li><b>Rang</b> qog'oz oq, siyoh qora, suzani qizili</li>
+        <li><b>Burchak</b> 2px — deyarli to'g'ri</li>
+        <li><b>Chuqurlik</b> soya yo'q, faqat chiziq</li>
+        <li><b>Tungi rejim</b> bor, lekin asosiysi kunduzgi</li>
+      </ul>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span>tijoratmarkazi.uz — A</span></div>
+      <div class="demo demo-a">
+        <div class="d-head">
+          <span class="d-brand">TIJORAT MARKAZI</span>
+          <span class="d-nav"><span>Markazlar</span><span>Showroom</span><span>Uyushmalar</span><span>Biz haqimizda</span></span>
+          <span class="d-signin">Kirish</span>
+        </div>
+        <div class="d-hero">
+          <div>
+            <span class="d-eyebrow">Milliy savdo platformasi</span>
+            <h1 class="d-h1">O'zbekiston biznesini boshqaruvchi <em>Yagona Tijorat Markazi</em></h1>
+            <p class="d-lead">Ellik uyushma, mingdan ortiq kompaniya va ularning mahsulotlari — bitta joyda,
+              bitta tartibda.</p>
+            <div class="d-cta"><span class="d-b1">Uyushmalar</span><span class="d-b2">Showroom</span></div>
+            <div class="d-stats">
+              <div class="d-stat"><b>50</b><span>uyushma</span></div>
+              <div class="d-stat"><b>1 240</b><span>kompaniya</span></div>
+              <div class="d-stat"><b>4</b><span>yo'nalish</span></div>
+            </div>
+          </div>
+          <div class="hero-rule"><span class="naqsh"></span></div>
+        </div>
+        <div class="d-cards">
+          <div class="d-card"><span class="n">01</span><h3>Showroom</h3><p>A'zo kompaniyalarning mahsulot va xizmatlari — ochiq katalog.</p></div>
+          <div class="d-card"><span class="n">02</span><h3>Konferensiya</h3><p>Uyushma raislari yig'ilish ochadi, kompaniyalar qo'shiladi.</p></div>
+          <div class="d-card"><span class="n">03</span><h3>Murojaat</h3><p>Kompaniyadan raisga, raisdan bevosita administratsiyaga.</p></div>
+        </div>
+        <div class="d-strip"><b>Uyushmangizni platformaga qo'shing</b><span class="d-b1">Ariza yuborish</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ B -->
+  <section class="dir" id="b">
+    <div class="dir-meta">
+      <div>
+        <div class="tag">B variant</div>
+        <h2>Bento panel</h2>
+        <p class="why">Mahsulot mantig'i: turli o'lchamdagi plitkalar, yumshoq qatlamli soyalar,
+          yuzada raqamlar. Bu buklet emas — ishlaydigan tizimga o'xshaydi. 50 ta uyushma va
+          minglab kompaniya raqamlari bosh sahifadayoq ko'rinadi.</p>
+      </div>
+      <ul class="traits">
+        <li><b>Shrift</b> Inter, zich harf oralig'i</li>
+        <li><b>Rang</b> sovuq oq, indigo urg'u</li>
+        <li><b>Burchak</b> 20px — yumshoq</li>
+        <li><b>Chuqurlik</b> ikki qatlamli soya, gradient plitka</li>
+        <li><b>Tungi rejim</b> tabiiy — allaqachon bor</li>
+      </ul>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span>tijoratmarkazi.uz — B</span></div>
+      <div class="demo demo-b">
+        <div class="d-head">
+          <span class="d-brand">TIJORAT MARKAZI</span>
+          <span class="d-nav"><span>Markazlar</span><span>Showroom</span><span>Uyushmalar</span><span>Biz haqimizda</span></span>
+          <span class="d-signin">Kirish</span>
+        </div>
+        <div class="d-hero">
+          <span class="d-eyebrow">Milliy savdo platformasi</span>
+          <h1 class="d-h1">O'zbekiston biznesini boshqaruvchi <em>Yagona Tijorat Markazi</em></h1>
+          <p class="d-lead">Ellik uyushma, mingdan ortiq kompaniya va ularning mahsulotlari — bitta joyda.</p>
+          <div class="d-cta"><span class="d-b1">Uyushmalar</span><span class="d-b2">Showroom</span></div>
+        </div>
+        <div class="d-cards">
+          <div class="d-card tile-lg">
+            <div><span class="n">PLATFORMA</span><h3>Umumiy holat</h3></div>
+            <div><div class="big">1 240</div><p>kompaniya · 50 uyushma · 4 yo'nalish</p></div>
+            <span class="naqsh"></span>
+          </div>
+          <div class="d-card"><span class="n">SHOWROOM</span><div class="big" style="font-size:32px;color:var(--fg)">8 412</div><p>mahsulot va xizmat <span class="delta">+124 shu oy</span></p></div>
+          <div class="d-card"><span class="n">KONFERENSIYA</span><div class="big" style="font-size:32px;color:var(--fg)">17</div><p>rejalashtirilgan yig'ilish</p></div>
+          <div class="d-card"><span class="n">MUROJAAT</span><h3>Ochiq murojaatlar</h3><p>Kompaniyadan raisga, raisdan administratsiyaga.</p></div>
+          <div class="d-card"><span class="n">LOYIHA</span><h3>Invest loyihalar</h3><p>Uyushmalar taqdim etgan 96 ta ochiq loyiha.</p></div>
+        </div>
+        <div class="d-strip"><b>Uyushmangizni platformaga qo'shing</b><span class="d-b1">Ariza yuborish</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ C -->
+  <section class="dir" id="c">
+    <div class="dir-meta">
+      <div>
+        <div class="tag">C variant</div>
+        <h2>Shveys tarkibi</h2>
+        <p class="why">Qat'iy to'r: yumaloq burchak yo'q, soya yo'q, hamma narsa chiziq ustida turadi.
+          Bitta qizil rang butun sahifani boshqaradi. Naqsh mayda tekstura emas — o'ng tomonda
+          yirik grafik blok bo'lib turadi. Eng kuchli, eng jasur variant.</p>
+      </div>
+      <ul class="traits">
+        <li><b>Shrift</b> Space Grotesk + Inter, BOSH HARF</li>
+        <li><b>Rang</b> qora, oq, bitta qizil</li>
+        <li><b>Burchak</b> 0 — to'g'ri burchak</li>
+        <li><b>Chuqurlik</b> yo'q — faqat 1px va 2px chiziqlar</li>
+        <li><b>Tungi rejim</b> oson — ranglar teskari bo'ladi</li>
+      </ul>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span>tijoratmarkazi.uz — C</span></div>
+      <div class="demo demo-c">
+        <div class="d-head">
+          <span class="d-brand">TIJORAT MARKAZI</span>
+          <span class="d-nav"><span>Markazlar</span><span>Showroom</span><span>Uyushmalar</span><span>Biz haqimizda</span></span>
+          <span class="d-signin">Kirish</span>
+        </div>
+        <div class="d-hero">
+          <div class="hero-l">
+            <span class="d-eyebrow">Milliy savdo platformasi</span>
+            <h1 class="d-h1">Yagona <em>Tijorat</em> Markazi</h1>
+            <p class="d-lead">Ellik uyushma, mingdan ortiq kompaniya va ularning mahsulotlari — bitta joyda, bitta tartibda.</p>
+            <div class="d-cta"><span class="d-b1">Uyushmalar</span><span class="d-b2">Showroom</span></div>
+            <div class="d-stats">
+              <div class="d-stat"><b>50</b><span>uyushma</span></div>
+              <div class="d-stat"><b>1240</b><span>kompaniya</span></div>
+              <div class="d-stat"><b>04</b><span>yo'nalish</span></div>
+            </div>
+          </div>
+          <div class="hero-r"><span class="naqsh"></span></div>
+        </div>
+        <div class="d-cards">
+          <div class="d-card"><span class="n">01 / SHOWROOM</span><h3>Mahsulotlar</h3><p>A'zo kompaniyalarning mahsulot va xizmatlari — ochiq katalog.</p></div>
+          <div class="d-card"><span class="n">02 / KONFERENSIYA</span><h3>Yig'ilishlar</h3><p>Uyushma raislari yig'ilish ochadi, kompaniyalar qo'shiladi.</p></div>
+          <div class="d-card"><span class="n">03 / MUROJAAT</span><h3>Murojaatlar</h3><p>Kompaniyadan raisga, raisdan bevosita administratsiyaga.</p></div>
+        </div>
+        <div class="d-strip"><b>UYUSHMANGIZNI QO'SHING</b><span class="d-b1">Ariza yuborish</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ D -->
+  <section class="dir" id="d">
+    <div class="dir-meta">
+      <div>
+        <div class="tag">D variant</div>
+        <h2>Kecha</h2>
+        <p class="why">Qorong'i yer, oltin ingichka chiziqlar, sarlavha ortida yoritilgan naqsh.
+          Marosim ohangi — savdo emas, maqom. Eng chiroyli suratga tushadi, lekin uzoq matn va
+          jadval ko'p sahifalarda (admin panel, hisobotlar) o'qish qiyinlashadi.</p>
+      </div>
+      <ul class="traits">
+        <li><b>Shrift</b> Cormorant Garamond + Inter</li>
+        <li><b>Rang</b> tun qorasi, oltin, issiq oq</li>
+        <li><b>Burchak</b> 14px</li>
+        <li><b>Chuqurlik</b> yorug'lik va gradient</li>
+        <li><b>Kunduzgi rejim</b> qayta o'ylash kerak — asosiysi tungi</li>
+      </ul>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span>tijoratmarkazi.uz — D</span></div>
+      <div class="demo demo-d">
+        <div class="d-head">
+          <span class="d-brand">Tijorat Markazi</span>
+          <span class="d-nav"><span>Markazlar</span><span>Showroom</span><span>Uyushmalar</span><span>Biz haqimizda</span></span>
+          <span class="d-signin">Kirish</span>
+        </div>
+        <div class="d-hero">
+          <span class="naqsh"></span>
+          <span class="d-eyebrow">Milliy savdo platformasi</span>
+          <h1 class="d-h1">O'zbekiston biznesining <em>Yagona Markazi</em></h1>
+          <p class="d-lead">Ellik uyushma, mingdan ortiq kompaniya va ularning mahsulotlari — bitta joyda.</p>
+          <div class="d-cta"><span class="d-b1">Uyushmalar</span><span class="d-b2">Showroom</span></div>
+          <div class="d-stats">
+            <div class="d-stat"><b>50</b><span>uyushma</span></div>
+            <div class="d-stat"><b>1 240</b><span>kompaniya</span></div>
+            <div class="d-stat"><b>4</b><span>yo'nalish</span></div>
+          </div>
+        </div>
+        <div class="d-cards">
+          <div class="d-card"><span class="n">I</span><h3>Showroom</h3><p>A'zo kompaniyalarning mahsulot va xizmatlari — ochiq katalog.</p></div>
+          <div class="d-card"><span class="n">II</span><h3>Konferensiya</h3><p>Uyushma raislari yig'ilish ochadi, kompaniyalar qo'shiladi.</p></div>
+          <div class="d-card"><span class="n">III</span><h3>Murojaat</h3><p>Kompaniyadan raisga, raisdan bevosita administratsiyaga.</p></div>
+        </div>
+        <div class="d-strip"><b>Uyushmangizni platformaga qo'shing</b><span class="d-b1">Ariza yuborish</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ pick -->
+  <section class="pick" id="pick">
+    <h2>Taqqoslash</h2>
+    <p>Sayt faqat bosh sahifadan iborat emas — admin panel, jadvallar, hisobotlar va rasmiy xatlar ham bor.
+      Quyidagi ustun shu narsani hisobga oladi: yo'nalish og'ir sahifalarda ham ishlaydimi?</p>
+    <table>
+      <tr><th>Yo'nalish</th><th>Kuchli tomoni</th><th>Zaif tomoni</th><th>Panel va jadvallarda</th></tr>
+      <tr><td>A · Milliy editorial</td><td>Nufuzli, davlat ohangi. Naqsh tabiiy joylashadi.</td><td>Serif sarlavha mayda ekranda joy talab qiladi.</td><td>Yaxshi — chiziqli tarkib jadvalga mos</td></tr>
+      <tr><td>B · Bento panel</td><td>Platformaga o'xshaydi. Raqamlar darrov ko'rinadi.</td><td>Milliy ohang faqat naqsh orqali qoladi.</td><td>Eng yaxshi — panel shu tilda yozilgan</td></tr>
+      <tr><td>C · Shveys tarkibi</td><td>Eng jasur va eng aniq. Naqsh grafik blok bo'lib yashaydi.</td><td>Qattiq — ba'zi foydalanuvchilarga sovuq tuyulishi mumkin.</td><td>Yaxshi — to'r jadval bilan bir xil mantiq</td></tr>
+      <tr><td>D · Kecha</td><td>Eng ta'sirchan. Marosim ohangi.</td><td>Uzoq matn va jadvalda charchatadi.</td><td>Qiyin — kunduzgi rejim qayta ishlanadi</td></tr>
+    </table>
+    <p class="note">Tavsiyam: <b>B ning tuzilishi + A ning shrifti</b>. Ya'ni bento plitkalari va
+      raqamlar panel bilan bitta tilda gapiradi, sarlavhalarda esa serif ishlatiladi — shunda platforma
+      ham zamonaviy, ham milliy ohangda bo'ladi. Lekin bu mening fikrim; bittasini butunicha tanlasangiz ham bo'ladi.
+      Aralashtirmoqchi bo'lsangiz — qaysi qismini qaysinisidan olishni ayting.</p>
+  </section>
+
+</div>
+</body>
+</html>

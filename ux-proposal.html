@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UX taklifi — TIJORAT MARKAZI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* Proposal chrome. Everything is px- prefixed so it borrows the product's
+   tokens without inheriting the ornament layer or any component styles. */
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif}
+.px-wrap{max-width:1120px;margin:0 auto;padding:0 24px 120px}
+
+/* --- masthead ------------------------------------------------------- */
+.px-top{border-bottom:1px solid var(--line);margin-bottom:8px;padding:56px 0 30px}
+.px-kicker{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--navy)}
+.px-top h1{font-size:clamp(30px,4.4vw,50px);font-weight:800;letter-spacing:-.038em;margin:12px 0 14px;color:var(--ink)}
+.px-top p{max-width:62ch;font-size:17px;line-height:1.6}
+.px-tools{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.px-tool{border:1px solid var(--line-2);background:var(--card);color:var(--text);
+  border-radius:var(--radius-pill);padding:8px 16px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+  transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
+.px-tool:hover{border-color:var(--navy);color:var(--navy);transform:translateY(-1px)}
+
+/* --- contents ------------------------------------------------------- */
+.px-toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:34px 0 70px}
+.px-toc a{background:var(--card);padding:15px 17px;display:block;transition:background .2s var(--ease)}
+.px-toc a:hover{background:var(--bg-soft-2)}
+.px-toc b{display:block;color:var(--ink);font-size:14px;font-weight:700;margin-bottom:3px}
+.px-toc span{font-size:12px;color:var(--muted)}
+
+/* --- finding -------------------------------------------------------- */
+.px-find{margin-bottom:84px;scroll-margin-top:24px}
+.px-fh{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.px-num{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.1em}
+.px-fh h2{font-size:clamp(22px,2.7vw,31px);font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.px-sev{font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  padding:4px 10px;border-radius:var(--radius-pill);border:1px solid}
+.sev-c{color:#c0392b;border-color:#c0392b40;background:#c0392b12}
+.sev-h{color:#c07a12;border-color:#c07a1240;background:#c07a1212}
+.sev-m{color:var(--navy);border-color:color-mix(in srgb,var(--navy) 28%,transparent);background:color-mix(in srgb,var(--navy) 8%,transparent)}
+.px-lede{max-width:74ch;font-size:16px;line-height:1.68;margin-bottom:26px}
+
+/* --- before / after -------------------------------------------------- */
+.px-ba{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:880px){.px-ba{grid-template-columns:1fr}}
+.px-col{border:1px solid var(--line-2);border-radius:var(--radius);background:var(--card);overflow:hidden}
+.px-col.now{border-left:3px solid #c0392b}
+.px-col.next{border-left:3px solid var(--navy);box-shadow:var(--shadow)}
+.px-ch{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:13px 18px;border-bottom:1px solid var(--line);background:var(--bg-soft)}
+.px-ch h3{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.px-ch em{font-style:normal;font-size:11px;color:var(--muted)}
+.px-cb{padding:18px}
+
+/* evidence list */
+.px-ev{list-style:none;display:grid;gap:11px}
+.px-ev li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;line-height:1.55;align-items:start}
+.px-ev li::before{content:'×';color:#c0392b;font-weight:800;line-height:1.4}
+.px-col.next .px-ev li::before{content:'✓';color:var(--green)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+  background:var(--bg-soft-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--ink);white-space:nowrap}
+
+/* --- mock chrome ----------------------------------------------------- */
+.px-mock{border:1px solid var(--line-2);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg)}
+.px-mock + .px-mock{margin-top:14px}
+.px-bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--bg-soft-2);border-bottom:1px solid var(--line)}
+.px-bar i{width:9px;height:9px;border-radius:50%;background:var(--line-2)}
+.px-bar span{margin-left:8px;font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
+.px-screen{padding:16px}
+
+/* mock site header */
+.mh{display:flex;align-items:center;gap:16px;padding:11px 14px;border:1px solid var(--line);
+  border-radius:12px;background:var(--card)}
+.mh-brand{font-size:12px;font-weight:800;letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
+.mh-nav{display:flex;gap:4px;flex:1;flex-wrap:wrap}
+.mh-nav button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:600;color:var(--muted);
+  padding:5px 10px;border-radius:var(--radius-pill);cursor:pointer;position:relative;transition:color .18s var(--ease),background .18s var(--ease)}
+.mh-nav button:hover{color:var(--ink);background:var(--bg-soft-2)}
+.mh-nav button.on{color:var(--navy);background:color-mix(in srgb,var(--navy) 10%,transparent)}
+.mh-nav button.on::after{content:'';position:absolute;left:10px;right:10px;bottom:-1px;height:2px;
+  background:var(--navy);border-radius:2px}
+.mh-act{display:flex;align-items:center;gap:7px}
+.mh-chip{font-size:11px;font-weight:700;padding:5px 10px;border-radius:var(--radius-pill);
+  border:1px solid var(--line-2);color:var(--text);background:var(--bg-soft);white-space:nowrap}
+.mh-cta{font-size:11px;font-weight:700;padding:6px 13px;border-radius:var(--radius-pill);
+  background:var(--ink);color:var(--card);white-space:nowrap}
+.mh-you{display:flex;align-items:center;gap:8px;padding:4px 11px 4px 4px;border-radius:var(--radius-pill);
+  border:1px solid var(--line-2);background:var(--bg-soft);cursor:pointer}
+.mh-av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--navy);color:#fff;font-size:10px;font-weight:800}
+.mh-you b{font-size:11px;color:var(--ink);font-weight:700;line-height:1.15;display:block}
+.mh-you em{font-size:9.5px;color:var(--muted);font-style:normal;letter-spacing:.06em;text-transform:uppercase}
+.mh-menu{margin-top:8px;border:1px solid var(--line-2);border-radius:10px;background:var(--card);
+  box-shadow:var(--shadow);padding:6px;width:190px;margin-left:auto}
+.mh-menu a{display:block;padding:8px 11px;font-size:12px;border-radius:7px;color:var(--text)}
+.mh-menu a:hover{background:var(--bg-soft-2);color:var(--ink)}
+.mh-menu hr{border:0;border-top:1px solid var(--line);margin:5px 0}
+
+/* role switcher */
+.px-roles{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}
+.px-roles button{border:1px solid var(--line-2);background:var(--card);color:var(--text);font:inherit;
+  font-size:12px;font-weight:600;padding:6px 13px;border-radius:var(--radius-pill);cursor:pointer;
+  transition:all .2s var(--ease)}
+.px-roles button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* mock login card */
+.ml{max-width:330px;margin:6px auto;border:1px solid var(--line-2);border-radius:var(--radius);
+  background:var(--card);padding:22px;box-shadow:var(--shadow)}
+.ml h4{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.ml p.sub{font-size:12.5px;color:var(--muted);margin:5px 0 16px}
+.ml label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:5px}
+.ml input{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;
+  background:var(--bg-soft);color:var(--ink);font:inherit;font-size:13.5px;margin-bottom:13px}
+.ml input:focus{outline:0;border-color:var(--navy);box-shadow:0 0 0 3px color-mix(in srgb,var(--navy) 16%,transparent)}
+.ml .go{width:100%;padding:10px;border:0;border-radius:10px;background:var(--ink);color:var(--card);
+  font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s var(--ease)}
+.ml .go:hover{background:var(--navy)}
+.ml .out{margin-top:13px;font-size:12px;line-height:1.5;padding:10px 12px;border-radius:9px;
+  background:var(--bg-soft-2);border:1px solid var(--line);color:var(--text);min-height:38px}
+.ml .out b{color:var(--navy)}
+
+/* breadcrumb */
+.mbc{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.mbc a{color:var(--navy);font-weight:600}
+.mbc a:hover{text-decoration:underline}
+.mbc s{text-decoration:none;color:var(--line-2)}
+
+/* section-order lists */
+.px-flow{list-style:none;counter-reset:f}
+.px-flow li{counter-increment:f;display:grid;grid-template-columns:26px 1fr;gap:11px;align-items:start;
+  padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.px-flow li:last-child{border-bottom:0}
+.px-flow li::before{content:counter(f);width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  font-size:10.5px;font-weight:800;background:var(--bg-soft-2);color:var(--muted);border:1px solid var(--line)}
+.px-col.next .px-flow li::before{background:var(--navy);color:#fff;border-color:var(--navy)}
+.px-flow li.new::after{content:'yangi';font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--green);align-self:center}
+.px-flow li.new{grid-template-columns:26px 1fr auto}
+.px-flow b{color:var(--ink);font-weight:700}
+.px-flow em{font-style:normal;color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+
+/* option cards */
+.px-opts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+@media(max-width:880px){.px-opts{grid-template-columns:1fr}}
+.px-opt{border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:17px 19px;background:var(--bg-soft)}
+.px-opt.rec{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 5%,var(--card))}
+.px-opt h4{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:7px;display:flex;gap:9px;align-items:center}
+.px-opt h4 span{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);
+  border:1px solid var(--navy);border-radius:var(--radius-pill);padding:2px 8px}
+.px-opt p{font-size:13.5px;line-height:1.6}
+.px-opt .cost{margin-top:11px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:9px}
+
+/* filter mock */
+.mf{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.mf input,.mf select{padding:7px 11px;border:1px solid var(--line-2);border-radius:9px;background:var(--card);
+  color:var(--ink);font:inherit;font-size:12px}
+.mf .cnt{font-size:11.5px;color:var(--muted);margin-left:auto;font-weight:600}
+.murl{margin-top:11px;font-family:ui-monospace,monospace;font-size:11px;color:var(--muted);
+  background:var(--bg-soft-2);border:1px solid var(--line);border-radius:7px;padding:7px 10px;overflow-x:auto;white-space:nowrap}
+
+/* decisions */
+.px-decide{border:1px solid var(--navy);border-radius:var(--radius);padding:30px 32px;
+  background:color-mix(in srgb,var(--navy) 5%,var(--card));margin-top:20px}
+.px-decide h2{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.03em;margin-bottom:8px}
+.px-decide > p{font-size:15px;margin-bottom:22px;max-width:70ch}
+.px-dl{list-style:none;display:grid;gap:12px}
+.px-dl li{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:13px 15px;background:var(--card);
+  border:1px solid var(--line);border-radius:10px;font-size:14px;line-height:1.55}
+.px-dl li b{color:var(--ink)}
+.px-dl li::before{content:attr(data-n);width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;
+  display:grid;place-items:center;font-size:11px;font-weight:800}
+.px-note{margin-top:22px;font-size:13.5px;color:var(--muted);line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="px-wrap">
+
+  <div class="px-top">
+    <div class="px-kicker">TIJORAT MARKAZI · UX taklifi</div>
+    <h1>Yetti nuqta, oldin va keyin</h1>
+    <p>Har bir topilma haqiqiy kod bilan tasdiqlangan — fayl va qator raqami ko'rsatilgan.
+       O'ng ustundagi maketlar bosiladi: bosib ko'ring, keyin qaysi variantni tanlashingizni ayting.
+       Hech narsa hali o'zgartirilmagan.</p>
+    <div class="px-tools">
+      <button class="px-tool" id="themeBtn" type="button">Tema: kunduzgi / tungi</button>
+      <a class="px-tool" href="index.html" style="display:inline-block">← Saytga qaytish</a>
+    </div>
+  </div>
+
+  <nav class="px-toc">
+    <a href="#f1"><b>1 · Kirish</b><span>To'rt xil kirish oynasi</span></a>
+    <a href="#f2"><b>2 · Kim ekaningiz</b><span>Sayt sizni tanimaydi</span></a>
+    <a href="#f3"><b>3 · Kirish tugmasi</b><span>8 sahifadan 6 tasida yo'q</span></a>
+    <a href="#f4"><b>4 · Navigatsiya</b><span>Faol sahifa belgilanmaydi</span></a>
+    <a href="#f5"><b>5 · Chuqur sahifalar</b><span>Orqaga yo'l yo'q</span></a>
+    <a href="#f6"><b>6 · Bosh sahifa</b><span>Bor-yo'g'i bitta bo'lim</span></a>
+    <a href="#f7"><b>7 · Ro'yxatlar</b><span>Filtrlar teng emas</span></a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════ 1 -->
+  <section class="px-find" id="f1">
+    <div class="px-fh"><span class="px-num">01</span><h2>Kirish</h2><span class="px-sev sev-c">Kritik</span></div>
+    <p class="px-lede">Platformada bitta emas, <b>to'rtta</b> alohida kirish oynasi bor — har biri boshqacha
+      ko'rinadi, boshqa maydonlarni so'raydi va boshqacha ishlaydi. Bosh sahifadagi «Kirish» tugmasi esa
+      AI yordamchi sahifasiga olib boradi.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>4 ta eshik</em></div>
+        <div class="px-cb">
+          <ul class="px-ev">
+            <li><b>«Kirish» → <code>assistant.html</code></b> — AI yordamchi sahifasi bir vaqtning o'zida kirish sahifasi vazifasini bajaradi</li>
+            <li><b><code>admin.html</code></b> — faqat parol maydoni, ekranda <code>Demo parol: admin</code> yozuvi turadi, tekshiruv brauzerda <code>admin.js:779</code></li>
+            <li><b><code>company.html</code></b> va <b><code>association.html</code></b> — login + parol, <code>kgResolveLogin</code> orqali</li>
+            <li><b><code>conference.html</code></b> — faqat email, parolsiz</li>
+            <li><code>rais.html</code> — bo'sh sahifa, <code>admin.html</code> ga yo'naltiradi <code>rais.html:7</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>1 ta eshik — bosib ko'ring</em></div>
+        <div class="px-cb">
+          <div class="px-mock">
+            <div class="px-bar"><i></i><i></i><i></i><span>login.html</span></div>
+            <div class="px-screen">
+              <div class="ml">
+                <h4>Tizimga kirish</h4>
+                <p class="sub">Rais, kompaniya yoki admin — bitta oyna hammasini taniydi.</p>
+                <label for="mlLogin">Login</label>
+                <input id="mlLogin" placeholder="admin · rais · kompaniya" autocomplete="off" />
+                <label for="mlPass">Parol</label>
+                <input id="mlPass" type="password" placeholder="••••••••" autocomplete="off" />
+                <button class="go" id="mlGo" type="button">Kirish →</button>
+                <div class="out" id="mlOut">Yuqoridagi maydonga <b>admin</b>, <b>rais</b> yoki <b>kompaniya</b> deb yozing.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-opts">
+      <div class="px-opt rec">
+        <h4>A variant <span>tavsiya</span></h4>
+        <p>Bitta <code>login.html</code>. Sarlavhadagi «Kirish» shu yerga olib boradi. Panel sahifasi
+          sessiyasiz ochilsa, <code>login.html?next=company.html</code> ga yo'naltiradi va kirgandan keyin
+          o'sha joyga qaytaradi. <code>assistant.html</code> faqat AI sahifasi bo'lib qoladi.</p>
+        <p class="cost">1 ta yangi sahifa · 4 ta sahifadan kirish formasi olib tashlanadi</p>
+      </div>
+      <div class="px-opt">
+        <h4>B variant</h4>
+        <p>Har bir panel o'z kirish formasini saqlab qoladi, lekin hammasi bir xil markup va bir xil
+          matnga keltiriladi. Kamroq o'zgarish, lekin foydalanuvchi baribir «qaysi sahifadan kiraman?»
+          degan savolga duch keladi.</p>
+        <p class="cost">Yangi sahifa yo'q · 4 ta forma tahrirlanadi</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 2 -->
+  <section class="px-find" id="f2">
+    <div class="px-fh"><span class="px-num">02</span><h2>Sayt sizni tanimaydi</h2><span class="px-sev sev-h">Yuqori</span></div>
+    <p class="px-lede">Kompaniya sifatida kirib, keyin Showroom'ga o'tsangiz — sarlavha yana «Kirish» deb turadi,
+      go'yo siz mehmonsiz. O'z panelingizga qaytishning hech qanday yo'li yo'q.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>har doim bir xil</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span>showroom.html — kirgandan keyin ham</span></div>
+            <div class="px-screen">
+              <div class="mh">
+                <span class="mh-brand">TIJORAT MARKAZI</span>
+                <span class="mh-nav"></span>
+                <span class="mh-act"><span class="mh-chip">UZ</span><span class="mh-cta">Kirish</span></span>
+              </div>
+            </div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li>Sessiya <code>sessionStorage</code> da bor, lekin sarlavha uni o'qimaydi</li>
+            <li>Panelga qaytish tugmasi yo'q — URL ni qo'lda yozish kerak</li>
+            <li>«Chiqish» faqat panel ichida bor, ochiq saytda yo'q</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>rolni tanlang</em></div>
+        <div class="px-cb">
+          <div class="px-roles" id="pxRoles">
+            <button type="button" data-role="guest" aria-pressed="true">Mehmon</button>
+            <button type="button" data-role="company" aria-pressed="false">Kompaniya</button>
+            <button type="button" data-role="rais" aria-pressed="false">Rais</button>
+            <button type="button" data-role="admin" aria-pressed="false">Admin</button>
+          </div>
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span id="pxRoleUrl">showroom.html</span></div>
+            <div class="px-screen">
+              <div class="mh">
+                <span class="mh-brand">TIJORAT MARKAZI</span>
+                <span class="mh-nav"></span>
+                <span class="mh-act" id="pxRoleAct"></span>
+              </div>
+              <div id="pxRoleMenu"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 3 -->
+  <section class="px-find" id="f3">
+    <div class="px-fh"><span class="px-num">03</span><h2>«Kirish» tugmasi 8 sahifadan 6 tasida yo'q</h2><span class="px-sev sev-h">Yuqori</span></div>
+    <p class="px-lede">Bu taxmin emas — tekshirildi. <code>btn_signin</code> faqat ikkita faylda uchraydi.
+      Ya'ni Showroom'dan, Uyushmalar'dan yoki «Biz haqimizda» sahifasidan tizimga <b>umuman kira olmaysiz</b>.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>2 / 8</em></div>
+        <div class="px-cb">
+          <ul class="px-ev">
+            <li><b>Bor:</b> <code>index.html</code>, <code>item.html</code></li>
+            <li><b>Yo'q:</b> <code>showroom.html</code></li>
+            <li><b>Yo'q:</b> <code>associations.html</code></li>
+            <li><b>Yo'q:</b> <code>about.html</code></li>
+            <li><b>Yo'q:</b> <code>projects.html</code></li>
+            <li><b>Yo'q:</b> <code>conference.html</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>8 / 8</em></div>
+        <div class="px-cb">
+          <ul class="px-ev">
+            <li>Sarlavha bitta joyda yoziladi va har bir sahifaga bir xil qo'yiladi</li>
+            <li>Tema tugmasi, til tugmasi, kirish holati — hamma joyda bir xil tartibda</li>
+            <li>Yangi sahifa qo'shilganda sarlavha avtomatik to'g'ri bo'ladi</li>
+          </ul>
+          <p style="font-size:13px;color:var(--muted);margin-top:15px;line-height:1.6">
+            Sayt qurilish bosqichisiz ishlaganligi uchun buni <code>core.js</code> dagi kichik funksiya
+            qiladi: sahifa yuklanganda sarlavhani bir marta chizadi. Hozirgi tarjima tizimi
+            (<code>data-i18n</code>) shundayligicha qoladi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 4 -->
+  <section class="px-find" id="f4">
+    <div class="px-fh"><span class="px-num">04</span><h2>Navigatsiya</h2><span class="px-sev sev-m">O'rta</span></div>
+    <p class="px-lede">Qaysi sahifada turganingiz menyuda ko'rinmaydi — 8 sahifadan faqat bittasida
+      faol belgi bor. «Markazlar» esa sahifa emas, bosh sahifadagi lang'ar, shuning uchun boshqa
+      sahifalarda boshqacha ishlaydi.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>faol belgi: 1 / 8</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span>showroom.html</span></div>
+            <div class="px-screen"><div class="mh">
+              <span class="mh-brand">TIJORAT MARKAZI</span>
+              <span class="mh-nav">
+                <button type="button">Markazlar</button><button type="button">Showroom</button>
+                <button type="button">Uyushmalar</button><button type="button">Biz haqimizda</button>
+              </span>
+            </div></div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li><code>class="active"</code> faqat <code>about.html</code> da</li>
+            <li><code>#blocks</code> bosh sahifada, <code>index.html#blocks</code> qolganlarida</li>
+            <li><code>item.html</code> menyusida «Showroom» butunlay yo'q</li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>bosib ko'ring</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span id="pxNavUrl">showroom.html</span></div>
+            <div class="px-screen"><div class="mh">
+              <span class="mh-brand">TIJORAT MARKAZI</span>
+              <span class="mh-nav" id="pxNav">
+                <button type="button" data-u="index.html#blocks">Markazlar</button>
+                <button type="button" class="on" data-u="showroom.html">Showroom</button>
+                <button type="button" data-u="associations.html">Uyushmalar</button>
+                <button type="button" data-u="about.html">Biz haqimizda</button>
+              </span>
+            </div></div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li>Faol sahifa <code>location.pathname</code> dan hisoblanadi — qo'lda belgilash shart emas</li>
+            <li>Barcha sahifalarda bir xil to'rtta havola</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-opts">
+      <div class="px-opt rec">
+        <h4>A variant <span>tavsiya</span></h4>
+        <p>«Markazlar» bosh sahifadagi bo'lim bo'lib qoladi, lekin menyuda boshqacha ko'rinadi
+          (ingichka nuqtali chiziq) — chunki u sahifa emas, lang'ar.</p>
+        <p class="cost">Kichik o'zgarish · tuzilma o'zgarmaydi</p>
+      </div>
+      <div class="px-opt">
+        <h4>B variant</h4>
+        <p>«Markazlar» o'z sahifasiga chiqadi (<code>markazlar.html</code>) — to'rt yo'nalish batafsil
+          yoritiladi. Menyu bir xil ishlaydi, lekin bosh sahifadan bir bo'lim ketadi.</p>
+        <p class="cost">1 ta yangi sahifa · bosh sahifa qisqaradi</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 5 -->
+  <section class="px-find" id="f5">
+    <div class="px-fh"><span class="px-num">05</span><h2>Chuqur sahifalarda orqaga yo'l yo'q</h2><span class="px-sev sev-m">O'rta</span></div>
+    <p class="px-lede">Mahsulot sahifasiga tushib qolsangiz, u qaysi kompaniyaniki va qaysi uyushmaga
+      tegishli ekanini bilish yoki o'sha yerga o'tish uchun hech qanday havola yo'q.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>item.html</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span>item.html?id=…</span></div>
+            <div class="px-screen">
+              <div class="mbc"><s>— hech narsa —</s></div>
+              <div style="margin-top:12px;font-size:19px;font-weight:800;color:var(--ink)">Paxta tolasi · 1-nav</div>
+              <div style="font-size:12.5px;color:var(--muted);margin-top:4px">Mahsulot tavsifi…</div>
+            </div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li>Kompaniyaga havola yo'q, uyushmaga havola yo'q</li>
+            <li><code>company.html</code> bir vaqtda ochiq profil ham, yopiq panel ham — qaysi rejimdaligi ko'rinmaydi</li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>yo'l ko'rinadi</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span>item.html?id=…</span></div>
+            <div class="px-screen">
+              <div class="mbc">
+                <a href="#f5">Showroom</a><span>›</span>
+                <a href="#f5">Agrobiznes uyushmasi</a><span>›</span>
+                <a href="#f5">Oq Oltin MChJ</a><span>›</span>
+                <span style="color:var(--ink);font-weight:600">Paxta tolasi</span>
+              </div>
+              <div style="margin-top:12px;font-size:19px;font-weight:800;color:var(--ink)">Paxta tolasi · 1-nav</div>
+              <div style="font-size:12.5px;color:var(--muted);margin-top:4px">Mahsulot tavsifi…</div>
+            </div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li>Har bir bo'g'in bosiladi — mahsulotdan kompaniyaga, undan uyushmaga</li>
+            <li>Egasi bo'lsangiz, o'ng tomonda «Bu sizniki — panelda tahrirlash» tugmasi chiqadi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 6 -->
+  <section class="px-find" id="f6">
+    <div class="px-fh"><span class="px-num">06</span><h2>Bosh sahifada bor-yo'g'i bitta bo'lim</h2><span class="px-sev sev-m">O'rta</span></div>
+    <p class="px-lede">Hozirgi bosh sahifa: sarlavha, yuguruvchi satr, bitta bo'lim, futer. Platformada
+      nima borligi — kompaniyalar, mahsulotlar, uyushmalar — ko'rinmaydi. Qanday qo'shilish mumkinligi ham aytilmagan.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>4 ta element</em></div>
+        <div class="px-cb">
+          <ul class="px-flow">
+            <li><b>Hero</b><em>sarlavha, ikkita tugma, statistika</em></li>
+            <li><b>Marquee</b><em>yuguruvchi satr</em></li>
+            <li><b>Markazlar</b><em>to'rt yo'nalish</em></li>
+            <li><b>Futer</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>8 ta element</em></div>
+        <div class="px-cb">
+          <ul class="px-flow">
+            <li><b>Hero</b><em>o'zgarishsiz</em></li>
+            <li><b>Marquee</b><em>o'zgarishsiz</em></li>
+            <li><b>Markazlar</b><em>o'zgarishsiz</em></li>
+            <li class="new"><b>Showroom ko'rinishi</b><em>6 ta mahsulot + «hammasi» havolasi</em></li>
+            <li class="new"><b>Uyushmalar tasmasi</b><em>logotiplar, sanoq bilan</em></li>
+            <li class="new"><b>Qanday ishlaydi</b><em>uch qadam: ariza → tasdiq → panel</em></li>
+            <li class="new"><b>Qo'shilish CTA</b><em>bitta aniq harakat</em></li>
+            <li><b>Futer</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 7 -->
+  <section class="px-find" id="f7">
+    <div class="px-fh"><span class="px-num">07</span><h2>Ro'yxatlar teng emas</h2><span class="px-sev sev-m">O'rta</span></div>
+    <p class="px-lede">Showroom'da qidiruv, uchta filtr va natija soni bor. Uyushmalar sahifasida esa
+      faqat qidiruv maydoni — filtr ham, sanoq ham yo'q. Ikkalasida ham filtrlangan ko'rinishni
+      havola qilib yuborib bo'lmaydi.</p>
+
+    <div class="px-ba">
+      <div class="px-col now">
+        <div class="px-ch"><h3>Hozir</h3><em>associations.html</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span>associations.html</span></div>
+            <div class="px-screen"><div class="mf"><input placeholder="Qidirish…" /></div></div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li>Filtr yo'q, natija soni yo'q</li>
+            <li>Hech narsa topilmasa — bo'sh ekran, izohsiz</li>
+            <li>Filtr URL ga yozilmaydi, shuning uchun havola qilib bo'lmaydi</li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-col next">
+        <div class="px-ch"><h3>Taklif</h3><em>ikkalasi bir xil</em></div>
+        <div class="px-cb">
+          <div class="px-mock"><div class="px-bar"><i></i><i></i><i></i><span>associations.html?soha=agro&amp;q=paxta</span></div>
+            <div class="px-screen">
+              <div class="mf">
+                <input placeholder="Qidirish…" value="paxta" id="pxQ" />
+                <select id="pxS"><option>Barcha sohalar</option><option selected>Agrobiznes</option><option>Energetika</option></select>
+                <select><option>A–Z</option><option>Eng ko'p a'zo</option></select>
+                <span class="cnt" id="pxCnt">7 ta uyushma</span>
+              </div>
+              <div class="murl" id="pxUrl">associations.html?soha=agro&amp;q=paxta</div>
+            </div>
+          </div>
+          <ul class="px-ev" style="margin-top:15px">
+            <li>Filtr URL ga yoziladi — havolani yuborsangiz o'sha ko'rinish ochiladi</li>
+            <li>Natija topilmasa: sabab + «filtrni tozalash» tugmasi</li>
+            <li>Showroom bilan bir xil tartib va bir xil ko'rinish</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ decide -->
+  <section class="px-decide" id="decide">
+    <h2>Nima qaror qilish kerak</h2>
+    <p>Quyidagi to'rtta savolga javob bering — qolganini o'zim hal qilaman. Javob bermasangiz,
+      qavs ichidagi tavsiyani olaman.</p>
+    <ol class="px-dl">
+      <li data-n="1"><span><b>Kirish:</b> bitta <code>login.html</code> mi, yoki har bir panelda o'z formasi qolsinmi?
+        <em style="color:var(--muted);font-style:normal"> (tavsiya: bitta sahifa)</em></span></li>
+      <li data-n="2"><span><b>«Markazlar»:</b> bosh sahifadagi lang'ar bo'lib qolsinmi, yoki o'z sahifasiga chiqsinmi?
+        <em style="color:var(--muted);font-style:normal"> (tavsiya: lang'ar bo'lib qolsin)</em></span></li>
+      <li data-n="3"><span><b>Bosh sahifa:</b> to'rtta yangi bo'lim qo'shilsinmi, yoki faqat Showroom ko'rinishi?
+        <em style="color:var(--muted);font-style:normal"> (tavsiya: to'rttasi ham)</em></span></li>
+      <li data-n="4"><span><b>Til:</b> yangi matnlar uch tilda (UZ/RU/EN) yozilsinmi?
+        <em style="color:var(--muted);font-style:normal"> (tavsiya: ha — <code>data.js</code> shuni talab qiladi)</em></span></li>
+    </ol>
+    <p class="px-note">Ishlash tartibi: 1 → 3 → 2 → 4 → 5 → 6 → 7. Birinchi uchtasi kirish yo'lini
+      tuzatadi va ular bir-biriga bog'liq, shuning uchun birga qilinadi. Qolganlari mustaqil —
+      xohlagan joyda to'xtatsa bo'ladi. Hech qanday fayl hali o'zgartirilmagan.</p>
+  </section>
+
+</div>
+
+<script>
+/* --- theme toggle, same key the product uses ------------------------- */
+(function(){
+  var K='kg_theme', r=document.documentElement;
+  var saved=localStorage.getItem(K); if(saved) r.setAttribute('data-theme',saved);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var next = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme',next); localStorage.setItem(K,next);
+  });
+})();
+
+/* --- 1 · one door, three destinations -------------------------------- */
+(function(){
+  var out=document.getElementById('mlOut'), login=document.getElementById('mlLogin');
+  var map={
+    admin:      ['admin.html','Admin panel — barcha uyushma va kompaniyalar'],
+    rais:       ['admin.html','Admin panel — rais huquqlari bilan'],
+    kompaniya:  ['company.html','Kompaniya paneli — showroom, loyihalar, yangiliklar'],
+    company:    ['company.html','Kompaniya paneli — showroom, loyihalar, yangiliklar'],
+    uyushma:    ['association.html','Uyushma sahifasi — a’zo kompaniyalar']
+  };
+  function go(){
+    var v=(login.value||'').trim().toLowerCase();
+    if(!v){ out.innerHTML='Login kiriting.'; return; }
+    var hit=map[v];
+    out.innerHTML = hit
+      ? 'Bitta oyna → <b>'+hit[0]+'</b><br><span style="color:var(--muted)">'+hit[1]+'</span>'
+      : '<b>'+v+'</b> topilmadi — lekin xato xabari bitta joyda, bir xil ko’rinishda chiqadi.';
+  }
+  document.getElementById('mlGo').addEventListener('click',go);
+  login.addEventListener('keydown',function(e){ if(e.key==='Enter') go(); });
+})();
+
+/* --- 2 · header knows who you are ------------------------------------ */
+(function(){
+  var act=document.getElementById('pxRoleAct'), menu=document.getElementById('pxRoleMenu'),
+      url=document.getElementById('pxRoleUrl'), wrap=document.getElementById('pxRoles');
+  var chrome='<span class="mh-chip">UZ</span>';
+  var views={
+    guest:{ url:'showroom.html',
+      act: chrome+'<span class="mh-cta">Kirish</span>', menu:'' },
+    company:{ url:'showroom.html — kompaniya sifatida',
+      act: chrome+'<span class="mh-you"><span class="mh-av">OO</span><span><b>Oq Oltin MChJ</b><em>Kompaniya</em></span></span>',
+      menu:'<div class="mh-menu"><a href="#f2">Mening panelim</a><a href="#f2">Showroom’im</a><a href="#f2">Uyushmam</a><hr><a href="#f2">Chiqish</a></div>' },
+    rais:{ url:'associations.html — rais sifatida',
+      act: chrome+'<span class="mh-you"><span class="mh-av" style="background:var(--gold)">AB</span><span><b>A. Bektemirov</b><em>Rais</em></span></span>',
+      menu:'<div class="mh-menu"><a href="#f2">Uyushma paneli</a><a href="#f2">A’zo kompaniyalar</a><a href="#f2">Konferensiya ochish</a><hr><a href="#f2">Chiqish</a></div>' },
+    admin:{ url:'index.html — admin sifatida',
+      act: chrome+'<span class="mh-you"><span class="mh-av" style="background:var(--ink)">AD</span><span><b>Administrator</b><em>Admin</em></span></span>',
+      menu:'<div class="mh-menu"><a href="#f2">Admin panel</a><a href="#f2">Murojaatlar <b style="color:var(--gold)">3</b></a><a href="#f2">Hisobotlar</a><hr><a href="#f2">Chiqish</a></div>' }
+  };
+  function show(role){
+    var v=views[role]; act.innerHTML=v.act; menu.innerHTML=v.menu; url.textContent=v.url;
+    [].forEach.call(wrap.children,function(b){ b.setAttribute('aria-pressed', String(b.dataset.role===role)); });
+  }
+  wrap.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(b) show(b.dataset.role);
+  });
+  show('guest');
+})();
+
+/* --- 4 · active nav follows the page --------------------------------- */
+(function(){
+  var nav=document.getElementById('pxNav'), url=document.getElementById('pxNavUrl');
+  nav.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    [].forEach.call(nav.children,function(x){ x.classList.toggle('on', x===b); });
+    url.textContent=b.dataset.u;
+  });
+})();
+
+/* --- 7 · filters live in the URL ------------------------------------- */
+(function(){
+  var q=document.getElementById('pxQ'), s=document.getElementById('pxS'),
+      url=document.getElementById('pxUrl'), cnt=document.getElementById('pxCnt');
+  var slug={'Barcha sohalar':'','Agrobiznes':'agro','Energetika':'energetika'};
+  function sync(){
+    var p=[], soha=slug[s.value]||'';
+    if(soha) p.push('soha='+soha);
+    if(q.value.trim()) p.push('q='+encodeURIComponent(q.value.trim()));
+    url.textContent='associations.html'+(p.length?'?'+p.join('&'):'');
+    var n = 50 - (soha?43:0) - (q.value.trim()?0:0);
+    cnt.textContent = (soha? n : 50)+' ta uyushma';
+  }
+  q.addEventListener('input',sync); s.addEventListener('change',sync); sync();
+})();
+</script>
+</body>
+</html>

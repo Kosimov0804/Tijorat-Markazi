@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fon · 3-varaq — TIJORAT MARKAZI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="bg-lab.css" />
+<style>
+/* ── fills, not strokes ─────────────────────────────────────
+   Everything here is painted rather than drawn, so the shared
+   stroke rules from bg-lab.css are switched off first. */
+/* Reset the stroke ONLY. Setting opacity here too would out-specify the
+   per-layer tones below (.bgl-fill-2 is one class less specific) and
+   flatten every tonal step to solid. */
+.bgl-svg .bgl-layer path,.bgl-svg .bgl-layer rect,
+.bgl-svg .bgl-layer circle,.bgl-svg .bgl-layer ellipse{stroke:none}
+
+/* 1 · silhouette — one hue, three tonal steps */
+.bgl-fill-1 path{fill:var(--navy)}
+.bgl-fill-2 path{fill:var(--navy);opacity:.42}
+.bgl-fill-3 path{fill:var(--navy);opacity:.2}
+
+/* 2 · cut paper — each layer its own paper stock */
+.bgl-paper-1 path{fill:var(--navy)}
+.bgl-paper-2 path{fill:var(--navy-3)}
+.bgl-paper-3 path{fill:var(--gold-soft)}
+
+/* 3 · majolica — the glaze palette of a Samarkand facade */
+.bgl-mosaic rect{stroke:none}
+.bgl-tile-a{fill:var(--gold)}
+.bgl-tile-b{fill:#1a6f86}
+.bgl-tile-c{fill:var(--navy)}
+
+/* 4 · halftone */
+.bgl-halftone circle{fill:var(--navy)}
+
+/* 5 · dusk — sky, glow, silhouette, lit arches */
+.kg-sky-a{stop-color:#0d2039}
+.kg-sky-b{stop-color:#2b4a6b}
+.kg-glow-a{stop-color:#d8ae5c;stop-opacity:.42}
+.kg-glow-b{stop-color:#d8ae5c;stop-opacity:0}
+.bgl-dusk path{fill:#08121f}
+.bgl-dusk-far path{fill:#12253c}
+.bgl-lamp{fill:#f4c86a;opacity:.75}
+
+/* 6 · cyanotype */
+.bgl-cyano-bg{fill:#0f3557}
+.bgl-cyano-grid{fill:none;stroke:#ffffff;stroke-width:.7;opacity:.13}
+.bgl-cyano path{fill:#e8f1f8}
+.bgl-cyano-line{fill:none;stroke:#e8f1f8;stroke-width:2;opacity:.7}
+
+/* 7 · stained glass */
+.bgl-lead{fill:#101a24}
+.bgl-glass rect{stroke:none}
+.bgl-glass-a{fill:#1a6f86}
+.bgl-glass-b{fill:#2f7f6a}
+.bgl-glass-c{fill:var(--gold)}
+.bgl-glass-d{fill:#7a4a86}
+
+/* 8 · risograph grain */
+.bgl-grain-body path{fill:var(--navy);opacity:.5}
+.bgl-grain-shift path{fill:var(--gold);opacity:.3;mix-blend-mode:multiply}
+.bgl-grain-dots circle{fill:var(--navy);opacity:.55}
+
+/* 9 · long shadow */
+.bgl-ls-body path{fill:var(--navy)}
+.kg-ls-a{stop-color:var(--navy);stop-opacity:.4}
+.kg-ls-b{stop-color:var(--navy);stop-opacity:0}
+
+/* 10 · knockout */
+.bgl-ko-panel{fill:var(--gold-soft)}
+.bgl-ko-hint path{fill:var(--navy);opacity:.16}
+
+/* Dark theme: only the treatments that assume a light ground need it. */
+[data-theme="dark"] .bgl-fill-1 path,[data-theme="dark"] .bgl-halftone circle,
+[data-theme="dark"] .bgl-ls-body path{fill:var(--navy)}
+[data-theme="dark"] .bgl-ko-panel{fill:var(--gold)}
+</style>
+</head>
+<body>
+<div class="lab">
+
+  <div class="lab-top">
+    <div class="kick">TIJORAT MARKAZI · fon variantlari, 3-varaq</div>
+    <h1>Chiziqdan tashqari</h1>
+    <p>Bu varaqda hech narsa chiziq bilan chizilmagan — hammasi <b>bo'yalgan</b>:
+      siluet, qirqilgan qog'oz, koshin mozaika, rastr nuqta, shom, sianotip, vitraj,
+      rizograf doni, uzun soya va kesik.</p>
+    <p>O'nalasi bitta narsadan kelib chiqadi — ufq balandligi funksiyasidan. Shuning uchun
+      mozaika, nuqta va kesik bir-biriga mos: ular bitta shaklning turlicha o'qilishi.</p>
+    <div class="lab-jump" id="labJump"></div>
+  </div>
+
+  <div id="labOptions"></div>
+
+  <section class="pick">
+    <h2>Taqqoslash</h2>
+    <p>Oxirgi ustun — matn ustida turganda qanday ishlashi. To'ldirilgan fon chiziqlidan
+      ko'ra kuchliroq, shuning uchun bu savol bu yerda yanada muhim.</p>
+    <table>
+      <tr><th>Variant</th><th>Usuli</th><th>Zaif tomoni</th><th>Matn ustida</th></tr>
+      <tr><td>1 · Siluet</td><td>Uch ohangli tekis to'ldirish.</td><td>Oddiy — o'ziga xoslik kam.</td><td>Eng yaxshi</td></tr>
+      <tr><td>2 · Qog'oz qatlam</td><td>Qirqilgan qog'oz + yumshoq soya.</td><td>Soya og'irlik qo'shadi.</td><td>Yaxshi</td></tr>
+      <tr><td>3 · Koshin mozaika</td><td>Mayda glazur kvadratlari.</td><td>Ko'p element — yuklanish og'irroq.</td><td>O'rtacha</td></tr>
+      <tr><td>4 · Nuqta</td><td>Bosma rastr.</td><td>Mayda ekranda «shovqin».</td><td>Yaxshi</td></tr>
+      <tr><td>5 · Shom</td><td>Gradient osmon + yorug' ravoqlar.</td><td>Qorong'i — sayt yorug' bo'lsa kelishmaydi.</td><td>Qiyin</td></tr>
+      <tr><td>6 · Ko'k chizma</td><td>Sianotip: ko'k yer, oq shakl.</td><td>Butun sahifa rangini belgilaydi.</td><td>O'rtacha</td></tr>
+      <tr><td>7 · Vitraj</td><td>Rangli bo'lak + qora qo'rg'oshin.</td><td>Eng rangbarang — matnni bosadi.</td><td>Qiyin</td></tr>
+      <tr><td>8 · Don</td><td>Rizograf: siljigan ikki rang + don.</td><td>Bir oz «iflos» ko'rinishi mumkin.</td><td>Yaxshi</td></tr>
+      <tr><td>9 · Uzun soya</td><td>Tekis shakl + bitta uzun soya.</td><td>Yo'nalish qat'iy — moslashuvchan emas.</td><td>Eng yaxshi</td></tr>
+      <tr><td>10 · Kesik</td><td>Rangli panelda o'yilgan bo'shliq.</td><td>Ranli panel butun ekranni egallaydi.</td><td>O'rtacha</td></tr>
+    </table>
+    <p class="note">Tavsiyam: <b>9 · Uzun soya</b> — to'ldirilgan, zamonaviy va matnga xalaqit bermaydi;
+      bitta soya butun sahifaga yo'nalish beradi. Milliy ohang kuchliroq kerak bo'lsa —
+      <b>3 · Koshin mozaika</b>: bino aynan majolika terilganidek yig'ilgan.
+      Eng ta'sirchani — <b>5 · Shom</b>, lekin u saytni qorong'i qilishni talab qiladi.
+      Raqamini ayting.</p>
+  </section>
+
+</div>
+
+<script src="bg-lab3.js"></script>
+<script src="bg-lab.js"></script>
+<script>
+(function(){
+  var theme = localStorage.getItem("kg_theme"); if(theme) document.documentElement.dataset.theme = theme;
+  var lang = localStorage.getItem("kg_lang") || "uz";
+  var li = {uz:0, ru:1, en:2}[lang]; if(li == null) li = 0;
+
+  var C = {
+    uz:{eyebrow:"Milliy savdo platformasi", h:"O'zbekiston biznesini boshqaruvchi <em>Yagona Tijorat Markazi</em>",
+        p:"Ellik uyushma, mingdan ortiq kompaniya — bitta joyda.", b:"Platformani ko'rish →"},
+    ru:{eyebrow:"Национальная торговая платформа", h:"<em>Единый Торговый Центр</em> для бизнеса Узбекистана",
+        p:"Пятьдесят ассоциаций, более тысячи компаний — в одном месте.", b:"Смотреть платформу →"},
+    en:{eyebrow:"National trade platform", h:"The <em>Single Trade Centre</em> powering Uzbekistan's business",
+        p:"Fifty associations, over a thousand companies — in one place.", b:"Explore the platform →"}
+  }[lang] || {eyebrow:"", h:"", p:"", b:""};
+
+  var jump = document.getElementById("labJump");
+  var wrap = document.getElementById("labOptions");
+
+  KG_BACKGROUNDS3.forEach(function(opt, i){
+    jump.insertAdjacentHTML("beforeend", '<a href="#o' + (i+1) + '">' + (i+1) + ' · ' + opt.name + '</a>');
+    var sec = document.createElement("section");
+    sec.className = "opt";
+    sec.id = "o" + (i+1);
+    // The dusk, cyanotype, glass and knockout options carry their own dark
+    // ground, so the sample copy inverts over them to stay readable.
+    var dark = ["dusk","cyano","glass"].indexOf(opt.id) >= 0;
+    sec.innerHTML =
+      '<div class="opt-head"><span class="opt-num">' + String(i+1).padStart(2,"0") + '</span>' +
+        '<h2>' + opt.name + '</h2><span class="opt-id">' + opt.id + '</span></div>' +
+      '<p class="opt-note">' + opt.note[li] + '</p>' +
+      '<div class="stage' + (dark ? " stage-dark" : "") + '"><div class="stage-bg"></div>' +
+        '<div class="stage-copy"><span class="eyebrow">' + C.eyebrow + '</span>' +
+          '<h3>' + C.h + '</h3><p>' + C.p + '</p>' +
+          '<span class="stage-btn">' + C.b + '</span></div>' +
+      '</div>';
+    wrap.appendChild(sec);
+    kgMountBackground(sec.querySelector(".stage-bg"), opt);
+  });
+
+  jump.insertAdjacentHTML("beforeend", '<a href="#pick">Jadval</a>');
+  jump.insertAdjacentHTML("beforeend", '<a class="alt" href="ux-background.html">← 1-varaq</a>');
+  jump.insertAdjacentHTML("beforeend", '<a class="alt" href="ux-background-2.html">← 2-varaq</a>');
+})();
+</script>
+</body>
+</html>
