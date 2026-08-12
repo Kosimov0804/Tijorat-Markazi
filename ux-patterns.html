@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Naqsh variantlari — TIJORAT MARKAZI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="patterns.css" />
+<style>
+body{background:var(--bg-soft);overflow-x:hidden}
+.lab{max-width:1240px;margin:0 auto;padding:0 24px 110px}
+.lab-top{padding:52px 0 24px;border-bottom:1px solid var(--line)}
+.lab-top .kick{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--navy)}
+.lab-top h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,44px);
+  font-weight:700;letter-spacing:-.025em;margin:12px 0 12px;color:var(--ink)}
+.lab-top p{max-width:72ch;font-size:16px;color:var(--text)}
+.lab-top p + p{margin-top:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:34px;margin-top:44px}
+.cell{display:flex;flex-direction:column;gap:13px}
+.cell h2{font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink);
+  display:flex;align-items:baseline;gap:9px}
+.cell h2 i{font-style:normal;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em}
+.cell p{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* The arch, and the ONE motion every pattern is shown in: three
+   copies at three pitches drifting at three speeds. Holding the
+   motion constant is what makes this a fair test of the pattern. */
+.arch{position:relative;overflow:hidden;height:270px;
+  border-radius:112px 112px 10px 10px;
+  border:5px solid var(--gold-soft);
+  background:linear-gradient(170deg,#24598a,#12304c)}
+.arch span{position:absolute;inset:0;display:block;pointer-events:none;
+  background:var(--gold-soft);
+  -webkit-mask-image:var(--pat);mask-image:var(--pat);
+  -webkit-mask-repeat:repeat;mask-repeat:repeat}
+.arch span:nth-child(1){opacity:.13;
+  -webkit-mask-size:calc(var(--sz) * 1.55);mask-size:calc(var(--sz) * 1.55);
+  animation:pDriftA 46s linear infinite}
+.arch span:nth-child(2){opacity:.24;
+  -webkit-mask-size:var(--sz);mask-size:var(--sz);
+  animation:pDriftB 28s linear infinite}
+.arch span:nth-child(3){opacity:.3;
+  -webkit-mask-size:calc(var(--sz) * 0.66);mask-size:calc(var(--sz) * 0.66);
+  animation:pDriftC 16s linear infinite}
+/* each layer travels exactly its own tile, so no layer ever jumps */
+@keyframes pDriftA{to{-webkit-mask-position:calc(var(--sz) * 1.55) calc(var(--sz) * 1.55);
+                      mask-position:calc(var(--sz) * 1.55) calc(var(--sz) * 1.55)}}
+@keyframes pDriftB{to{-webkit-mask-position:var(--sz) var(--sz);mask-position:var(--sz) var(--sz)}}
+@keyframes pDriftC{to{-webkit-mask-position:calc(var(--sz) * 0.66) calc(var(--sz) * -0.66);
+                      mask-position:calc(var(--sz) * 0.66) calc(var(--sz) * -0.66)}}
+@media (prefers-reduced-motion:reduce){ .arch span{animation:none!important} }
+
+/* the raw tile, shown flat beside the arch so the motif is legible */
+.swatch{height:56px;border-radius:8px;border:1px solid var(--line-2);background:var(--bg-soft-2);
+  position:relative;overflow:hidden}
+.swatch::after{content:'';position:absolute;inset:0;background:var(--navy);opacity:.55;
+  -webkit-mask-image:var(--pat);mask-image:var(--pat);
+  -webkit-mask-size:var(--sz);mask-size:var(--sz);
+  -webkit-mask-repeat:repeat;mask-repeat:repeat}
+
+.pick{margin-top:70px;border:1px solid var(--ink);border-radius:var(--arch-sm);
+  background:var(--card);padding:28px 32px}
+.pick h2{font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.pick p{font-size:14.5px;color:var(--text);max-width:76ch}
+.pick p + p{margin-top:10px}
+.pick b{color:var(--ink)}
+.back{display:inline-block;margin-top:20px;background:var(--ink);color:var(--card);
+  padding:10px 20px;border-radius:var(--radius-pill);font-size:13.5px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="lab">
+  <div class="lab-top">
+    <div class="kick">TIJORAT MARKAZI · naqsh variantlari</div>
+    <h1>O'nta naqsh, bitta harakat</h1>
+    <p>Bu safar naqshning o'zi o'zgaradi, harakat esa hammasida bir xil — uch qatlam
+      uch xil qadamda, uch xil tezlikda suriladi. Shuning uchun farqni faqat naqsh
+      beradi.</p>
+    <p>Har birining tagida tekis namunasi ham bor, chunki ravoq ichida naqsh
+      qismangina ko'rinadi.</p>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="pick">
+    <h2>Tavsiya</h2>
+    <p><b>2 · Girih</b> — eng tanilgan va eng «me'moriy» naqsh: sakkiz burchakli yulduz
+      aynan koshinkor devorlardan olingan, harakatda esa yulduzlar bir-biriga o'tib turadi.
+      <b>6 · Paxta</b> — ma'no jihatidan eng kuchlisi: bu platforma o'sgan ekin, va uni
+      hech qayerda fon sifatida ko'rmagansiz.</p>
+    <p><b>1 · Banna'i</b> hozirgi variant. <b>4 · Islimi</b> va <b>10 · Suv</b> eng
+      yumshoqlari — ular oqadi, sakramaydi. <b>9 · Oy-palak</b> eng bezakli, lekin
+      mayda ekranda shovqinga aylanadi.</p>
+    <p>Raqamini ayting — ravoqqa, sayt foniga yoki ikkalasiga qo'yaman.</p>
+    <a class="back" href="index.html">← Saytga qaytish</a>
+  </section>
+</div>
+
+<script>
+(function(){
+  var theme = localStorage.getItem("kg_theme"); if(theme) document.documentElement.dataset.theme = theme;
+  var lang = localStorage.getItem("kg_lang") || "uz";
+  var li = {uz:0, ru:1, en:2}[lang]; if(li == null) li = 0;
+
+  var PATS = [
+    ["bannai","Banna'i",["Temuriylar koshin g'ishti — pog'onali sakkiz burchakli yulduz. Hozirgi variant.",
+      "Тимуридская кладка глазурованного кирпича — ступенчатая восьмиконечная звезда. Текущий вариант.",
+      "Timurid glazed brickwork — the stepped eight-point star. The current one."]],
+    ["girih","Girih",["Sakkiz burchakli yulduz va uni bog'lovchi tasmalar — koshinkor devorlarning asosi.",
+      "Восьмиконечная звезда и связующие ленты — основа изразцовых стен.",
+      "The eight-point star and its connecting straps — the basis of tiled walls."]],
+    ["chorgul","Chorgul",["To'rt bargli gul — hoshiya va koshin chetlarining eng keng tarqalgan motivi.",
+      "Четырёхлепестковый цветок — самый частый мотив бордюров.",
+      "The four-petal flower — the commonest motif of tile borders."]],
+    ["islimi","Islimi",["O'simliksimon o'ram: uzluksiz novda va barglar. Geometriya emas, oqim.",
+      "Растительный завиток: непрерывная лоза и листья. Не геометрия, а поток.",
+      "The vegetal scroll: an unbroken vine and its leaves. Flow rather than geometry."]],
+    ["bodom","Bodom",["Bodom — suzani va ikat matolarining bosh naqshi.",
+      "Миндаль (бута) — главный мотив сюзане и икат.",
+      "The almond, or boteh — the master motif of suzani and ikat."]],
+    ["paxta","Paxta",["Paxta ko'sagi — bu savdo o'sib chiqqan ekin. Fon sifatida deyarli ishlatilmagan.",
+      "Коробочка хлопка — культура, из которой выросла эта торговля.",
+      "The cotton boll — the crop this trade grew from. Almost never used as a background."]],
+    ["zanjira","Zanjira",["Bir-biriga ilashgan halqalar — hoshiya zanjiri.",
+      "Сцепленные кольца — цепь бордюра.",
+      "Interlaced rings — the chain of a border band."]],
+    ["hex","Olti burchak",["Ganch panjaraning olti burchakli to'ri — eng sokin va eng zamonaviy.",
+      "Шестиугольная решётка ганчевой панджары — самая спокойная и современная.",
+      "The hexagonal lattice of a ganch screen — the calmest and most modern."]],
+    ["oypalak","Oy-palak",["Toshkent suzanisining oy disklari — eng bezakli variant.",
+      "Лунные диски ташкентского сюзане — самый декоративный вариант.",
+      "The moon disks of a Tashkent suzani — the most decorative of the ten."]],
+    ["suv","Suv",["Suv to'lqini — koshin hoshiyalarining oqar motivi.",
+      "Водяная волна — текучий мотив изразцовых бордюров.",
+      "The running wave — the flowing motif of tile borders."]]
+  ];
+
+  document.getElementById("grid").innerHTML = PATS.map(function(p,i){
+    var vars = '--pat:var(--pat-' + p[0] + ');--sz:var(--pat-' + p[0] + '-size)';
+    return '<div class="cell">' +
+      '<div class="arch" style="' + vars + '"><span></span><span></span><span></span></div>' +
+      '<div class="swatch" style="' + vars + '"></div>' +
+      '<h2><i>' + String(i+1).padStart(2,"0") + '</i>' + p[1] + '</h2>' +
+      '<p>' + p[2][li] + '</p>' +
+    '</div>';
+  }).join("");
+})();
+</script>
+</body>
+</html>

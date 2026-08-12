@@ -909,7 +909,7 @@ tr.q-rep td{background:rgba(168,128,31,.07)}
    ground of the closing panel.
    ============================================================ */
 
-:root{ --ayvan-mark:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'28'%20height%3D'32'%20viewBox%3D'0%200%2028%2032'%3E%3Cg%20fill%3D'%23000'%3E%3Cpath%20d%3D'M4%2030%20V17%20A10%2010%200%200%201%2024%2017%20V30'%20fill%3D'none'%20stroke%3D'%23000'%20stroke-width%3D'2'%2F%3E%3Cpath%20d%3D'M14%202.5%20L17%207%20L14%2011.5%20L11%207%20Z'%2F%3E%3Crect%20x%3D'1'%20y%3D'30'%20width%3D'10'%20height%3D'2'%2F%3E%3Crect%20x%3D'17'%20y%3D'30'%20width%3D'10'%20height%3D'2'%2F%3E%3Ccircle%20cx%3D'14'%20cy%3D'20'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'10.4'%20cy%3D'23.4'%20r%3D'1.1'%2F%3E%3Ccircle%20cx%3D'17.6'%20cy%3D'23.4'%20r%3D'1.1'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); --naqsh-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'64'%20height%3D'64'%20viewBox%3D'0%200%2064%2064'%3E%3Cg%20fill%3D'%23000'%3E%3Crect%20x%3D'0.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+:root{ --naqsh-chorgul:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'54'%20height%3D'54'%20viewBox%3D'0%200%2054%2054'%3E%3Cg%20fill%3D'%23000'%3E%3Cg%20transform%3D'translate(27%2027)'%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(0)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(90)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(180)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(270)'%2F%3E%3Ccircle%20r%3D'3.4'%2F%3E%3C%2Fg%3E%3Cg%20transform%3D'translate(0%200)'%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(0)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(90)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(180)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(270)'%2F%3E%3Ccircle%20r%3D'3.4'%2F%3E%3C%2Fg%3E%3Cg%20transform%3D'translate(54%200)'%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(0)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(90)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(180)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(270)'%2F%3E%3Ccircle%20r%3D'3.4'%2F%3E%3C%2Fg%3E%3Cg%20transform%3D'translate(0%2054)'%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(0)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(90)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(180)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(270)'%2F%3E%3Ccircle%20r%3D'3.4'%2F%3E%3C%2Fg%3E%3Cg%20transform%3D'translate(54%2054)'%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(0)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(90)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(180)'%2F%3E%3Cpath%20d%3D'M0%20-17%20C7%20-10%207%20-4%200%200%20C-7%20-4%20-7%20-10%200%20-17%20Z'%20transform%3D'rotate(270)'%2F%3E%3Ccircle%20r%3D'3.4'%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"); --ayvan-mark:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'28'%20height%3D'32'%20viewBox%3D'0%200%2028%2032'%3E%3Cg%20fill%3D'%23000'%3E%3Cpath%20d%3D'M4%2030%20V17%20A10%2010%200%200%201%2024%2017%20V30'%20fill%3D'none'%20stroke%3D'%23000'%20stroke-width%3D'2'%2F%3E%3Cpath%20d%3D'M14%202.5%20L17%207%20L14%2011.5%20L11%207%20Z'%2F%3E%3Crect%20x%3D'1'%20y%3D'30'%20width%3D'10'%20height%3D'2'%2F%3E%3Crect%20x%3D'17'%20y%3D'30'%20width%3D'10'%20height%3D'2'%2F%3E%3Ccircle%20cx%3D'14'%20cy%3D'20'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'10.4'%20cy%3D'23.4'%20r%3D'1.1'%2F%3E%3Ccircle%20cx%3D'17.6'%20cy%3D'23.4'%20r%3D'1.1'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); --naqsh-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'64'%20height%3D'64'%20viewBox%3D'0%200%2064%2064'%3E%3Cg%20fill%3D'%23000'%3E%3Crect%20x%3D'0.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'0.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'8.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'16.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'24.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'32.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'16.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'40.5'%20y%3D'40.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'24.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'32.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'48.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'0.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'8.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'48.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3Crect%20x%3D'56.5'%20y%3D'56.5'%20width%3D'7'%20height%3D'7'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
 
 /* ── display type: serif for the voice, Inter for the interface ──
    Only h1/h2 and the wordmark change. Card titles, table headers
@@ -932,51 +932,21 @@ h1,h2,.hero h1,.section-head h2,.cta-card h2,.brand-text strong,.footer-brand st
 
 /* ── the hero arch: a portal niche beside the headline ───────── */
 .hero-inner-ayvan{grid-template-columns:1.12fr 290px;gap:52px;align-items:center;text-align:left}
-/* The arch is a window, not a wall: hero-arch.js draws the view through
-   it — sky, the city beyond, the naqsh as a screen across the opening,
-   and nested frames for the depth of the recess. */
 .hero-arch{position:relative;overflow:hidden;height:352px;
   border-radius:145px 145px 12px 12px;
   border:6px solid var(--gold-soft);
-  background:#12304c;
-  box-shadow:inset 0 2px 22px -6px rgba(0,0,0,.55)}
+  background:linear-gradient(170deg,#24598a,#12304c)}
 [data-theme="dark"] .hero-arch{border-color:var(--gold)}
-.ha-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 
-.ha-sky{fill:url(#haSky)}
-.ha-glow{fill:url(#haGlow)}
-.ha-sky-a{stop-color:#0b2036}
-.ha-sky-b{stop-color:#2a5a86}
-.ha-glow-a{stop-color:#d8ae5c;stop-opacity:.42}
-.ha-glow-b{stop-color:#d8ae5c;stop-opacity:0}
-
-.ha-layer{will-change:transform;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.ha-stars circle{fill:#e8dcc0;opacity:.5}
-/* the two ranges of the city seen through the opening */
-.ha-far path{fill:none;stroke:#7ea6c9;stroke-width:1;opacity:.34;
-  stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-.ha-mid path{fill:none;stroke:#b9d2e6;stroke-width:1.2;opacity:.5;
-  stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-/* the naqsh reads as a screen across the opening, not a wallpaper */
-.ha-naqsh rect{fill:var(--gold-soft);opacity:.22;
-  -webkit-mask-image:var(--naqsh-mask);mask-image:var(--naqsh-mask);
-  -webkit-mask-size:46px 46px;mask-size:46px 46px}
-.ha-rings path{fill:none;stroke:var(--gold-soft);stroke-width:1;vector-effect:non-scaling-stroke}
-.ha-ring-0{opacity:.3}.ha-ring-1{opacity:.18}.ha-ring-2{opacity:.1}
-
-/* A slow light sweep across the opening, as if the sun crossed it. */
-.ha-sweep{fill:#ffffff;opacity:.07;animation:haSweep 9s ease-in-out infinite}
-@keyframes haSweep{
-  0%,68%{transform:translateX(0)}
-  100%{transform:translateX(520px)}
-}
-@media (prefers-reduced-motion:reduce){
-  .ha-sweep{animation:none;opacity:0}
-  .ha-layer{transition:none}
-}
-@media(max-width:900px){
-  .ha-sweep{animation:none;opacity:0}
-}
+/* ── girih in the niche, still ───────────────────────────────
+   The eight-point star with its connecting straps — the pattern that
+   actually covers a tiled wall. One layer, no motion: the geometry
+   carries it, and a static field lets the star read as a star. */
+.hero-arch::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:var(--gold-soft);opacity:.3;
+  -webkit-mask-image:var(--naqsh-chorgul);mask-image:var(--naqsh-chorgul);
+  -webkit-mask-size:54px 54px;mask-size:54px 54px;
+  -webkit-mask-repeat:repeat;mask-repeat:repeat}
 
 /* ── section titles wear a small arch instead of a medallion ── */
 .section-head{position:relative;padding-top:52px}

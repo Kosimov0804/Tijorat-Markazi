@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ravoq naqshi — harakat variantlari — TIJORAT MARKAZI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+body{background:var(--bg-soft);overflow-x:hidden}
+.lab{max-width:1240px;margin:0 auto;padding:0 24px 110px}
+.lab-top{padding:52px 0 24px;border-bottom:1px solid var(--line)}
+.lab-top .kick{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--navy)}
+.lab-top h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,44px);
+  font-weight:700;letter-spacing:-.025em;margin:12px 0 12px;color:var(--ink)}
+.lab-top p{max-width:70ch;font-size:16px;color:var(--text)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px;margin-top:44px}
+.cell{display:flex;flex-direction:column;gap:14px}
+.cell h2{font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink);
+  display:flex;align-items:baseline;gap:9px}
+.cell h2 i{font-style:normal;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em}
+.cell p{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ── the arch, same geometry as the hero ─────────────────── */
+.arch{position:relative;overflow:hidden;height:280px;
+  border-radius:115px 115px 10px 10px;
+  border:5px solid var(--gold-soft);
+  background:linear-gradient(170deg,#24598a,#12304c)}
+.arch span{position:absolute;inset:0;display:block;pointer-events:none;
+  background:var(--gold-soft);
+  -webkit-mask-image:var(--naqsh-mask);mask-image:var(--naqsh-mask);
+  -webkit-mask-repeat:repeat;mask-repeat:repeat;
+  -webkit-mask-size:46px 46px;mask-size:46px 46px;
+  opacity:.28}
+.arch span:nth-child(2),.arch span:nth-child(3){display:none}
+
+/* 1 · MOIRÉ — two pitches, one drifts, one turns. The shimmer comes
+        from the mismatch, not from either motion alone. */
+.a1 span:nth-child(1){animation:drift 24s linear infinite}
+.a1 span:nth-child(2){display:block;inset:-45%;opacity:.16;
+  -webkit-mask-size:53px 53px;mask-size:53px 53px;animation:turn 120s linear infinite}
+
+/* 2 · INFINITE ZOOM — the tile grows and hands over to a second copy
+        already waiting at the start of the cycle, so it never ends. */
+.a2 span:nth-child(1){animation:zoom 12s ease-in-out infinite}
+.a2 span:nth-child(2){display:block;opacity:.2;animation:zoom 12s ease-in-out -6s infinite}
+
+/* 3 · COUNTER-ROTATION — equal and opposite; the eye cannot settle. */
+.a3 span:nth-child(1){inset:-45%;animation:turn 60s linear infinite}
+.a3 span:nth-child(2){display:block;inset:-45%;opacity:.18;
+  animation:turnBack 60s linear infinite}
+
+/* 4 · BREATHING — one layer, scale only. The quietest of the ten. */
+.a4 span:nth-child(1){animation:breathe 9s ease-in-out infinite}
+
+/* 5 · RIPPLE — an SVG turbulence displaces the pattern, and the noise
+        itself is animated, so the surface moves like water. */
+.a5 span:nth-child(1){filter:url(#kgRipple);animation:drift 30s linear infinite}
+
+/* 6 · DEPTH — three copies at different pitches drifting at different
+        speeds: parallax without any pointer input. */
+.a6 span:nth-child(1){-webkit-mask-size:70px 70px;mask-size:70px 70px;opacity:.14;
+  animation:drift 46s linear infinite}
+.a6 span:nth-child(2){display:block;-webkit-mask-size:46px 46px;mask-size:46px 46px;opacity:.24;
+  animation:drift 28s linear infinite}
+.a6 span:nth-child(3){display:block;-webkit-mask-size:30px 30px;mask-size:30px 30px;opacity:.3;
+  animation:drift 16s linear infinite}
+
+/* 7 · LIGHT SWEEP — the pattern is still; a band of light crosses it. */
+.a7 span:nth-child(1){opacity:.2}
+.a7 span:nth-child(2){display:block;opacity:.55;
+  -webkit-mask-composite:source-in;
+  mask-image:var(--naqsh-mask),linear-gradient(105deg,transparent 40%,#000 50%,transparent 60%);
+  -webkit-mask-image:var(--naqsh-mask),linear-gradient(105deg,transparent 40%,#000 50%,transparent 60%);
+  mask-composite:intersect;
+  -webkit-mask-size:46px 46px,260% 100%;mask-size:46px 46px,260% 100%;
+  -webkit-mask-repeat:repeat,no-repeat;mask-repeat:repeat,no-repeat;
+  animation:sweep 6s ease-in-out infinite}
+
+/* 8 · KALEIDOSCOPE — four mirrored quadrants of one turning layer. */
+.a8{--q:polygon(0 0,100% 0,100% 100%,0 100%)}
+.a8 span:nth-child(1){inset:-45%;animation:turn 44s linear infinite;
+  clip-path:polygon(50% 50%,0 0,100% 0)}
+.a8 span:nth-child(2){display:block;inset:-45%;animation:turnBack 44s linear infinite;
+  clip-path:polygon(50% 50%,100% 100%,0 100%);opacity:.28}
+
+/* 9 · CAUSTIC — brightness travels through a still pattern, the way
+        light moves on the floor of a pool. */
+.a9 span:nth-child(1){animation:caustic 7s ease-in-out infinite}
+.a9 span:nth-child(2){display:block;opacity:.18;
+  -webkit-mask-size:64px 64px;mask-size:64px 64px;
+  animation:caustic 7s ease-in-out -3.5s infinite}
+
+/* 10 · CURTAIN — vertical fall only. Reads as woven cloth, not motion. */
+.a10 span:nth-child(1){animation:fall 18s linear infinite}
+.a10 span:nth-child(2){display:block;opacity:.15;
+  -webkit-mask-size:64px 64px;mask-size:64px 64px;animation:fall 30s linear infinite}
+
+@keyframes drift{to{-webkit-mask-position:46px 46px;mask-position:46px 46px}}
+@keyframes fall{to{-webkit-mask-position:0 46px;mask-position:0 46px}}
+@keyframes turn{to{transform:rotate(360deg)}}
+@keyframes turnBack{to{transform:rotate(-360deg)}}
+@keyframes breathe{50%{-webkit-mask-size:58px 58px;mask-size:58px 58px;opacity:.36}}
+@keyframes zoom{
+  0%{-webkit-mask-size:30px 30px;mask-size:30px 30px;opacity:0}
+  18%{opacity:.3}
+  82%{opacity:.3}
+  100%{-webkit-mask-size:120px 120px;mask-size:120px 120px;opacity:0}
+}
+@keyframes sweep{
+  0%,12%{-webkit-mask-position:0 0,-160% 0;mask-position:0 0,-160% 0}
+  100%{-webkit-mask-position:0 0,160% 0;mask-position:0 0,160% 0}
+}
+@keyframes caustic{50%{opacity:.42;-webkit-mask-size:50px 50px;mask-size:50px 50px}}
+
+@media (prefers-reduced-motion:reduce){ .arch span{animation:none!important} }
+
+.pick{margin-top:70px;border:1px solid var(--ink);border-radius:var(--arch-sm);
+  background:var(--card);padding:28px 32px}
+.pick h2{font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.pick p{font-size:14.5px;color:var(--text);max-width:74ch}
+.pick b{color:var(--ink)}
+.back{display:inline-block;margin-top:20px;background:var(--ink);color:var(--card);
+  padding:10px 20px;border-radius:var(--radius-pill);font-size:13.5px;font-weight:700}
+</style>
+</head>
+<body>
+<!-- the turbulence used by option 5 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="kgRipple" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="4" result="n">
+      <animate attributeName="baseFrequency" dur="18s" values="0.012 0.02;0.02 0.012;0.012 0.02" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs></svg>
+
+<div class="lab">
+  <div class="lab-top">
+    <div class="kick">TIJORAT MARKAZI · ravoq naqshi</div>
+    <h1>O'nta harakat</h1>
+    <p>Hammasi bir xil banna'i naqshi va bir xil ravoq. Farq faqat naqsh qanday
+      harakatlanishida. Bir necha soniya qarab turing — ba'zilari darrov, ba'zilari
+      sekin ochiladi.</p>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="pick">
+    <h2>Tavsiya</h2>
+    <p><b>1 · Muare</b> — hozirgi variant: ikki xil qadamdagi naqsh bir-biriga qo'shilib
+      tovlanadi. <b>6 · Chuqurlik</b> eng tinchi va eng ishonarli — uch qatlam turli
+      tezlikda suriladi, natijada ravoq chuqur ko'rinadi. <b>5 · To'lqin</b> eng jonli,
+      lekin filtr eski telefonlarda og'irlik qiladi. <b>2 · Cheksiz zoom</b> eng
+      «gipnoz» — uzoq qarab tursangiz ichkariga tortadi.</p>
+    <p style="margin-top:10px">Raqamini ayting, saytdagi ravoqqa o'shani qo'yaman.</p>
+    <a class="back" href="index.html">← Saytga qaytish</a>
+  </section>
+</div>
+
+<script>
+(function(){
+  var theme = localStorage.getItem("kg_theme"); if(theme) document.documentElement.dataset.theme = theme;
+  var lang = localStorage.getItem("kg_lang") || "uz";
+  var li = {uz:0, ru:1, en:2}[lang]; if(li == null) li = 0;
+
+  var OPTS = [
+    ["Muare", ["Ikki xil qadamdagi naqsh — ular kesishganda tovlanish paydo bo'ladi.",
+               "Узор двух разных шагов — на их пересечении возникает мерцание.",
+               "Two pattern pitches — the shimmer appears where they interfere."]],
+    ["Cheksiz zoom", ["Naqsh kattalashib boradi va ikkinchi nusxa uni almashtiradi — tugamaydi.",
+               "Узор увеличивается, вторая копия подхватывает — бесконечно.",
+               "The tile grows and a second copy takes over — it never ends."]],
+    ["Qarama-qarshi", ["Ikki qatlam teng va teskari aylanadi. Ko'z bir joyda to'xtay olmaydi.",
+               "Два слоя вращаются навстречу. Взгляду не за что зацепиться.",
+               "Two layers turn against each other. The eye cannot settle."]],
+    ["Nafas", ["Bitta qatlam, faqat o'lcham o'zgaradi. Eng tinchi variant.",
+               "Один слой, меняется только масштаб. Самый спокойный.",
+               "One layer, scale only. The quietest of the ten."]],
+    ["To'lqin", ["SVG shovqini naqshni suv yuzasidek qimirlatadi.",
+               "SVG-шум колышет узор, как поверхность воды.",
+               "SVG turbulence moves the pattern like the surface of water."]],
+    ["Chuqurlik", ["Uch qatlam turli qadam va tezlikda — ravoq chuqur ko'rinadi.",
+               "Три слоя с разным шагом и скоростью — арка кажется глубокой.",
+               "Three pitches at three speeds — the niche reads as deep."]],
+    ["Yorug'lik", ["Naqsh qimirlamaydi; ustidan yorug'lik tasmasi o'tadi.",
+               "Узор неподвижен; по нему проходит полоса света.",
+               "The pattern is still; a band of light crosses it."]],
+    ["Kaleydoskop", ["To'rt oynali bo'lak qarama-qarshi aylanadi.",
+               "Четыре зеркальных сектора вращаются навстречу.",
+               "Four mirrored segments turning against each other."]],
+    ["Suv tagi", ["Yorug'lik naqsh ichida sayoz suv tubidek yuradi.",
+               "Свет ходит по узору, как по дну мелкой воды.",
+               "Light travels through the pattern as on a pool floor."]],
+    ["Parda", ["Faqat pastga suriladi — mato kabi, harakat sezilmaydi.",
+               "Только вниз — как ткань, движение почти незаметно.",
+               "Downward only — like cloth; the motion barely registers."]]
+  ];
+
+  document.getElementById("grid").innerHTML = OPTS.map(function(o,i){
+    return '<div class="cell">' +
+      '<div class="arch a' + (i+1) + '"><span></span><span></span><span></span></div>' +
+      '<h2><i>' + String(i+1).padStart(2,"0") + '</i>' + o[0] + '</h2>' +
+      '<p>' + o[1][li] + '</p>' +
+    '</div>';
+  }).join("");
+})();
+</script>
+</body>
+</html>
