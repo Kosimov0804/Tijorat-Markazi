@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI — tahlilchi paneli: bozor, moliya va mehnat bozori bo'yicha agregat ko'rsatkichlar, segmentlar va eksport." />
+  <title>Tahlil paneli — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+</head>
+<body class="mk" data-market="moliya">
+
+  <!-- ===== LOGIN ===== -->
+  <section class="admin-login" id="anLogin">
+    <form class="an-login-card" id="anForm">
+      <span class="eyebrow" data-i18n="an_eyebrow">TAHLIL PANELI</span>
+      <h1 id="anLgTitle">Tahlilchi paneli</h1>
+      <p class="co-sub" id="anLgSub">Login va parol bilan kiring — hisob administrator tomonidan beriladi.</p>
+      <input id="anLogin1" placeholder="Login" autocomplete="username" required />
+      <input id="anPass" type="password" placeholder="Parol" autocomplete="current-password" required />
+      <button class="btn btn-primary" type="submit" id="anLgBtn">Kirish →</button>
+      <p class="an-err" id="anErr"></p>
+      <a class="an-back" href="index.html" id="anBackSite">← Saytga qaytish</a>
+    </form>
+  </section>
+
+  <!-- ===== SHELL ===== -->
+  <div class="admin-shell" id="anShell" hidden>
+    <aside class="admin-side">
+      <div class="admin-brand">
+        <div><b>TIJORAT MARKAZI</b><span id="anBrandSub">Tahlil</span></div>
+      </div>
+      <nav class="admin-nav" id="anNav"></nav>
+      <a class="admin-back" href="index.html" id="anBack">← Saytga qaytish</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1 id="anViewTitle">Umumiy ko'rinish</h1>
+        <div class="an-period" id="anPeriod" style="margin-left:auto"></div>
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button">UZ</button>
+        <button class="btn btn-ghost" id="anOut" type="button">Chiqish</button>
+      </div>
+
+      <section class="admin-view" id="view-overview"></section>
+      <section class="admin-view" id="view-segments"></section>
+      <section class="admin-view" id="view-trends"></section>
+      <section class="admin-view" id="view-reports"></section>
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="auth.js"></script>
+  <script src="tahlil.js"></script>
+  <script src="cabinet-nav.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+</body>
+</html>

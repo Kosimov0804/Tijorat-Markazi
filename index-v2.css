@@ -1,0 +1,179 @@
+/* ============================================================
+   TIJORAT MARKAZI — redesign layer (prototype)
+
+   Loaded AFTER styles.css on index-v2.html only. Nothing here is
+   a new visual language: the arch, the naqsh, the gold rule, the
+   serif/Inter pairing all stay. What changes is discipline, and it
+   comes from four things the audit measured on the live page:
+
+     21 distinct size/weight/family combinations   -> a 7-step scale
+     section padding 0 / 40 / 76 / 92 / 110        -> one rhythm
+     9 corner radii                                -> the arch family
+     the skyline painting behind headings          -> a quiet ground
+
+   The last one is the real culprit. "Uyushmalar katalogi" was being
+   read on top of domes and arches; no amount of type refinement
+   rescues a heading sitting on an illustration. The monument stays —
+   it is the platform's signature — but it moves behind a scrim and
+   out of the reading band.
+   ============================================================ */
+
+:root{
+  /* ---- one type scale, seven steps, each a clear jump from the last ---- */
+  --t-display:clamp(40px,5.2vw,64px);   /* the one hero line            */
+  --t-h1:clamp(30px,3.4vw,42px);        /* section headings             */
+  --t-h2:22px;                          /* card and block titles        */
+  --t-lead:17px;                        /* the sentence under a heading */
+  --t-body:15px;                        /* everything read in sequence  */
+  --t-small:13px;                       /* captions, meta, helper text  */
+  --t-label:11.5px;                     /* uppercase eyebrows only      */
+
+  /* ---- one spacing rhythm; sections may only use these ---- */
+  --s-1:8px; --s-2:16px; --s-3:24px; --s-4:40px; --s-5:64px;
+  --s-section:clamp(72px,7vw,112px);
+
+  /* ---- radii: the arch family, plus the pill. Nothing else. ---- */
+  --r-lg:var(--arch-sm);                /* 44px 44px 9px 9px */
+  --r-md:14px;
+  --r-sm:10px;
+}
+
+/* ============================================================
+   1 · THE DECORATION STEPS BACK
+   ============================================================ */
+
+/* The skyline was full-strength behind live text. It keeps its place
+   as the page's ground but loses the contest with the words: lower
+   opacity, and a mask so it fades out through the band where content
+   actually sits rather than running up behind a heading. */
+.skyline{
+  opacity:.42;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 46%,#000 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 46%,#000 100%);
+}
+[data-theme="dark"] .skyline{opacity:.5}
+
+/* A heading that sits over the monument gets its own clear ground so
+   the words never compete with a dome behind them. */
+.section-head{position:relative;z-index:1}
+.section-head::before{
+  content:"";position:absolute;z-index:-1;
+  inset:-28px -40px -20px;
+  background:radial-gradient(60% 70% at 50% 45%,var(--bg) 55%,transparent 100%);
+}
+
+/* the faint grid was a third layer running at the same time */
+.bg-grid{opacity:.55}
+
+/* ---- the glass skyline ----
+   The chosen direction is glass, and glass cannot go through the platform's
+   original monument pipeline: desaturate, posterise to five steps, duotone —
+   precisely what destroys translucency and inner glow. That pipeline is off
+   for this plate in styles.css and the material carries its own colour.
+
+   One plate serves both themes, inverted for light. Only the mask is set here:
+   this page runs a taller hero, so the fade has to start higher than the
+   shared default. Blend, filter and opacity are deliberately NOT restated —
+   they are a matched set (see styles.css), and overriding one without the
+   others is what put a bleached band across the page last time. */
+.mon-photo{
+  background-position:center bottom;
+  -webkit-mask-image:linear-gradient(180deg,transparent 2%,#000 44%,#000);
+          mask-image:linear-gradient(180deg,transparent 2%,#000 44%,#000);
+}
+[data-theme="dark"] .mon-photo{
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%,#000);
+          mask-image:linear-gradient(180deg,transparent 0,#000 38%,#000);
+}
+
+/* The drawn skyline was the fallback for when no photograph existed. There is
+   one now, and running both puts two skylines on top of each other. */
+.skyline .sky-svg,.skyline svg{display:none}
+
+
+
+/* ============================================================
+   2 · TYPE — the 21 combinations collapse onto the scale
+   ============================================================ */
+body{font-size:var(--t-body);line-height:1.65}
+
+.hero h1{font-size:var(--t-display);line-height:1.02;letter-spacing:-.03em}
+.hero .lead{font-size:var(--t-lead);line-height:1.6;max-width:54ch;color:var(--text)}
+
+.section-head h2,.cta-card h2{font-size:var(--t-h1);line-height:1.08;letter-spacing:-.025em}
+.section-head p{font-size:var(--t-lead);color:var(--muted);max-width:56ch;margin-inline:auto}
+
+h3,h4,.center-card h3,.dir-body b{font-size:var(--t-h2);line-height:1.25;letter-spacing:-.015em}
+
+/* every eyebrow is one size and one treatment, not four */
+.pill,.eyebrow,.section-head .pill{
+  font-size:var(--t-label);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+}
+
+/* the small tier had five near-identical steps (14.5/14/13.5/13/12.5);
+   they collapse onto two so the hierarchy is actually visible */
+.dir-body em,.dir-count,.co-sub,.empty-note,.hero-stats span,
+.center-card p,.foot-col a,.footer-brand p{font-size:var(--t-small)}
+.btn,.btn-lg,.block-tab,.nav a,.nav-gbtn{font-size:14px}
+
+/* ============================================================
+   3 · RHYTHM — one vertical scale
+   ============================================================ */
+.section{padding-block:var(--s-section)}
+.hero{padding-block:calc(var(--s-section) * .9) var(--s-section)}
+.section-head{margin-bottom:var(--s-5)}
+.section-head h2{margin-bottom:var(--s-2)}
+
+/* ============================================================
+   4 · SURFACES — fewer radii, quieter shadows, one border language
+   ============================================================ */
+.center-card,.dir-card,.cta-band,.panel,.future-card,.value-card{
+  border-radius:var(--r-lg);
+}
+.hero-stats > *,.block-tab,.search-wrap{border-radius:var(--r-md)}
+.btn,.btn-lg,.pill{border-radius:var(--radius-pill)}
+
+/* A card should read as paper, not as a glowing tile. One hairline,
+   one restrained shadow, and the gold reserved for the top edge. */
+.center-card,.dir-card,.future-card,.value-card{
+  box-shadow:0 1px 2px rgba(26,35,51,.05);
+  transition:border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.center-card:hover,.dir-card:hover,.future-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 34px -22px rgba(26,35,51,.30);
+}
+
+/* ---- the statistics row carried no hierarchy: four equal grey boxes.
+        The number is the point, so it gets the scale and the ground. ---- */
+.hero-stats{gap:var(--s-2)}
+.hero-stats > *{
+  background:var(--card);border:1px solid var(--line);
+  border-top:3px solid var(--gold-soft);
+  padding:var(--s-3) var(--s-3) calc(var(--s-3) - 4px);
+}
+.hero-stats b,.hero-stats strong{
+  font-size:34px;font-weight:700;line-height:1;color:var(--ink);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;display:block;
+}
+.hero-stats span{
+  display:block;margin-top:6px;color:var(--muted);
+  font-size:var(--t-label);font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+}
+
+/* ============================================================
+   5 · THE HERO reads as an institution, not a campaign
+   ============================================================ */
+/* The wordmark was set in gold at 60px — the loudest thing on the page
+   was the platform congratulating itself. Ink carries more authority;
+   the gold moves to the one word that names what this is. */
+.hero h1{color:var(--ink)}
+.hero h1 .grad{color:var(--gold);background:none;-webkit-text-fill-color:currentColor}
+
+.hero-cta{gap:var(--s-2);margin-top:var(--s-4)}
+.btn-lg{padding:14px 26px}
+
+@media (prefers-reduced-motion:reduce){
+  .center-card,.dir-card,.future-card{transition:none}
+  .center-card:hover,.dir-card:hover,.future-card:hover{transform:none}
+}

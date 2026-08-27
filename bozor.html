@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BOZOR — O'zbekistonning yagona raqamli B2B, B2G va eksport savdo maydoni. Bitta mahsulot kartasi — uchta savdo kanali." />
+  <title>Bozor — B2B · B2G · Export — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body class="mk" data-market="bozor">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group is-active">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" class="active" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_services">Xizmatlar</button>
+          <div class="nav-menu">
+            <a href="xizmatlar.html" data-i18n="nav_svc_members">A'zo korxonalar</a>
+            <a href="davlat-xizmatlari.html" data-i18n="nav_gov_services">Davlat xizmatlari</a>
+            <a href="biznes-id.html" data-i18n="nav_bizid">Business ID</a>
+          </div>
+        </div>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" data-i18n="d_home">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="mk-hero">
+      <div class="container mk-hero-inner">
+        <div>
+          <div class="mk-index" aria-hidden="true">01</div>
+          <span class="eyebrow" data-i18n="bz_eyebrow">B2B · B2G · EXPORT</span>
+          <h1 data-i18n-html="bz_h1">Milliy <span class="mk-hl">savdo maydoni</span></h1>
+          <p class="lead" data-i18n="bz_lead">Mahsulotni bir marta kiriting — platforma uni mahalliy biznesga, davlat va korporativ xaridorlarga hamda eksport bozorlariga olib chiqadi.</p>
+        </div>
+        <div class="mk-hero-side">
+          <div class="mk-pulse" id="bzPulse" aria-live="polite"></div>
+          <a class="btn btn-primary" href="#bzTabs" data-i18n="bz_cta">Katalogni ochish →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <!-- ===== TABS ===== -->
+        <div class="mk-tabs" id="bzTabs" role="tablist">
+          <button class="mk-tab is-on" type="button" data-tab="catalog" data-i18n="bz_tab_catalog">Katalog</button>
+          <button class="mk-tab" type="button" data-tab="rfq" data-i18n="bz_tab_rfq">RFQ birjasi</button>
+          <button class="mk-tab" type="button" data-tab="seller" data-i18n="bz_tab_seller">Sotuvchi kabineti</button>
+          <button class="mk-tab" type="button" data-tab="intel" data-i18n="bz_tab_intel">Bozor analitikasi</button>
+        </div>
+
+        <!-- ===== CATALOG ===== -->
+        <div data-panel="catalog">
+          <div class="mk-row" style="margin-bottom:14px">
+            <div class="mk-seg" id="bzChannel">
+              <button type="button" data-value="" class="is-on" data-i18n="bz_ch_all">Barchasi</button>
+              <button type="button" data-value="b2b">B2B</button>
+              <button type="button" data-value="b2g">B2G</button>
+              <button type="button" data-value="export" data-i18n="bz_ch_export">Eksport</button>
+            </div>
+          </div>
+          <div class="mk-filter">
+            <input type="search" id="bzQ" data-i18n-ph="bz_search" placeholder="Mahsulot, kategoriya yoki xususiyat…" autocomplete="off" />
+            <select id="bzSector"><option value="" data-i18n="bz_all_sectors">Barcha sohalar</option></select>
+            <select id="bzCategory"><option value="" data-i18n="bz_all_cats">Barcha kategoriyalar</option></select>
+            <select id="bzRegion"><option value="" data-i18n="bz_all_regions">Barcha hududlar</option></select>
+            <label class="mk-chip is-ghost" style="cursor:pointer"><input type="checkbox" id="bzCert" style="accent-color:var(--mk)" /> <span data-i18n="bz_only_cert">Sertifikatli</span></label>
+            <label class="mk-chip is-ghost" style="cursor:pointer"><input type="checkbox" id="bzLocal" style="accent-color:var(--mk)" /> <span data-i18n="bz_only_local">Made in Uzbekistan</span></label>
+            <span class="mk-count" id="bzCount"></span>
+          </div>
+          <div class="mk-grid" id="bzGrid"></div>
+        </div>
+
+        <!-- ===== RFQ EXCHANGE ===== -->
+        <div data-panel="rfq" hidden>
+          <p class="mk-sub" data-i18n="bz_rfq_sub">Talabni e'lon qiling — platforma mos yetkazib beruvchilarni izohli moslik bali bilan topadi va ular sizga taklif yuboradi.</p>
+          <div class="mk-split">
+            <div class="mk-stack">
+              <div class="mk-row">
+                <div class="mk-seg" id="bzRfqChannel">
+                  <button type="button" data-value="" class="is-on" data-i18n="bz_ch_all">Barchasi</button>
+                  <button type="button" data-value="b2b">B2B</button>
+                  <button type="button" data-value="b2g">B2G</button>
+                  <button type="button" data-value="export" data-i18n="bz_ch_export">Eksport</button>
+                </div>
+                <span class="mk-count" id="bzRfqCount"></span>
+              </div>
+              <div class="mk-grid" id="bzRfqGrid"></div>
+            </div>
+
+            <aside class="mk-stack">
+              <form class="mk-card" id="bzRfqForm" style="gap:14px">
+                <h3 data-i18n="bz_rfq_new">Yangi RFQ yaratish</h3>
+                <div class="mk-form">
+                  <div class="mk-f wide"><label data-i18n="bz_f_title">Nomi</label><input id="rqTitle" required /></div>
+                  <div class="mk-f wide"><label data-i18n="bz_f_spec">Texnik talab</label><textarea id="rqSpec"></textarea></div>
+                  <div class="mk-f"><label data-i18n="bz_f_channel">Kanal</label>
+                    <select id="rqChannel"><option value="b2b">B2B</option><option value="b2g">B2G</option><option value="export">Export</option></select></div>
+                  <div class="mk-f"><label data-i18n="bz_f_category">Kategoriya</label><input id="rqCategory" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_qty">Miqdor</label><input id="rqQty" type="number" min="0" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_unit">Birlik</label><input id="rqUnit" placeholder="kg / dona / tonna" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_budget">Byudjet</label><input id="rqBudget" type="number" min="0" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_currency">Valyuta</label>
+                    <select id="rqCurrency"><option>UZS</option><option>USD</option><option>EUR</option><option>RUB</option><option>CNY</option></select></div>
+                  <div class="mk-f"><label data-i18n="bz_f_region">Hudud</label><input id="rqRegion" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_country">Mamlakat (eksport)</label><input id="rqCountry" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_maxlead">Maks. muddat (kun)</label><input id="rqMaxLead" type="number" min="0" /></div>
+                  <div class="mk-f"><label data-i18n="bz_f_incoterm">Incoterm</label><input id="rqIncoterm" placeholder="FOB / CIF / EXW" /></div>
+                  <div class="mk-f wide"><label data-i18n="bz_f_certs">Talab qilinadigan sertifikatlar</label><input id="rqCerts" placeholder="ISO 22000, Halal" /></div>
+                  <div class="mk-f wide"><label data-i18n="bz_f_contact">Aloqa</label><input id="rqContact" /></div>
+                </div>
+                <div class="mk-actions">
+                  <button class="btn btn-primary" type="submit" data-i18n="bz_rfq_send">RFQ yuborish</button>
+                </div>
+                <p class="mk-msg" id="bzRfqMsg" hidden></p>
+              </form>
+              <div id="bzRfqMatches"></div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- ===== SELLER CENTER ===== -->
+        <div data-panel="seller" hidden>
+          <div class="mk-id" id="bzId"></div>
+          <div id="bzSeller"></div>
+        </div>
+
+        <!-- ===== INTELLIGENCE ===== -->
+        <div data-panel="intel" hidden>
+          <p class="mk-sub" data-i18n="bz_intel_sub">Ko'rsatkichlar platformadagi real qidiruv, RFQ, taklif va bitim hodisalaridan hisoblanadi — e'lonlar sonidan emas.</p>
+          <div id="bzIntel"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-bottom">
+      <a href="royxatdan-otish.html" data-i18n="nav_register">Ro’yxatdan o’tish</a>
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="market-kit.js"></script>
+  <script src="bozor.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI — xaridor sifatida ro'yxatdan o'ting. Ariza administrator tomonidan ko'rib chiqiladi va B2B xaridor kabineti ochiladi." />
+  <title>Xaridor ro'yxati — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body class="mk" data-market="bozor">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="mk-hero">
+      <div class="container mk-hero-inner">
+        <div>
+          <div class="mk-index" aria-hidden="true">00</div>
+          <span class="eyebrow" data-i18n="br_eyebrow">XARIDOR RO'YXATI</span>
+          <h1 data-i18n-html="br_h1">Xaridor sifatida <span class="mk-hl">ro'yxatdan o'ting</span></h1>
+          <p class="lead" data-i18n="br_lead">Arizani to'ldiring — platforma administratori uni ko'rib chiqadi. Tasdiqlangach xaridor kabineti ochiladi.</p>
+          <p class="rg-have">
+            <a class="btn btn-ghost" href="kirish.html" data-i18n="rg_have_account">Kabinetga kirish</a>
+          </p>
+        </div>
+        <div class="mk-hero-side">
+          <div class="rg-steps">
+            <div><b>1</b><span data-i18n="br_s1">Ariza topshirasiz</span></div>
+            <div><b>2</b><span data-i18n="br_s2">Administrator ko'rib chiqadi</span></div>
+            <div><b>3</b><span data-i18n="br_s3">Xaridor kabineti ochiladi</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container mk-split">
+        <!-- ===== APPLICATION ===== -->
+        <form class="rg-card" id="brForm" novalidate>
+          <h2 data-i18n="br_form_h">Xaridor arizasi</h2>
+
+          <h3 class="rg-legend" data-i18n="br_leg_company">Xaridor tashkilot</h3>
+          <div class="mk-form">
+            <div class="mk-f wide"><label for="brName" data-i18n="br_f_name">Kompaniya nomi *</label>
+              <input id="brName" required autocomplete="organization" /></div>
+            <div class="mk-f wide"><label for="brPhone" data-i18n="br_f_phone">Kompaniya telefon raqami *</label>
+              <input id="brPhone" type="tel" required autocomplete="tel"
+                     data-i18n-ph="br_ph_phone" placeholder="+998 71 200 00 00" />
+              <small data-i18n="br_hint_phone">Tashkilotning rasmiy raqami — mas'ul shaxsning shaxsiy raqami emas.</small></div>
+            <div class="mk-f"><label for="brRegion" data-i18n="rg_f_region">Hudud</label>
+              <input id="brRegion" /></div>
+            <div class="mk-f"><label for="brRole" data-i18n="rg_f_role">Lavozim</label>
+              <input id="brRole" /></div>
+            <div class="mk-f wide"><label for="brAbout" data-i18n="br_f_about">Nima sotib olasiz? Qisqacha yozing</label>
+              <textarea id="brAbout" rows="3"></textarea></div>
+          </div>
+
+          <h3 class="rg-legend" data-i18n="rg_leg_contact">Mas'ul shaxs</h3>
+          <div class="mk-form">
+            <div class="mk-f"><label for="brContact" data-i18n="rg_f_contact">F.I.Sh. *</label>
+              <input id="brContact" required autocomplete="name" /></div>
+            <div class="mk-f"><label for="brEmail" data-i18n="rg_f_email">Email *</label>
+              <input id="brEmail" type="email" required autocomplete="email" /></div>
+            <div class="mk-f wide"><label for="brCPhone" data-i18n="br_f_cphone">Mas'ul shaxs telefoni</label>
+              <input id="brCPhone" type="tel" autocomplete="tel" /></div>
+          </div>
+
+          <h3 class="rg-legend" data-i18n="rg_leg_login">Kirish ma'lumotlari</h3>
+          <p class="mk-note" data-i18n="rg_login_note">Bu login va parol bilan tasdiqlangandan keyin kabinetga kirasiz. Parolni hech kimga aytmang.</p>
+          <div class="mk-form">
+            <div class="mk-f"><label for="brLogin" data-i18n="rg_f_login">Login *</label>
+              <input id="brLogin" required autocomplete="username" spellcheck="false" />
+              <small id="brLoginHint" data-i18n="rg_login_hint">Kamida 3 belgi: kichik harflar, raqam, . _ -</small></div>
+            <div class="mk-f"><label for="brPass" data-i18n="rg_f_pass">Parol *</label>
+              <input id="brPass" type="password" required autocomplete="new-password" minlength="8" />
+              <small data-i18n="rg_pass_hint">Kamida 8 belgi.</small></div>
+            <div class="mk-f wide"><label for="brPass2" data-i18n="rg_f_pass2">Parolni takrorlang *</label>
+              <input id="brPass2" type="password" required autocomplete="new-password" /></div>
+          </div>
+
+          <label class="rg-consent">
+            <input type="checkbox" id="brConsent" required />
+            <span data-i18n-html="br_consent">Men <a href="oferta.html" target="_blank">Ommaviy oferta</a> va <a href="maxfiylik.html" target="_blank">Maxfiylik siyosati</a> bilan tanishdim va shaxsga doir ma'lumotlarim ko'rib chiqish uchun uzatilishiga roziman.</span>
+          </label>
+
+          <div class="mk-actions">
+            <button class="btn btn-primary btn-lg" type="submit" id="brSubmit" data-i18n="br_send">Arizani yuborish</button>
+          </div>
+          <p class="mk-msg" id="brMsg" hidden></p>
+        </form>
+
+        <!-- ===== SIDE: what you get · status check · seller route ===== -->
+        <aside class="mk-stack">
+          <div class="rg-card" id="brDone" hidden></div>
+
+          <div class="rg-card">
+            <h2 data-i18n="br_why_h">Kabinet nima beradi</h2>
+            <ul class="mk-checks">
+              <li data-i18n="br_why_1">B2B katalog — faqat biznesga sotiladigan mahsulotlar.</li>
+              <li data-i18n="br_why_2">Narx so'rovi — bitta so'rov, bir nechta taklif.</li>
+              <li data-i18n="br_why_3">Takliflarni yonma-yon taqqoslash.</li>
+              <li data-i18n="br_why_4">Buyurtma holatini bosqichma-bosqich kuzatish.</li>
+            </ul>
+          </div>
+
+          <form class="rg-card" id="brStatusForm">
+            <h2 data-i18n="rg_status_h">Ariza holatini tekshirish</h2>
+            <p class="mk-note" data-i18n="rg_status_p">Ariza raqamingiz va emailingizni kiriting.</p>
+            <div class="mk-form">
+              <div class="mk-f"><label for="brRef" data-i18n="rg_f_ref">Ariza raqami</label>
+                <input id="brRef" placeholder="TM-XXXX-XXXX" spellcheck="false" /></div>
+              <div class="mk-f"><label for="brStEmail" data-i18n="rg_f_email">Email</label>
+                <input id="brStEmail" type="email" /></div>
+            </div>
+            <div class="mk-actions">
+              <button class="btn btn-ghost" type="submit" data-i18n="rg_status_btn">Tekshirish</button>
+            </div>
+            <div id="brStatusOut"></div>
+          </form>
+
+          <div class="rg-card">
+            <h2 data-i18n="br_seller_q">Mahsulot sotmoqchimisiz?</h2>
+            <p class="mk-note"><a href="royxatdan-otish.html" data-i18n="br_seller_go">Korxona sifatida ro'yxatdan o'tish →</a></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-bottom">
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="market-kit.js"></script>
+  <script src="xaridor-royxat.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="legal-text-oferta.js"></script>
+  <script src="legal-text-maxfiylik.js"></script>
+  <script src="legal-render.js"></script>
+  <script src="legal-gate.js"></script>
+  <script src="legal-footer.js"></script>
+  <script>LegalGate.guard("#brForm", "#brConsent");</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI Business ID — har bir uyushma va korxonaning rasmiy raqami, vizit kartasi va QR kodi. Raqamning haqiqiyligini shu yerda tekshiring." />
+  <title>Business ID — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+  <link rel="stylesheet" href="legal.css" />
+  <link rel="stylesheet" href="biznes-id.css" />
+</head>
+<body class="mk" data-market="bozor">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_services">Xizmatlar</button>
+          <div class="nav-menu">
+            <a href="xizmatlar.html" data-i18n="nav_svc_members">A'zo korxonalar</a>
+            <a href="davlat-xizmatlari.html" data-i18n="nav_gov_services">Davlat xizmatlari</a>
+            <a href="biznes-id.html" class="active" data-i18n="nav_bizid">Business ID</a>
+          </div>
+        </div>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" data-i18n="d_home">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div id="bidRoot"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><strong>TIJORAT MARKAZI</strong></div>
+    </div>
+  </footer>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-bottom">
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="market-kit.js"></script>
+  <script src="biznes-id.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

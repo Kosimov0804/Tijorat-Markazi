@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MOLIYA BOZORI — Capital OS: bank va nobank mahsulotlari, teskari moliya auksioni, investor matching, loyiha generatsiyasi, g'oyalar birjasi." />
+  <title>Moliya bozori — Capital OS — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body class="mk" data-market="moliya">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group is-active">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" class="active" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_services">Xizmatlar</button>
+          <div class="nav-menu">
+            <a href="xizmatlar.html" data-i18n="nav_svc_members">A'zo korxonalar</a>
+            <a href="davlat-xizmatlari.html" data-i18n="nav_gov_services">Davlat xizmatlari</a>
+            <a href="biznes-id.html" data-i18n="nav_bizid">Business ID</a>
+          </div>
+        </div>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" data-i18n="d_home">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="mk-hero">
+      <div class="container mk-hero-inner">
+        <div>
+          <div class="mk-index" aria-hidden="true">02</div>
+          <span class="eyebrow" data-i18n="ml_eyebrow">CAPITAL OS</span>
+          <h1 data-i18n-html="ml_h1">Kapitalga <span class="mk-hl">yagona oyna</span></h1>
+          <p class="lead" data-i18n="ml_lead">Bank, nobank, islom moliyasi va investorlarni bitta bozorda. Loyihani investor ko'radigan darajaga keltiring, moliya tashkilotlari esa siz uchun raqobat qilsin.</p>
+        </div>
+        <div class="mk-hero-side">
+          <div class="mk-pulse" id="mlPulse" aria-live="polite"></div>
+          <a class="btn btn-primary" href="#mlTabs" data-i18n="ml_cta">Moliya topish →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="mk-tabs" id="mlTabs" role="tablist">
+          <button class="mk-tab is-on" type="button" data-tab="market" data-i18n="ml_tab_market">Moliya mahsulotlari</button>
+          <button class="mk-tab" type="button" data-tab="auction" data-i18n="ml_tab_auction">Teskari auksion</button>
+          <button class="mk-tab" type="button" data-tab="capital" data-i18n="ml_tab_capital">Kapital bozori</button>
+          <button class="mk-tab" type="button" data-tab="cabinet" data-i18n="ml_tab_cabinet">Kabinet</button>
+          <button class="mk-tab" type="button" data-tab="intel" data-i18n="ml_tab_intel">Capital Intelligence</button>
+        </div>
+
+        <!-- ===== MARKET ===== -->
+        <div data-panel="market">
+          <div class="mk-ai" style="margin-bottom:var(--mk-gap)">
+            <h3 data-i18n="ml_finder">Smart Finance Finder</h3>
+            <p style="font-size:13.5px;color:var(--text)" data-i18n="ml_finder_hint">Ehtiyojingizni oddiy tilda yozing — AI uni tuzilgan so'rovga aylantirib, mos mahsulotlarni filtrlaydi.</p>
+            <div class="mk-row">
+              <input type="text" id="mlNl" style="flex:1 1 320px;padding:10px 13px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--card);color:var(--ink);font:inherit"
+                data-i18n-ph="ml_finder_ph" placeholder="Menga 12 oyga 2 mlrd so'm aylanma mablag' kerak" />
+              <button class="btn btn-primary" type="button" id="mlNlGo" data-i18n="ml_finder_go">Tahlil qilish</button>
+            </div>
+            <div id="mlNlOut"></div>
+          </div>
+
+          <div class="mk-row" style="margin-bottom:14px">
+            <div class="mk-seg" id="mlCategory">
+              <button type="button" data-value="" class="is-on" data-i18n="ml_cat_all">Barchasi</button>
+              <button type="button" data-value="banking" data-i18n="ml_cat_banking">Bank</button>
+              <button type="button" data-value="nobank" data-i18n="ml_cat_nobank">Nobank</button>
+              <button type="button" data-value="islamic" data-i18n="ml_cat_islamic">Islom moliyasi</button>
+              <button type="button" data-value="equity" data-i18n="ml_cat_equity">Equity</button>
+              <button type="button" data-value="insurance" data-i18n="ml_cat_insurance">Sug'urta</button>
+              <button type="button" data-value="development" data-i18n="ml_cat_dev">Development</button>
+            </div>
+          </div>
+          <div class="mk-filter">
+            <input type="search" id="mlQ" data-i18n-ph="ml_search" placeholder="Mahsulot, instrument yoki shart…" autocomplete="off" />
+            <input type="number" id="mlAmount" data-i18n-ph="ml_amount" placeholder="Summa" min="0" />
+            <input type="number" id="mlTenor" data-i18n-ph="ml_tenor" placeholder="Muddat (oy)" min="0" />
+            <select id="mlCurrency"><option value="" data-i18n="ml_all_cur">Barcha valyutalar</option><option>UZS</option><option>USD</option><option>EUR</option><option>RUB</option></select>
+            <label class="mk-chip is-ghost" style="cursor:pointer"><input type="checkbox" id="mlSharia" style="accent-color:var(--mk)" /> <span data-i18n="ml_only_sharia">Shariatga mos</span></label>
+            <span class="mk-count" id="mlCount"></span>
+          </div>
+          <div class="mk-grid" id="mlGrid"></div>
+          <p class="mk-note" id="mlDisclaimer" style="margin-top:var(--mk-gap)"></p>
+        </div>
+
+        <!-- ===== REVERSE AUCTION ===== -->
+        <div data-panel="auction" hidden>
+          <p class="mk-sub" data-i18n="ml_auction_sub">Standart Funding Request yarating — mos moliya tashkilotlari sizga indikativ taklif yuboradi. Barcha takliflar bir xil metodologiyada, all-in xarajat bo'yicha taqqoslanadi.</p>
+          <div class="mk-split">
+            <div class="mk-stack">
+              <div class="mk-row"><span class="mk-count" id="mlReqCount"></span></div>
+              <div class="mk-grid" id="mlReqGrid"></div>
+            </div>
+            <aside class="mk-stack" id="request">
+              <form class="mk-card" id="mlReqForm" style="gap:14px">
+                <h3 data-i18n="ml_req_new">Funding Request</h3>
+                <div class="mk-form">
+                  <div class="mk-f"><label data-i18n="ml_f_amount">Summa</label><input id="frAmount" type="number" min="0" required /></div>
+                  <div class="mk-f"><label data-i18n="ml_f_currency">Valyuta</label>
+                    <select id="frCurrency"><option>UZS</option><option>USD</option><option>EUR</option><option>RUB</option></select></div>
+                  <div class="mk-f"><label data-i18n="ml_f_tenor">Muddat (oy)</label><input id="frTenor" type="number" min="0" /></div>
+                  <div class="mk-f"><label data-i18n="ml_f_category">Moliya turi</label>
+                    <select id="frCategory"><option value="" data-i18n="ml_cat_all">Barchasi</option></select></div>
+                  <div class="mk-f wide"><label data-i18n="ml_f_purpose">Maqsad</label><textarea id="frPurpose"></textarea></div>
+                  <div class="mk-f"><label data-i18n="ml_f_sector">Sektor</label><input id="frSector" /></div>
+                  <div class="mk-f"><label data-i18n="ml_f_region">Hudud</label><input id="frRegion" /></div>
+                  <div class="mk-f"><label data-i18n="ml_f_revenue">Yillik tushum</label><input id="frRevenue" type="number" min="0" /></div>
+                  <div class="mk-f wide"><label data-i18n="ml_f_collateral">Ta'minot</label><input id="frCollateral" /></div>
+                  <div class="mk-f wide"><div class="mk-checks">
+                    <label><input type="checkbox" id="frSharia" /> <span data-i18n="ml_only_sharia">Shariatga mos</span></label>
+                    <label><input type="checkbox" id="frAnon" checked /> <span data-i18n="ml_anon">Anonim (blind auction)</span></label>
+                  </div></div>
+                  <div class="mk-f wide"><label data-i18n="ml_f_contact">Aloqa</label><input id="frContact" /></div>
+                </div>
+                <div class="mk-actions"><button class="btn btn-primary" type="submit" data-i18n="ml_req_send">So'rov yuborish</button></div>
+                <p class="mk-msg" id="mlReqMsg" hidden></p>
+              </form>
+              <div id="mlReqMatches"></div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- ===== CAPITAL MARKET ===== -->
+        <div data-panel="capital" hidden>
+          <div class="mk-row" style="margin-bottom:14px">
+            <div class="mk-seg" id="mlCapSeg">
+              <button type="button" data-value="projects" class="is-on" data-i18n="ml_cap_projects">Loyihalar (PGO)</button>
+              <button type="button" data-value="startups" data-i18n="ml_cap_startups">Startaplar</button>
+              <button type="button" data-value="investors" data-i18n="ml_cap_investors">Investorlar</button>
+              <button type="button" data-value="ideas" data-i18n="ml_cap_ideas">G'oyalar birjasi</button>
+            </div>
+            <span class="mk-count" id="mlCapCount"></span>
+          </div>
+          <div class="mk-grid" id="mlCapGrid"></div>
+          <div class="mk-box w12" style="margin-top:var(--mk-gap)" id="mlCapForm"></div>
+        </div>
+
+        <!-- ===== CABINET ===== -->
+        <div data-panel="cabinet" hidden>
+          <div class="mk-id" id="mlId"></div>
+          <div id="mlCabinet"></div>
+        </div>
+
+        <!-- ===== INTELLIGENCE ===== -->
+        <div data-panel="intel" hidden>
+          <p class="mk-sub" data-i18n="ml_intel_sub">Kapital talabi va taklifi bo'yicha agregat ko'rsatkichlar. Alohida kompaniya yoki investorning maxfiy shartlari ko'rsatilmaydi.</p>
+          <div id="mlIntel"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-bottom">
+      <a href="royxatdan-otish.html" data-i18n="nav_register">Ro’yxatdan o’tish</a>
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="market-kit.js"></script>
+  <script src="moliya-forms.js"></script>
+  <script src="moliya.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

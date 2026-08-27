@@ -43,6 +43,21 @@ const AT = {
   nav_assoc:["Uyushmalar","Ассоциации","Associations"],
   nav_members:["A'zo kompaniyalar","Компании-члены","Member companies"],
   nav_conf:["Konferensiya","Конференция","Conference"],
+  nav_appeals:["Hukumatga murojaat","Обращения в правительство","Government appeals"],
+  ap_intro:["Uyushmalar qo'llab-quvvatlagan murojaatlar shu yerga keladi. Davlat organiga yuboring va javobni belgilang.","Поддержанные ассоциациями обращения приходят сюда. Отправьте в госорган и отметьте ответ.","Appeals supported by associations arrive here. Send them to the agency and record the answer."],
+  ap_empty:["Hozircha murojaat yo'q.","Обращений пока нет.","No appeals yet."],
+  ap_all:["Barchasi","Все","All"],
+  ap_send:["Davlat organiga yuborildi","Отправлено в госорган","Sent to the agency"],
+  ap_answer:["Javob olindi","Получен ответ","Answer received"],
+  ap_reject:["Rad etish","Отклонить","Reject"],
+  ap_note:["Izoh (ixtiyoriy)","Комментарий (необязательно)","Note (optional)"],
+  ap_doc:["📄 Word","📄 Word","📄 Word"],
+  ap_company:["Kompaniya","Компания","Company"],
+  ap_s_new:["Uyushmada","В ассоциации","With the association"],
+  ap_s_assoc:["Qo'llab-quvvatlandi — yuborish kerak","Поддержано — нужно отправить","Supported — needs sending"],
+  ap_s_sent:["Davlat organiga yuborildi","Отправлено в госорган","Sent to the agency"],
+  ap_s_answered:["Javob olindi","Получен ответ","Answer received"],
+  ap_s_rejected:["Rad etildi","Отклонено","Rejected"],
   nav_projects:["Startup loyihalar","Стартап-проекты","Startup projects"],
   nav_chat:["Loyiha chat","Чат по проектам","Project chat"],
   pr_intro:["Barcha kompaniyalarning investitsiya/startup loyihalari.","Инвест/стартап-проекты всех компаний.","Investment/startup projects of all companies."],
@@ -63,6 +78,25 @@ const AT = {
   as_count:["Kompaniyalar","Компаний","Companies"],
   as_login:["Login","Логин","Login"],
   as_pass:["Parol","Пароль","Password"],
+  nav_dsr:["Ma'lumot murojaatlari","Обращения по данным","Data requests"],
+  dsr_intro:["ZRU-547 22-moddasi har bir murojaatga asoslantirilgan javob berishni va uni belgilangan muddatda yuborishni talab qiladi. Muddati o'tgan murojaat qizil bilan belgilanadi.","Статья 22 ЗРУ-547 требует мотивированного ответа на каждое обращение в установленный срок. Просроченные выделены красным.","Article 22 ZRU-547 requires a reasoned answer to every request within the stated deadline. Overdue ones are marked in red."],
+  dsr_none:["Murojaatlar yo'q.","Обращений нет.","No requests."],
+  dsr_overdue:["MUDDATI O'TGAN","ПРОСРОЧЕНО","OVERDUE"],
+  dsr_c_ref:["№","№","Ref"],
+  dsr_c_who:["Kim","Кто","Subject"],
+  dsr_c_kind:["Turi","Тип","Kind"],
+  dsr_c_filed:["Yuborilgan","Подано","Filed"],
+  dsr_c_due:["Muddat","Срок","Due"],
+  dsr_c_status:["Holati","Статус","Status"],
+  dsr_ans_ph:["Asoslantirilgan javob: qaysi ma'lumot o'chirildi, qaysi biri qanday qonun talabi bo'yicha saqlandi…","Мотивированный ответ: какие данные удалены, какие сохранены и на основании какой нормы…","Reasoned answer: which data was erased, which was retained and under which rule…"],
+  dsr_send:["Javob yuborish","Отправить ответ","Send answer"],
+  dsr_refuse:["Rad etish (sabab bilan)","Отказать (с обоснованием)","Refuse (with reason)"],
+  dsr_need_ans:["Javob matnini kiriting — sababsiz rad etish qonunga zid.","Введите текст ответа — отказ без обоснования противоречит закону.","Enter the answer text — refusing without reasons is unlawful."],
+  /* Passwords are stored as scrypt hashes (srv/passwords.js), so these fields
+     can only ever WRITE. Left blank they change nothing. */
+  pw_new:["Yangi parol","Новый пароль","New password"],
+  pw_blank:["bo'sh = o'zgarmaydi","пусто = без изменений","blank = unchanged"],
+  pw_hidden:["— ko'rsatilmaydi —","— не показывается —","— not shown —"],
   as_panel:["Panel havolasi","Ссылка на панель","Panel link"],
   rais_title:["Rais (bosh nazorat)","Раис (главный контроль)","Rais (top oversight)"],
   rais_hint:["Rais barcha uyushmalarni va ularning mahsulotlarini ko'radi.","Раис видит все ассоциации и их продукты.","The rais sees all associations and their products."],
@@ -97,7 +131,49 @@ const AT = {
   mb_addname:["Kompaniya nomi","Название компании","Company name"],
   mb_login_taken:["Bu login band","Этот логин занят","This login is taken"],
   mb_need:["Login va parol kiriting","Введите логин и пароль","Enter login and password"],
+  an_title:["Tahlilchi hisoblari","Учётные записи аналитиков","Analyst accounts"],
+  an_sub:["Tahlil paneliga kirish uchun hisob yarating. Panel faqat agregat ma'lumotni ko'rsatadi.","Создайте учётную запись для панели аналитики. Панель показывает только агрегаты.","Create an account for the analytics panel. It only ever shows aggregates."],
+  an_name:["Ism","Имя","Name"],
+  an_org:["Tashkilot","Организация","Organisation"],
+  an_login:["Login","Логин","Login"],
+  an_pass:["Parol","Пароль","Password"],
+  an_scopes:["Ruxsat berilgan bozorlar","Доступные рынки","Markets they may read"],
+  an_add:["+ Qo'shish","+ Добавить","+ Add"],
+  an_del:["O'chirish","Удалить","Delete"],
+  an_none:["Hali tahlilchi hisobi yo'q.","Учётных записей аналитиков пока нет.","No analyst accounts yet."],
+  an_open:["Panelni ochish →","Открыть панель →","Open the panel →"],
+  an_exists:["Bu login band.","Этот логин занят.","That login is taken."],
+  an_need:["Login va parolni kiriting.","Укажите логин и пароль.","Enter a login and a password."],
+  an_confirm:["Hisob o'chirilsinmi?","Удалить учётную запись?","Delete this account?"],
+  an_need_scope:["Kamida bitta bozorni tanlang.","Выберите хотя бы один рынок.","Choose at least one market."],
+  an_add_h:["Yangi hisob","Новая учётная запись","New account"],
+  nav_analysts:["Tahlilchilar","Аналитики","Analysts"],
+  nav_buyers:["Xaridorlar","Покупатели","Buyers"],
   nav_set:["Sozlamalar","Настройки","Settings"],
+
+  /* Buyer applications. Oversight is the ONLY approver for this tier — no
+     association vouches for a buyer — so this queue exists nowhere else. */
+  bq_title:["Xaridor arizalari","Заявки покупателей","Buyer applications"],
+  bq_sub:["Xaridor kabineti faqat shu yerdan ochiladi — uyushmalar bu arizalarni ko‘rmaydi.","Кабинет покупателя открывается только отсюда — ассоциации эти заявки не видят.","A buyer cabinet is opened only from here — associations never see these applications."],
+  bq_pending:["Kutilmoqda","В ожидании","Pending"],
+  bq_approved:["Tasdiqlangan","Одобрена","Approved"],
+  bq_rejected:["Rad etilgan","Отклонена","Rejected"],
+  bq_all:["Barchasi","Все","All"],
+  bq_empty:["Bu bo‘limda ariza yo‘q.","В этом разделе заявок нет.","No applications here."],
+  bq_approve:["Tasdiqlash","Одобрить","Approve"],
+  bq_reject:["Rad etish","Отклонить","Reject"],
+  bq_confirm:["Tasdiqlansinmi? Xaridor kabineti darhol ochiladi.","Одобрить? Кабинет покупателя откроется сразу.","Approve? The buyer cabinet opens immediately."],
+  bq_reason_q:["Rad etish sababi (ariza egasiga ko‘rinadi):","Причина отказа (её увидит заявитель):","Reason for rejection (the applicant will see it):"],
+  bq_reason:["Sabab","Причина","Reason"],
+  bq_fail:["Amalni bajarib bo‘lmadi.","Не удалось выполнить.","Could not complete that."],
+  bq_login:["Login","Логин","Login"],
+  bq_company:["Kompaniya","Компания","Company"],
+  bq_phone:["Kompaniya raqami","Телефон компании","Company number"],
+  bq_contact:["Mas‘ul shaxs","Ответственное лицо","Contact person"],
+  bq_cphone:["Mas‘ul telefoni","Телефон контакта","Contact phone"],
+  bq_region:["Hudud","Регион","Region"],
+  bq_sent:["Yuborilgan","Отправлена","Sent"],
+  bq_decided:["Qaror","Решение","Decided"],
   d_companies:["Kompaniyalar","Компании","Companies"],
   d_products:["Jami mahsulotlar","Всего товаров","Total products"],
   d_with:["Mahsuloti borlar","С товарами","With products"],
@@ -150,7 +226,29 @@ const AT = {
   conf_title:["Sarlavha","Заголовок","Title"],
   conf_title_ph:["Masalan: Investorlar bilan uchrashuv","Например: Встреча с инвесторами","E.g. Meeting with investors"],
   conf_dt:["Sana va vaqt","Дата и время","Date & time"],
-  conf_link:["Havola (Zoom / Meet / YouTube)","Ссылка (Zoom / Meet / YouTube)","Link (Zoom / Meet / YouTube)"],
+  conf_link:["Havola (ixtiyoriy)","Ссылка (необязательно)","Link (optional)"],
+  conf_link_hint:["Bo'sh qoldiring — Google Meet xonasi avtomatik yaratiladi. Yoki o'z havolangizni (Zoom / YouTube) kiriting.","Оставьте пустым — комната Google Meet создастся автоматически. Или укажите свою ссылку (Zoom / YouTube).","Leave it empty — a Google Meet room is created automatically. Or paste your own link (Zoom / YouTube)."],
+  conf_meet_auto:["Google Meet · avtomatik yaratilgan","Google Meet · создано автоматически","Google Meet · auto-created"],
+  conf_meet_manual:["Qo'lda kiritilgan","Указана вручную","Manual link"],
+  conf_meet_off:["Havolasiz — Google'ga kirilmagan","Без ссылки — вход в Google не выполнен","No link — not signed in to Google"],
+  conf_meet_err:["Meet yaratilmadi","Meet не создан","Meet not created"],
+  conf_meet_retry:["Meet yaratish","Создать Meet","Create Meet"],
+  conf_join:["Qo'shilish →","Присоединиться →","Join →"],
+  conf_meet_making:["Yaratilmoqda…","Создаётся…","Creating…"],
+  conf_meet_ready:["✓ Meet xonasi yaratildi","✓ Комната Meet создана","✓ Meet room created"],
+  /* google integration */
+  g_title:["Google Meet — avtomatik xona","Google Meet — автоматическая комната","Google Meet — automatic room"],
+  g_sub:["Bir marta Google'ga kiring. Shundan keyin har bir konferensiya uchun Meet xonasi o'zi yaratiladi — API ham, Cloud loyiha ham kerak emas.","Войдите в Google один раз. После этого комната Meet создаётся сама для каждой конференции — без API и облачного проекта.","Sign in to Google once. After that a Meet room is created by itself for every conference — no API, no Cloud project."],
+  g_login:["Google'ga kirish","Войти в Google","Sign in to Google"],
+  g_relogin:["Qayta kirish","Войти заново","Sign in again"],
+  g_check:["Tekshirish","Проверить","Check"],
+  g_disconnect:["Chiqish","Выйти","Sign out"],
+  g_on:["Kirilgan","Вход выполнен","Signed in"],
+  g_off:["Kirilmagan","Вход не выполнен","Not signed in"],
+  g_opening:["Brauzer oynasi ochildi — o'sha oynada Google'ga kiring, so'ng «Tekshirish» tugmasini bosing.","Открылось окно браузера — войдите в Google в нём, затем нажмите «Проверить».","A browser window opened — sign in to Google there, then press “Check”."],
+  g_working:["Bajarilmoqda…","Выполняется…","Working…"],
+  g_nochrome:["Chrome yoki playwright-core topilmadi. Loyiha papkasida bir marta «npm install» ni bajaring.","Chrome или playwright-core не найдены. Выполните «npm install» в папке проекта.","Chrome or playwright-core is missing. Run “npm install” once in the project folder."],
+  g_note:["Bu server ishlayotgan kompyuterdagi brauzerni boshqaradi. Kirish saqlanadi; Google seansni bekor qilsa, qayta kirish kerak bo'ladi.","Управляет браузером на машине сервера. Вход сохраняется; если Google завершит сессию, нужно войти снова.","It drives a browser on the machine running the server. The login persists; if Google ends the session you sign in again."],
   conf_desc:["Tavsif (ixtiyoriy)","Описание (необязательно)","Description (optional)"],
   conf_save:["Saqlash","Сохранить","Save"],
   conf_clear:["O'chirish","Удалить","Remove"],
@@ -168,10 +266,15 @@ const NAV = [
   {v:"projects", k:"nav_projects", ic:svg('<path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/>')},
   {v:"chat", k:"nav_chat", ic:svg('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>')},
   {v:"questions", k:"nav_quest", ic:svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>')},
+  {v:"appeals", k:"nav_appeals", ic:svg('<path d="M3 21h18"/><path d="M5 21V10M9 21V10M15 21V10M19 21V10"/><path d="M12 3l9 5H3z"/>')},
   {v:"conference", k:"nav_conf", ic:svg('<path d="M15 10l5-3v10l-5-3z"/><rect x="3" y="6" width="12" height="12" rx="2"/>')},
+  {v:"dsr", k:"nav_dsr", ic:svg('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>')},
+  {v:"analysts", k:"nav_analysts", ic:svg('<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6" rx=".6"/><rect x="12" y="7" width="3" height="10" rx=".6"/><rect x="17" y="13" width="3" height="4" rx=".6"/>')},
+  {v:"buyers", k:"nav_buyers", ic:svg('<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.7 12.4a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3L21 8H6"/>')},
+
   {v:"settings", k:"nav_set", ic:svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 13a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 0 1-4 0v-.1A1.7 1.7 0 0 0 6 19.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4.4 13H4a2 2 0 0 1 0-4h.1A1.7 1.7 0 0 0 5.3 6L5.2 6a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 11 4.4V4a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V11a2 2 0 0 1 0 4h-.1z"/>')},
 ];
-const VIEW_TITLE = {dashboard:"nav_dash",associations:"nav_assoc",members:"nav_members",companies:"nav_comp",leads:"nav_leads",questions:"nav_quest",projects:"nav_projects",chat:"nav_chat",report:"nav_report",conference:"nav_conf",settings:"nav_set"};
+const VIEW_TITLE = {dashboard:"nav_dash",associations:"nav_assoc",members:"nav_members",companies:"nav_comp",leads:"nav_leads",questions:"nav_quest",projects:"nav_projects",chat:"nav_chat",report:"nav_report",conference:"nav_conf",appeals:"nav_appeals",dsr:"nav_dsr",analysts:"nav_analysts",buyers:"nav_buyers",settings:"nav_set"};
 
 /* ---- shared org state + API ---- */
 let ORGS = { associations:[], companies:[] };
@@ -273,6 +376,8 @@ function renderLeads(){
 }
 
 function escAttr(s){return String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
+/** An association's name in the active language. */
+const aName = a => (a && a.i18n && a.i18n[LANG]) || (a && a.name) || "";
 
 let openAssoc=null;   // when set, the associations view drills into one association's child companies
 function renderAssociations(){
@@ -285,10 +390,10 @@ function renderAssociations(){
     const rows=ORGS.associations.map(a=>{
       const cnt=ORGS.companies.filter(c=>c.assocId===a.id).length;
       return `<tr data-id="${a.id}">
-        <td><a href="#" class="as-open" data-id="${a.id}"><b>${escAttr(a.name)}</b></a></td>
+        <td><a href="#" class="as-open" data-id="${a.id}"><b>${escAttr(aName(a))}</b></a></td>
         <td><input class="adm-inline" data-f="chairman" value="${escAttr(a.chairman)}" placeholder="${t("as_chair")}"></td>
         <td><input class="adm-inline mono" data-f="login" value="${escAttr(a.login)}" placeholder="login"></td>
-        <td><input class="adm-inline mono" data-f="password" value="${escAttr(a.password)}" placeholder="parol"></td>
+        <td><input class="adm-inline mono" type="password" autocomplete="new-password" data-f="password" value="" placeholder="${t("pw_blank")}"></td>
         <td style="text-align:center"><span class="badge-st on">${cnt}</span></td>
         <td style="white-space:nowrap"><button class="btn btn-ghost as-open" data-id="${a.id}" style="padding:5px 11px;font-size:13px">${t("as_open")}</button> <button class="tdel" data-id="${a.id}">${t("del")}</button></td></tr>`;
     }).join("");
@@ -299,7 +404,7 @@ function renderAssociations(){
         <p style="color:var(--muted);font-size:14px;margin-bottom:14px">${t("rais_hint")}</p>
         <div class="admin-form" style="grid-template-columns:repeat(2,minmax(0,1fr));max-width:480px">
           <div><div class="ac-label">${t("as_login")}</div><input class="adm-inline mono" id="rais-login" value="${escAttr(rais.login)}"></div>
-          <div><div class="ac-label">${t("as_pass")}</div><input class="adm-inline mono" id="rais-pass" value="${escAttr(rais.password)}"></div>
+          <div><div class="ac-label">${t("pw_new")}</div><input class="adm-inline mono" type="password" autocomplete="new-password" id="rais-pass" value="" placeholder="${t("pw_blank")}"></div>
         </div>
         <div style="max-width:480px;margin-top:10px"><div class="ac-label">${t("rais_tg")}</div><input class="adm-inline mono" id="rais-tg" value="${escAttr(rais.tgChat||"")}" placeholder="masalan: 123456789"></div>
       </div>
@@ -337,17 +442,17 @@ function renderAssociations(){
       <td><input class="adm-inline" data-cf="name" value="${escAttr(c.name)}"></td>
       <td><input class="adm-inline" data-cf="sector" value="${escAttr(c.sector)}" placeholder="${t("mb_sector")}"></td>
       <td><code>${escAttr(c.login)}</code></td>
-      <td><input class="adm-inline mono" data-cf="password" value="${escAttr(c.password)}"></td>
+      <td><input class="adm-inline mono" type="password" autocomplete="new-password" data-cf="password" value="" placeholder="${t("pw_blank")}"></td>
       <td><button class="tdel" data-id="${c.id}">${t("del")}</button></td></tr>`).join("")
       || `<tr><td colspan="5" class="ac-label">${t("as_empty_c")}</td></tr>`;
     view.innerHTML=`
       <button class="btn btn-ghost" id="asBack" style="margin-bottom:14px">${t("as_back")}</button>
       <div class="admin-panel" style="margin-bottom:18px">
-        <h2>🏛️ ${escAttr(a.name)}</h2>
+        <h2>🏛️ ${escAttr(aName(a))}</h2>
         <div class="admin-form" style="grid-template-columns:repeat(3,minmax(0,1fr));max-width:680px">
           <div><div class="ac-label">${t("as_chair")}</div><input class="adm-inline" id="ad-chair" value="${escAttr(a.chairman)}"></div>
           <div><div class="ac-label">${t("as_login")}</div><input class="adm-inline mono" id="ad-login" value="${escAttr(a.login)}"></div>
-          <div><div class="ac-label">${t("as_pass")}</div><input class="adm-inline mono" id="ad-pass" value="${escAttr(a.password)}"></div>
+          <div><div class="ac-label">${t("pw_new")}</div><input class="adm-inline mono" type="password" autocomplete="new-password" id="ad-pass" value="" placeholder="${t("pw_blank")}"></div>
         </div>
       </div>
       <div class="admin-panel">
@@ -388,17 +493,17 @@ function renderMembers(){
   const view=$("#view-members");
   let filter="all";
   const draw=()=>{
-    const opts=`<option value="all">${t("mb_all")}</option>`+ORGS.associations.map(a=>`<option value="${a.id}" ${a.id===filter?"selected":""}>${escAttr(a.name)}</option>`).join("");
+    const opts=`<option value="all">${t("mb_all")}</option>`+ORGS.associations.map(a=>`<option value="${a.id}" ${a.id===filter?"selected":""}>${escAttr(aName(a))}</option>`).join("");
     const list=ORGS.companies.filter(c=>filter==="all"||c.assocId===filter);
-    const aname=id=>{const a=ORGS.associations.find(x=>x.id===id);return a?a.name:"—";};
+    const aname=id=>{const a=ORGS.associations.find(x=>x.id===id);return a?aName(a):"—";};
     const rows=list.slice().reverse().map(c=>`<tr>
       <td><b>${escAttr(c.name)}</b></td>
       <td>${escAttr(aname(c.assocId))}</td>
       <td>${escAttr(c.sector)||"—"}</td>
       <td><code>${escAttr(c.login)}</code></td>
-      <td><code>${escAttr(c.password)}</code></td>
+      <td><span class="ac-label">${t("pw_hidden")}</span></td>
       <td><button class="tdel" data-id="${c.id}">${t("del")}</button></td></tr>`).join("");
-    const addOpts=ORGS.associations.map(a=>`<option value="${a.id}">${escAttr(a.name)}</option>`).join("");
+    const addOpts=ORGS.associations.map(a=>`<option value="${a.id}">${escAttr(aName(a))}</option>`).join("");
     view.innerHTML=`
       <div class="admin-panel">
         <h2>${t("nav_members")} (${ORGS.companies.length})</h2>
@@ -458,7 +563,7 @@ function loadQ(ym){
       <div class="quser-row">
         <button type="button" class="quser-name qassoc-toggle" data-i="${i}" style="background:none;border:0;font:inherit;color:inherit;cursor:pointer;display:flex;align-items:center;gap:8px;text-align:left;padding:0">
           <span class="qassoc-caret" data-i="${i}" style="display:inline-block;transition:transform .15s;font-size:11px;color:var(--muted)">▶</span>
-          🏛 ${escAttr(a.name)}
+          🏛 ${escAttr(aName(a))}
         </button>
         <span class="quser-count">${a.count} ${t("q_reqs")} · ${a.companies} ${t("q_comps")}</span>
         <button class="btn btn-primary qassoc-letter" data-i="${i}" style="padding:6px 12px;font-size:13px">${t("q_assoc_letter")}</button>
@@ -495,7 +600,7 @@ async function makeLetter(user,btn){
 async function makeAssocLetter(assoc,btn){
   const old=btn.textContent; btn.textContent=t("q_gen"); btn.disabled=true;
   const j=await raisApi("/api/rais/assoc-letter",{assocId:assoc.id,ym:CUR_YM,lang:LANG});
-  if(j.ok) openLetter(j.letter); else alert(t("q_empty"));
+  if(j.ok) openLetter(j.letter); else UI.alert(t("q_empty"));
   btn.textContent=old; btn.disabled=false;
 }
 // Download the currently shown official letter as a Word (.doc) file (client-side).
@@ -605,7 +710,7 @@ function renderReport(){
 function renderConference(){
   const view=$("#view-conference");
   const build=()=>{
-    const opts=`<option value="">${t("conf_global")}</option>`+ORGS.associations.map(a=>`<option value="${a.id}">${escAttr(a.name)}</option>`).join("");
+    const opts=`<option value="">${t("conf_global")}</option>`+ORGS.associations.map(a=>`<option value="${a.id}">${escAttr(aName(a))}</option>`).join("");
     view.innerHTML=`
       <div class="admin-panel">
         <h2>${t("nav_conf")}</h2>
@@ -621,12 +726,13 @@ function renderConference(){
           <div><div class="ac-label">${t("conf_dt")}</div>
             <input id="conf-dt" type="datetime-local" required></div>
           <div><div class="ac-label">${t("conf_link")}</div>
-            <input id="conf-link" type="url" placeholder="https://meet.google.com/…" required></div>
+            <input id="conf-link" type="url" placeholder="${t("conf_meet_auto")}"></div>
           <div><div class="ac-label">${t("conf_desc")}</div>
             <input id="conf-desc" placeholder="…"></div>
           <button class="btn btn-primary" type="submit">${t("conf_add")}</button>
           <span class="ac-sub" id="confMsg" style="opacity:0"></span>
         </form>
+        <p class="ac-label" style="margin-top:10px">${t("conf_link_hint")}</p>
         <h3 style="font-size:15px;margin:24px 0 10px">${t("conf_listh")}</h3>
         <div id="confList"></div>
       </div>`;
@@ -635,11 +741,18 @@ function renderConference(){
     const paint=(meetings)=>{
       const box=$("#confList"); if(!box) return;
       box.innerHTML=(meetings&&meetings.length)
-        ? meetings.map(m=>`<div class="conf-row"><div class="conf-row-main"><b>${escAttr(m.title)}</b><span>${escAttr(confDT(m.datetime))}${m.desc?" · "+escAttr(m.desc):""}</span>${m.link?`<a href="${escAttr(m.link)}" target="_blank" rel="noopener">${escAttr(m.link)}</a>`:""}</div><button class="tdel" data-id="${m.id}">${t("del")}</button></div>`).join("")
+        ? meetings.map(m=>`<div class="conf-row"><div class="conf-row-main"><b>${escAttr(m.title)}</b><span>${escAttr(confDT(m.datetime))}${m.desc?" · "+escAttr(m.desc):""}</span>${confRoomHtml(m)}</div><div class="conf-row-act">${confJoinHtml(m)}<button class="tdel" data-id="${m.id}">${t("del")}</button></div></div>`).join("")
         : `<p class="ac-label">${t("conf_none_list")}</p>`;
       box.querySelectorAll(".tdel").forEach(b=>b.addEventListener("click",()=>{
         fetch("/api/conference",{method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({pass:"admin",assocId:targetId(),removeId:b.dataset.id})}).then(r=>r.json()).then(j=>paint(j.meetings));}));
+      // a meeting saved while Google was unreachable can get its room later
+      box.querySelectorAll(".conf-relink").forEach(b=>b.addEventListener("click",()=>{
+        b.disabled=true; b.textContent=t("conf_meet_making");
+        fetch("/api/conference",{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({pass:"admin",assocId:targetId(),relinkId:b.dataset.id})})
+          .then(r=>r.json()).then(j=>{ paint(j.meetings); msg(j.ok?t("conf_meet_ready"):t("conf_meet_err"), !!j.ok); })
+          .catch(()=>{ b.disabled=false; b.textContent=t("conf_meet_retry"); msg("Error",false); });}));
     };
     const loadTarget=()=>{
       const id=targetId();
@@ -649,17 +762,245 @@ function renderConference(){
     $("#conf-target").addEventListener("change",loadTarget);
     loadTarget();
     $("#confForm").addEventListener("submit",e=>{e.preventDefault();
-      const link=$("#conf-link").value.trim();
-      if(!/^https?:\/\/.+/i.test(link)){msg(t("conf_link_err"),false);return;}
+      const link=$("#conf-link").value.trim();     // empty → the bot opens a Meet room for it
+      if(link && !/^https?:\/\/.+/i.test(link)){msg(t("conf_link_err"),false);return;}
+      const btn=$("#confForm button[type=submit]"); btn.disabled=true; btn.textContent=t("conf_meet_making");
       fetch("/api/conference",{method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({pass:"admin",assocId:targetId(),title:$("#conf-title").value.trim(),datetime:$("#conf-dt").value,link,desc:$("#conf-desc").value.trim()})})
-        .then(r=>r.json()).then(j=>{ paint(j.meetings); $("#confForm").reset(); msg(t("conf_added")); }).catch(()=>msg("Error",false));
+        .then(r=>r.json()).then(j=>{ paint(j.meetings); $("#confForm").reset();
+          const m=j.meeting||{};
+          msg(m.provider==="meet-bot"?t("conf_meet_ready"):(m.link?t("conf_added"):t("conf_meet_off")), !!m.link); })
+        .catch(()=>msg("Error",false))
+        .finally(()=>{ btn.disabled=false; btn.textContent=t("conf_add"); });
     });
   };
   if(ORGS.associations.length) build();
   orgsApi({op:"list"}).then(r=>{ ORGS=r; build(); });
 }
 function confDT(s){const d=new Date(s);if(isNaN(d))return s||"";return d.toLocaleString();}
+/* where a scheduled meeting's room stands: auto room, pasted link, or nothing yet */
+function confRoomHtml(m){
+  if(m.link){
+    const badge = m.provider==="meet-bot" ? t("conf_meet_auto") : t("conf_meet_manual");
+    return `<a href="${escAttr(m.link)}" target="_blank" rel="noopener">${escAttr(m.link)}</a><span class="ac-sub">${badge}</span>`;
+  }
+  const why = m.meetError==="google_not_connected" ? t("conf_meet_off") : `${t("conf_meet_err")}${m.meetError?" · "+escAttr(m.meetError):""}`;
+  return `<span class="ac-sub" style="color:var(--gold)">${why}</span> <button class="btn btn-ghost conf-relink" data-id="${m.id}" style="padding:4px 10px;font-size:12px">${t("conf_meet_retry")}</button>`;
+}
+/* whoever scheduled it needs a way in too — same server-resolved hop the
+   companies use, so the creator lands in the identical room */
+function confJoinHtml(m){
+  if(!m.link) return "";
+  return `<a class="btn btn-primary conf-join-btn" href="/api/conference/join?id=${encodeURIComponent(m.id)}" target="_blank" rel="noopener">${t("conf_join")}</a>`;
+}
+
+/* ============================================================
+   VIEW: HUKUMATGA MUROJAAT — the last stop before the agency
+   ============================================================ */
+const AP_STAGE_KEY = { new:"ap_s_new", assoc:"ap_s_assoc", sent:"ap_s_sent",
+  answered:"ap_s_answered", rejected:"ap_s_rejected" };
+const apApi = body => fetch("/api/appeals",{method:"POST",headers:{"Content-Type":"application/json"},
+  body:JSON.stringify(Object.assign({pass:"admin"},body))}).then(r=>r.json());
+
+function renderAppeals(){
+  $("#view-appeals").innerHTML=`
+    <div class="admin-panel">
+      <h2>${t("nav_appeals")}</h2>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:16px">${t("ap_intro")}</p>
+      <div id="apList"></div>
+    </div>`;
+  apApi({op:"list"}).then(j=>apPaint(j.items||[])).catch(()=>{});
+}
+function apPaint(items){
+  const box=$("#apList"); if(!box) return;
+  if(!items.length){ box.innerHTML=`<p class="ac-label">${t("ap_empty")}</p>`; return; }
+  box.innerHTML=items.map(a=>{
+    const doc=`/api/appeal/doc?id=${encodeURIComponent(a.id)}&pass=admin`;
+    // what the rais can do next depends on where the appeal has got to
+    const acts = a.stage==="assoc" ? [["sent","btn-primary","ap_send"],["rejected","btn-ghost","ap_reject"]]
+              : a.stage==="sent"  ? [["answered","btn-primary","ap_answer"],["rejected","btn-ghost","ap_reject"]]
+              : [];
+    return `<div class="gov-card">
+      <div class="gov-card-top"><b>${escAttr(a.subject)}</b>
+        <span class="gov-badge gov-${escAttr(a.stage)}">${t(AP_STAGE_KEY[a.stage]||"ap_s_new")}</span></div>
+      <span class="ac-sub">${t("ap_company")}: ${escAttr(a.companyName)} · ${escAttr(a.assocName||"—")} · ${escAttr(a.agency)} · ${escAttr(confDT(a.created))}</span>
+      <p class="gov-body-preview">${escAttr(String(a.body||"").slice(0,300))}${String(a.body||"").length>300?"…":""}</p>
+      ${apTrail(a)}
+      <div class="gov-act">
+        <a class="btn btn-ghost" href="${escAttr(doc)}">${t("ap_doc")}</a>
+        ${acts.length?`<input class="gov-note" id="apn-${a.id}" placeholder="${t("ap_note")}">`:""}
+        ${acts.map(([stage,cls,key])=>`<button class="btn ${cls} ap-go" data-id="${a.id}" data-stage="${stage}">${t(key)}</button>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+  box.querySelectorAll(".ap-go").forEach(b=>b.addEventListener("click",()=>{
+    const note=($("#apn-"+b.dataset.id)||{}).value||"";
+    b.disabled=true;
+    apApi({op:"stage",id:b.dataset.id,stage:b.dataset.stage,note})
+      .then(j=>apPaint(j.items||[])).catch(()=>{ b.disabled=false; });
+  }));
+}
+function apTrail(a){
+  const h=(a.history||[]).slice(1);
+  if(!h.length) return "";
+  return `<div class="gov-trail">`+h.map(x=>
+    `<div class="gov-trail-row"><span>${t(AP_STAGE_KEY[x.stage]||x.stage)}</span>
+      <em>${escAttr(x.by)}${x.note?" · "+escAttr(x.note):""}</em></div>`).join("")+`</div>`;
+}
+
+
+/* ============================================================
+   ANALYST ACCOUNTS
+   Issued here, alongside associations and companies, because that
+   is where every other credential on the platform comes from.
+   ============================================================ */
+function analystApi(body){
+  return fetch("/api/analyst/accounts",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(Object.assign({pass:"admin"},body))}).then(r=>r.json()).catch(()=>({error:"network"}));
+}
+
+/* ============================================================
+   DATA-SUBJECT REQUESTS
+
+   The queue behind mening-malumotlarim.html. It exists so that
+   somebody is accountable for a deadline: modda 22 ZRU-547 wants
+   a reasoned answer inside a stated period, and a request nobody
+   can see is a period nobody meets.
+
+   Two deliberate constraints:
+   - `overdue` is computed by the server as of now, not stored, so
+     a stale page cannot show a missed deadline as still fine;
+   - the answer box will not submit empty, including for a
+     refusal. A refusal without a ground is not an answer, and it
+     is the version of this that gets a platform in trouble.
+   ============================================================ */
+const DSR_KIND = { access:["Ma'lumot olish","Получение сведений","Access"],
+                   withdraw:["Rozilikni qaytarib olish","Отзыв согласия","Withdrawal"],
+                   erase:["O'chirishni talab qilish","Требование об удалении","Erasure"] };
+const DSR_ST = { open:["Ochiq","Открыто","Open"],
+                 answered:["Javob berilgan","Дан ответ","Answered"],
+                 refused:["Rad etilgan","Отказано","Refused"] };
+const dsrLang = () => Math.max(0, ["uz","ru","en"].indexOf(localStorage.getItem("kg_lang") || "uz"));
+
+async function renderDsr(){
+  const view = $("#view-dsr");
+  const r = await fetch("/api/legal/requests", { method:"POST",
+    headers:{ "Content-Type":"application/json" }, body:JSON.stringify({ pass:"admin" }) }).then(x=>x.json());
+  const items = (r && r.items) || [];
+  const li = dsrLang();
+
+  const rows = items.map(q => `<tr data-id="${escAttr(q.id)}"${q.overdue ? ' class="dsr-late"' : ''}>
+      <td><code>${escAttr(q.ref)}</code></td>
+      <td>${escAttr(q.subjectName)}<div class="ac-label">${escAttr(q.subjectEmail)}</div></td>
+      <td>${escAttr((DSR_KIND[q.kind] || [q.kind])[li] || q.kind)}</td>
+      <td>${escAttr(fmtDT(q.created))}</td>
+      <td>${escAttr(fmtDT(q.due))}${q.overdue ? ` <span class="badge-st off">${t("dsr_overdue")}</span>` : ""}</td>
+      <td>${escAttr((DSR_ST[q.status] || [q.status])[li] || q.status)}
+        ${q.note ? `<div class="ac-label">${escAttr(q.note)}</div>` : ""}
+        ${q.answer ? `<div class="ac-label">&rarr; ${escAttr(q.answer)}</div>` : ""}</td>
+      <td>${q.status === "open" ? `
+        <textarea class="adm-inline dsr-ans" rows="2" placeholder="${escAttr(t("dsr_ans_ph"))}"></textarea>
+        <div style="margin-top:6px;white-space:nowrap">
+          <button class="btn btn-primary dsr-ok" style="padding:5px 11px;font-size:13px">${t("dsr_send")}</button>
+          <button class="btn btn-ghost dsr-no" style="padding:5px 11px;font-size:13px">${t("dsr_refuse")}</button>
+        </div>` : "—"}</td></tr>`).join("")
+    || `<tr><td colspan="7" class="ac-label">${t("dsr_none")}</td></tr>`;
+
+  view.innerHTML = `
+    <div class="admin-panel">
+      <h2>${t("nav_dsr")}${r && r.overdue ? ` <span class="badge-st off">${r.overdue}</span>` : ""}</h2>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:14px">${t("dsr_intro")}</p>
+      <table class="admin-table"><thead><tr>
+        <th>${t("dsr_c_ref")}</th><th>${t("dsr_c_who")}</th><th>${t("dsr_c_kind")}</th>
+        <th>${t("dsr_c_filed")}</th><th>${t("dsr_c_due")}</th><th>${t("dsr_c_status")}</th><th></th>
+      </tr></thead><tbody>${rows}</tbody></table>
+      <div class="err" id="dsrErr" style="margin-top:10px"></div>
+    </div>`;
+
+  const answer = async (tr, refuse) => {
+    const box = tr.querySelector(".dsr-ans");
+    const text = (box.value || "").trim();
+    if(!text){ $("#dsrErr").textContent = t("dsr_need_ans"); box.focus(); return; }
+    $("#dsrErr").textContent = "";
+    await fetch("/api/legal/answer", { method:"POST", headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({ pass:"admin", id:tr.dataset.id, answer:text, refuse:!!refuse }) });
+    renderDsr();
+  };
+  view.querySelectorAll(".dsr-ok").forEach(b => b.addEventListener("click", () => answer(b.closest("tr"), false)));
+  view.querySelectorAll(".dsr-no").forEach(b => b.addEventListener("click", () => answer(b.closest("tr"), true)));
+}
+
+/** Short local date-time, used only by the queue above. */
+function fmtDT(ms){
+  if(!ms) return "—";
+  const d = new Date(ms);
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+async function renderAnalysts(){
+  const host=$("#view-analysts");
+  if(!host) return;
+  const r=await analystApi({op:"list"});
+  const list=(r&&r.analysts)||[];
+  /* The panel is the card itself so it picks up the dome ornament that every
+     other admin section wears — nesting it one level deeper loses that. */
+  host.innerHTML=`
+    <div class="admin-panel" id="anCard">
+      <h2>${t("an_title")}</h2>
+      <p class="an-acc-intro">${t("an_sub")}</p>
+
+      <div class="an-acc-list">${list.length?list.map(a=>`
+        <div class="an-acc">
+          <div class="an-acc-who">
+            <b>${escAttr(a.name||a.login)}</b>
+            ${a.org?`<span class="an-acc-org">${escAttr(a.org)}</span>`:""}
+          </div>
+          <div class="an-acc-creds">
+            <code>${escAttr(a.login)}</code><span class="an-acc-sep">/</span><span class="ac-label">${t("pw_hidden")}</span>
+          </div>
+          <div class="an-acc-scopes">${(a.scopes||[]).map(m=>`<span>${escAttr(m)}</span>`).join("")}</div>
+          <button class="an-acc-del" type="button" data-an-del="${escAttr(a.id)}" title="${escAttr(t("an_del"))}">${t("an_del")}</button>
+        </div>`).join(""):`<p class="an-acc-empty">${t("an_none")}</p>`}</div>
+
+      <div class="an-acc-new">
+        <h3>${t("an_add_h")}</h3>
+        <div class="an-acc-grid">
+          <label><span>${t("an_name")}</span><input id="anName" autocomplete="off"></label>
+          <label><span>${t("an_org")}</span><input id="anOrg" autocomplete="off"></label>
+          <label><span>${t("an_login")}</span><input id="anLogin" autocomplete="off"></label>
+          <label><span>${t("an_pass")}</span><input id="anPass" autocomplete="off"></label>
+        </div>
+        <div class="an-acc-scope-pick">
+          <span class="an-acc-scope-lb">${t("an_scopes")}</span>
+          ${["bozor","moliya","mehnat"].map(m=>`<label class="an-chip"><input type="checkbox" class="anScope" value="${m}" checked><span>${m}</span></label>`).join("")}
+        </div>
+        <div class="an-acc-actions">
+          <button class="btn btn-primary" type="button" id="anAdd">${t("an_add")}</button>
+          <a class="an-acc-open" href="tahlil.html" target="_blank" rel="noopener">${t("an_open")}</a>
+        </div>
+      </div>
+    </div>`;
+
+  const box=host.querySelector("#anCard");
+  box.querySelector("#anAdd").addEventListener("click",async ()=>{
+    const login=box.querySelector("#anLogin").value.trim();
+    const pass=box.querySelector("#anPass").value.trim();
+    if(!login||!pass) return UI.alert(t("an_need"));
+    const scopes=[...box.querySelectorAll(".anScope")].filter(x=>x.checked).map(x=>x.value);
+    if(!scopes.length) return UI.alert(t("an_need_scope"));
+    const res=await analystApi({op:"add",name:box.querySelector("#anName").value.trim(),
+      org:box.querySelector("#anOrg").value.trim(),alogin:login,apassword:pass,scopes});
+    if(res && res.error==="login_exists") return UI.alert(t("an_exists"));
+    if(res && res.error==="no_scopes") return UI.alert(t("an_need_scope"));
+    renderAnalysts();
+  });
+  box.querySelectorAll("[data-an-del]").forEach(b=>b.addEventListener("click",async ()=>{
+    if(!await UI.confirm(t("an_confirm"), { tone:"danger" })) return;
+    await analystApi({op:"del",id:b.dataset.anDel});
+    renderAnalysts();
+  }));
+}
 
 function renderSettings(){
   const theme=document.documentElement.dataset.theme||"light";
@@ -678,14 +1019,55 @@ function renderSettings(){
           </div></div>
       </div>
       <p class="ac-label" style="margin-top:20px">${t("set_note")}</p>
+      <div id="gCard" style="margin-top:26px;padding-top:22px;border-top:1px solid var(--line)">
+        <h3 style="font-size:15px;margin:0 0 6px">${t("g_title")}</h3>
+        <p class="ac-label">${t("g_sub")}</p>
+      </div>
     </div>`;
   $("#thLight").addEventListener("click",()=>{setTheme("light");renderSettings();});
   $("#thDark").addEventListener("click",()=>{setTheme("dark");renderSettings();});
   $("#view-settings").querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.l)));
+  renderGoogleCard();
+}
+
+/* ---- the Google session the Meet bot drives ---- */
+const gPost=(p)=>fetch("/api/google/"+p,{method:"POST",headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({pass:"admin"})}).then(r=>r.json());
+
+function renderGoogleCard(note){
+  const card=$("#gCard"); if(!card) return;
+  fetch("/api/google/status").then(r=>r.json()).then(g=>{
+    const body=document.createElement("div");
+    body.className="g-body"; body.style.marginTop="12px";
+    if(!g.available){
+      body.innerHTML=`<p class="ac-label" style="color:var(--gold)">${t("g_nochrome")}</p>`;
+    } else {
+      const dot=g.signedIn?"var(--green)":"var(--gold)";
+      body.innerHTML=`<p style="font-size:14px;margin:0 0 10px">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${dot};margin-right:8px"></span>
+          <b>${g.signedIn?t("g_on"):t("g_off")}</b>${g.signedIn&&g.email?` · ${escAttr(g.email)}`:""}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="gIn">${g.signedIn?t("g_relogin"):t("g_login")}</button>
+          <button class="btn btn-ghost" id="gChk">${t("g_check")}</button>
+          ${g.signedIn?`<button class="btn btn-ghost" id="gOff">${t("g_disconnect")}</button>`:""}
+        </div>
+        ${note?`<p class="ac-label" style="margin-top:10px;color:var(--green)">${note}</p>`:""}
+        <p class="ac-label" style="margin-top:10px">${t("g_note")}</p>`;
+    }
+    card.querySelectorAll(".g-body").forEach(n=>n.remove());
+    card.appendChild(body);
+
+    const busy=(b)=>{ b.disabled=true; b.textContent=t("g_working"); };
+    const gIn=$("#gIn"), gChk=$("#gChk"), gOff=$("#gOff");
+    // opens a real Chrome window on the server machine — the human types there
+    if(gIn) gIn.addEventListener("click",()=>{ busy(gIn); gPost("login").then(()=>renderGoogleCard(t("g_opening"))); });
+    if(gChk) gChk.addEventListener("click",()=>{ busy(gChk); gPost("verify").then(()=>renderGoogleCard()); });
+    if(gOff) gOff.addEventListener("click",()=>{ busy(gOff); gPost("disconnect").then(()=>renderGoogleCard()); });
+  }).catch(()=>{});
 }
 
 function renderView(){
-  ["dashboard","associations","members","companies","leads","questions","projects","chat","report","conference","settings"].forEach(v=>$("#view-"+v)&&$("#view-"+v).classList.toggle("active",v===activeView));
+  ["dashboard","associations","members","companies","leads","questions","projects","chat","report","conference","appeals","dsr","analysts","buyers","settings"].forEach(v=>$("#view-"+v)&&$("#view-"+v).classList.toggle("active",v===activeView));
   if(activeView==="dashboard")renderDashboard();
   if(activeView==="associations")renderAssociations();
   if(activeView==="members")renderMembers();
@@ -696,9 +1078,113 @@ function renderView(){
   if(activeView==="chat")renderProjectChat();
   if(activeView==="report")renderReport();
   if(activeView==="conference")renderConference();
+  if(activeView==="appeals")renderAppeals();
+  if(activeView==="dsr")renderDsr();
+  if(activeView==="analysts")renderAnalysts();
+  if(activeView==="buyers")renderBuyers();
   if(activeView==="settings")renderSettings();
   $("#viewTitle").textContent=t(VIEW_TITLE[activeView]);
 }
+
+/* ============================================================
+   BUYER APPLICATIONS
+
+   The company queue lives in the association cabinet, because an
+   association is who vouches for a company. Nobody vouches for a
+   buyer, so this queue has exactly one home: here.
+
+   Approving one is what creates the account, which is why the
+   confirmation says so plainly and a rejection demands a reason —
+   the applicant reads it on the status page.
+   ============================================================ */
+let BQ_TAB = "pending";
+
+const bqApi = (path, body) =>
+  fetch("/api/register/" + path, { method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(Object.assign({ pass:"admin", kind:"buyer" }, body||{})) })
+    .then(r=>r.json()).catch(()=>({ error:"network" }));
+
+async function renderBuyers(){
+  const host=$("#view-buyers");
+  host.innerHTML=`<div class="admin-panel">
+    <h2>${t("bq_title")}</h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:8px">${t("bq_sub")}</p>
+    <div class="rq-tabs" id="bqTabs"></div>
+    <div class="rq-list" id="bqList"><p style="color:var(--muted)">…</p></div>
+  </div>`;
+
+  const r = await bqApi("list", { status: BQ_TAB==="all" ? "" : BQ_TAB });
+  if(!r || !r.ok){ $("#bqList").innerHTML=`<p class="empty-note">${t("bq_fail")}</p>`; return; }
+
+  const pending=(r.counts&&r.counts.pending)||0;
+  $("#bqTabs").innerHTML=["pending","approved","rejected","all"].map(k=>
+    `<button type="button" class="rq-tab${k===BQ_TAB?" is-on":""}" data-bq-tab="${k}">${
+      t("bq_"+k)}${k==="pending"&&pending?` <em>${pending}</em>`:""}</button>`).join("");
+
+  const items=r.items||[];
+  $("#bqList").innerHTML = items.length
+    ? items.map(bqCard).join("")
+    : `<p class="empty-note">${t("bq_empty")}</p>`;
+}
+
+function bqCard(a){
+  const e=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const row=(k,v)=>v?`<dt>${t(k)}</dt><dd>${e(v)}</dd>`:"";
+  const tel=String(a.phone||"").replace(/[^+0-9]/g,"");
+  const ctel=String(a.contactPhone||"").replace(/[^+0-9]/g,"");
+  return `<article class="rq-card is-${e(a.status)}">
+    <div class="rq-top">
+      <span class="rq-badge">${t("bq_"+a.status)}</span>
+      <b>${e(a.name)}</b>
+      <span class="rq-ref">${e(a.ref)}</span>
+    </div>
+    ${a.about?`<p class="rq-about">${e(a.about)}</p>`:""}
+    <dl class="rq-kv">
+      ${row("bq_login", a.login)}
+      ${row("bq_contact", [a.contactName, a.role].filter(Boolean).join(" · "))}
+      ${row("bq_region", a.region)}
+      <dt>${t("bq_sent")}</dt><dd>${new Date(a.created).toLocaleString()}</dd>
+      ${a.decided?`<dt>${t("bq_decided")}</dt><dd>${new Date(a.decided).toLocaleString()} · ${e(a.decidedBy||"")}</dd>`:""}
+    </dl>
+    <div class="rq-contact">
+      ${tel?`<a href="tel:${e(tel)}">🏢 ${e(a.phone)}</a>`:""}
+      ${a.email?`<a href="mailto:${e(a.email)}">✉ ${e(a.email)}</a>`:""}
+      ${ctel?`<a href="tel:${e(ctel)}">📞 ${e(a.contactPhone)}</a>`:""}
+    </div>
+    ${a.reason?`<p class="rq-reason">${t("bq_reason")}: ${e(a.reason)}</p>`:""}
+    ${a.status==="pending"?`<div class="rq-actions">
+      <button class="btn btn-primary" type="button" data-bq-ok="${e(a.id)}">${t("bq_approve")}</button>
+      <button class="btn btn-ghost" type="button" data-bq-no="${e(a.id)}">${t("bq_reject")}</button>
+    </div>`:""}
+  </article>`;
+}
+
+document.addEventListener("click", async e=>{
+  const tab=e.target.closest&&e.target.closest("[data-bq-tab]");
+  if(tab){ BQ_TAB=tab.dataset.bqTab; return renderBuyers(); }
+
+  const ok=e.target.closest&&e.target.closest("[data-bq-ok]");
+  const no=e.target.closest&&e.target.closest("[data-bq-no]");
+  if(!ok&&!no) return;
+  const btn=ok||no;
+  if(btn.disabled) return;
+
+  const data={ id: ok?ok.dataset.bqOk:no.dataset.bqNo, action: ok?"approve":"reject" };
+  if(ok){ if(!await UI.confirm(t("bq_confirm"))) return; }
+  else {
+    /* A rejection the applicant cannot understand is worse than none, so the
+       reason is required — the server refuses without one either way. */
+    const reason=await UI.prompt(t("bq_reason_q"));
+    if(!reason||!reason.trim()) return;
+    data.reason=reason.trim();
+  }
+
+  btn.disabled=true;
+  const r=await bqApi("decide", data);
+  btn.disabled=false;
+  if(!r||!r.ok) return UI.alert(t("bq_fail"));
+  renderBuyers();
+});
 
 /* ---- nav build ---- */
 function buildNav(){
@@ -729,9 +1215,21 @@ themeBtn.addEventListener("click",()=>setTheme(document.documentElement.dataset.
 
 /* ---- auth ---- */
 function openPanel(){$("#adminLogin").style.display="none";$("#adminShell").hidden=false;buildNav();renderView();}
-$("#loginForm").addEventListener("submit",e=>{e.preventDefault();
-  if($("#lgPass").value==="admin"){sessionStorage.setItem("kg_admin","1");openPanel();}
-  else{$("#lgErr").textContent=t("lg_err");}});
+/* One login system: whatever tier these credentials belong to, the shared
+   resolver in auth.js finds it and says where to go. Typing a company or
+   analyst login here sends you to that cabinet instead of refusing you. */
+$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();
+  const btn=$("#lgBtn"), login=($("#lgLogin")?$("#lgLogin").value.trim():""), pass=$("#lgPass").value;
+  btn.disabled=true; $("#lgErr").textContent="";
+  try{
+    const target=await kgResolveLogin(login,pass);
+    if(target==="admin.html"){ openPanel(); return; }
+    if(target){ location.href=target; return; }
+    $("#lgErr").textContent=t("lg_err");
+    $("#lgPass").value="";
+  }catch(_){ $("#lgErr").textContent=t("lg_err"); }
+  finally{ btn.disabled=false; }
+});
 $("#logoutBtn").addEventListener("click",()=>{sessionStorage.removeItem("kg_admin");location.reload();});
 
 /* ---- official letter modal ---- */

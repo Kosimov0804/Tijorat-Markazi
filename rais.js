@@ -71,6 +71,8 @@ const RT = {
 const rt = k => RT[k][L()];
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function clean(s){return String(s||"").replace(/^[-\s]+/,"");}
+/** An association's name in the active language. */
+const aName = a => clean((a && a.i18n && a.i18n[LANG]) || (a && a.name) || "");
 
 /* ---- auth ---- */
 function showLogin(){ $("#raLogin").hidden=false; $("#raApp").hidden=true; $("#logoutBtn").hidden=true; $("#aiNav").hidden=true; setTimeout(()=>$("#raLoginInp").focus(),50); }
@@ -226,15 +228,21 @@ $("#logoutBtn").addEventListener("click",()=>{ sessionStorage.removeItem("kg_rai
 function renderGrid(filter=""){
   $("#raDetail").hidden=true; $("#raGrid").hidden=false;
   const q=filter.trim().toLowerCase();
-  const list=DATA.filter(a=>q===""||a.name.toLowerCase().includes(q)||(a.chairman||"").toLowerCase().includes(q));
+  // search every language, so a Russian query still finds an association
+  const list=DATA.filter(a=>{
+    if(q==="") return true;
+    const hay=[a.name, a.i18n&&a.i18n.uz, a.i18n&&a.i18n.ru, a.i18n&&a.i18n.en, a.chairman]
+      .filter(Boolean).join(" ").toLowerCase();
+    return hay.includes(q);
+  });
   const grid=$("#raGrid");
   if(!list.length){ grid.innerHTML=`<p class="empty-state">${rt("none")}</p>`; return; }
   grid.innerHTML=list.map(a=>{
     const idx=DATA.indexOf(a);
     return `<a class="dir-card" href="#" data-i="${idx}">
-      <span class="dir-mark">${esc(clean(a.name).charAt(0).toUpperCase())}</span>
+      <span class="dir-mark">${esc(aName(a).charAt(0).toUpperCase())}</span>
       <span class="dir-body">
-        <b>${esc(clean(a.name))}</b>
+        <b>${esc(aName(a))}</b>
         ${a.chairman?`<em>${rt("chair")}: ${esc(a.chairman)}</em>`:`<em>&nbsp;</em>`}
         <span class="dir-count">${a.companies.length} ${rt("companies")}</span>
       </span>
@@ -249,7 +257,7 @@ function openDetail(i){
   const a=DATA[i]; if(!a) return;
   $("#raGrid").hidden=true; $("#raDetail").hidden=false;
   $("#raBack").textContent=rt("back");
-  $("#dName").textContent=clean(a.name);
+  $("#dName").textContent=aName(a);
   $("#dChair").textContent=a.chairman?(rt("chair")+": "+a.chairman):"";
   const box=$("#dCompanies");
   if(!a.companies.length){ box.innerHTML=`<p class="co-sub">${rt("no_comp")}</p>`; return; }

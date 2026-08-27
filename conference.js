@@ -80,9 +80,18 @@ function renderConf(){
     const open = !hasTime || diff <= OPEN_BEFORE;
 
     if(open){
-      joinBtn.href = conf.link || "#";
-      joinBtn.classList.remove("disabled");
-      hint.hidden = true;
+      // a room may still be missing (Google unreachable when it was scheduled) —
+      // then the card goes live but the button stays out of reach
+      if(conf.link){
+        // one hop through the server: it resolves the current Google Meet room
+        joinBtn.href = conf.id ? "/api/conference/join?id="+encodeURIComponent(conf.id) : conf.link;
+        joinBtn.classList.remove("disabled");
+        hint.hidden = true;
+      } else {
+        joinBtn.removeAttribute("href");
+        joinBtn.classList.add("disabled");
+        hint.hidden = false;
+      }
       count.innerHTML = `<span class="conf-live"><span class="conf-live-dot"></span>${ct("live_now")}</span>`;
     } else {
       joinBtn.removeAttribute("href");

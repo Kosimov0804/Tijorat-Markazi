@@ -2,15 +2,16 @@
    TIJORAT MARKAZI — global "log out" button
    Shown in the page header on any page that includes this file,
    but only when a user is actually signed in (admin / super-admin /
-   association / company / demo). Clears every auth key and returns
+   association / company / analyst / buyer / demo). Clears every auth key and
+   returns
    to the login page.
    ============================================================ */
 (function(){
   // keys cleared on logout
-  var KEYS = ["kg_admin","kg_co","kg_as","kg_rais","kg_email","kg_guest_id","kg_demo_email"];
+  var KEYS = ["kg_admin","kg_co","kg_as","kg_rais","kg_an","kg_by","kg_email","kg_guest_id","kg_demo_email"];
   // only a REAL account session counts as "logged in" — kg_guest_id is a tracking id
   // that is always present, so it must NOT trigger the logout button.
-  var LOGIN_KEYS = ["kg_admin","kg_co","kg_as","kg_rais"];
+  var LOGIN_KEYS = ["kg_admin","kg_co","kg_as","kg_rais","kg_an","kg_by"];
   var LABEL = { uz:"Chiqish", ru:"Выйти", en:"Log out" };
   // Which panel each session key belongs to, most privileged first —
   // rais and admin share the admin panel.
@@ -18,7 +19,9 @@
     { key:"kg_admin", url:"admin.html" },
     { key:"kg_rais",  url:"admin.html" },
     { key:"kg_as",    url:"association.html" },
-    { key:"kg_co",    url:"company.html" }
+    { key:"kg_co",    url:"company.html" },
+    { key:"kg_an",    url:"tahlil.html" },
+    { key:"kg_by",    url:"xaridor.html" }
   ];
   var CTA_BACK = { uz:"Panelimga qaytish →", ru:"Вернуться в панель →", en:"Back to the profile →" };
 

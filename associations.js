@@ -1,3 +1,14 @@
+/* The header collapses to a burger below 1080px; without this the menu had
+   no way to open on this page. Every other page binds the same two lines. */
+(function(){
+  var burger=document.getElementById("burger"), nav=document.getElementById("nav");
+  if(!burger||!nav) return;
+  burger.addEventListener("click",function(){ nav.classList.toggle("open"); });
+  Array.prototype.forEach.call(nav.querySelectorAll("a"),function(a){
+    a.addEventListener("click",function(){ nav.classList.remove("open"); });
+  });
+})();
+
 /* ============================================================
    TIJORAT MARKAZI — Associations directory (public catalog)
    ============================================================ */
@@ -23,22 +34,37 @@ const DT = {
 };
 const dt = k => DT[k][L()];
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+/** An association's name in the active language. */
+const aName = a => ((a && a.i18n && a.i18n[LANG]) || (a && a.name) || "").replace(/^[-\s]+/,"");
 
 function render(filter=""){
   const q=filter.trim().toLowerCase();
-  const list=LIST.filter(a=>q===""||a.name.toLowerCase().includes(q)||(a.chairman||"").toLowerCase().includes(q));
+  // search every language, so a Russian query still finds an association
+  const list=LIST.filter(a=>{
+    if(q==="") return true;
+    const hay=[aName(a), a.name, a.i18n&&a.i18n.uz, a.i18n&&a.i18n.ru, a.i18n&&a.i18n.en, a.chairman]
+      .filter(Boolean).join(" ").toLowerCase();
+    return hay.includes(q);
+  });
   const grid=$("#dirGrid");
   if(!list.length){ grid.innerHTML=`<p class="empty-state">${dt("none")}</p>`; return; }
+  /* The card opens the association itself. Its Business ID is a separate
+     control, and it has to live OUTSIDE the card's <a> — an anchor inside
+     an anchor is invalid and browsers unnest it — so it is overlaid. */
   grid.innerHTML=list.map(a=>`
-    <a class="dir-card" href="association.html?id=${encodeURIComponent(a.id)}">
-      <span class="dir-mark">${esc(a.name.replace(/^[-\s]+/,"").charAt(0).toUpperCase())}</span>
-      <span class="dir-body">
-        <b>${esc(a.name.replace(/^[-\s]+/,""))}</b>
-        ${a.chairman?`<em>${dt("chair")}: ${esc(a.chairman)}</em>`:`<em>&nbsp;</em>`}
-        <span class="dir-count">${a.companies} ${dt("companies")}</span>
-      </span>
-      <span class="dir-open">${dt("open")}</span>
-    </a>`).join("");
+    <div class="dir-item">
+      <a class="dir-card" href="association.html?id=${encodeURIComponent(a.id)}">
+        <span class="dir-mark">${esc(aName(a).charAt(0).toUpperCase())}</span>
+        <span class="dir-body">
+          <b>${esc(aName(a))}</b>
+          ${a.chairman?`<em>${dt("chair")}: ${esc(a.chairman)}</em>`:`<em>&nbsp;</em>`}
+          <span class="dir-count">${a.companies} ${dt("companies")}</span>
+        </span>
+        <span class="dir-open">${dt("open")}</span>
+      </a>
+      ${a.bizId?`<a class="dir-bizbtn" href="biznes-id.html?id=${encodeURIComponent(a.bizId)}"
+        title="Business ID">${esc(a.bizId)}</a>`:""}
+    </div>`).join("");
 }
 
 function applyStatic(){

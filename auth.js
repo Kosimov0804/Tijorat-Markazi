@@ -1,45 +1,56 @@
 /* ============================================================
    TIJORAT MARKAZI — shared cross-role login resolver
-   One unified sign-in: the same login + password is tried against
-   every account tier (admin / super-admin·rais / association /
-   company). On the first match it stores that tier's session key(s)
-   and returns the page to open. Returns null when nothing matches.
-   Each panel page uses this so a user is never told "wrong password"
-   just because they typed another role's credentials on this page —
-   they are routed to THEIR page instead.
+
+   One unified sign-in. The login + password go to /api/auth/login, which
+   checks every account tier (admin / super-admin·rais / association /
+   company / analyst) and answers with the cabinet to open and the session
+   keys that cabinet expects. Returns null when nothing matches.
+
+   Every sign-in screen on the platform routes through this, so a person is
+   never told "wrong password" merely because they typed their credentials on
+   a page belonging to a different role — they are sent to THEIR page instead.
+   That is the whole point: one system, many doors.
    ============================================================ */
 async function kgResolveLogin(login, password){
   login = String(login||"").trim();
   password = String(password||"");
+  if(!login && !password) return null;
 
-  // platform admin — fixed password
-  if((login==="" || login.toLowerCase()==="admin") && password==="admin"){
-    sessionStorage.setItem("kg_admin","1");
-    return "admin.html";
-  }
-  if(!login) return null;
+  /* One request. The server checks every tier and answers with the cabinet to
+     open plus the session keys that cabinet expects, so the browser never
+     learns which tier a login belongs to by watching which probe succeeded —
+     and a failed sign-in no longer logs three 401s to the console on its way
+     to the right answer. */
+  let r;
+  try {
+    r = await fetch("/api/auth/login", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ login, password })
+    });
+  } catch(_){ return null; }          // offline is not a pass
+  if(!r.ok) return null;
 
-  const post = (url)=>fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({login,password})}).then(r=>r.ok).catch(()=>false);
+  let data;
+  try { data = await r.json(); } catch(_){ return null; }
+  if(!data || !data.ok || !data.target) return null;
 
-  // super-admin (rais) — merged into the admin panel
-  if(await post("/api/rais/login")){
-    sessionStorage.setItem("kg_rais",JSON.stringify({login,password}));
-    sessionStorage.setItem("kg_admin","1");
-    return "admin.html";
+  /* Only ever a same-site page, never something the response could point
+     anywhere it likes. */
+  if(!/^[a-z0-9._-]+\.html$/i.test(data.target)) return null;
+
+  const keys = data.keys || {};
+  for(const k of Object.keys(keys)){
+    if(!/^kg_[a-z_]+$/.test(k)) continue;             // ignore anything unexpected
+    try { sessionStorage.setItem(k, String(keys[k])); } catch(_){}
   }
-  // association (uyushma) — association.html is still the panel for these
-  // accounts, and /api/assoc/login still serves them, so they have to be
-  // resolved here too. Leaving them out made all 41 chairman accounts
-  // unable to sign in from the shared login box.
-  if(await post("/api/assoc/login")){
-    sessionStorage.setItem("kg_as",JSON.stringify({login,password}));
-    return "association.html";
-  }
-  // company (kompaniya)
-  if(await post("/api/company/login")){
-    sessionStorage.setItem("kg_co",JSON.stringify({login,password}));
-    return "company.html";
-  }
-  return null;
+  return data.target;
+}
+
+/* Send someone who is not signed in to the one login page, remembering where
+   they were headed so they can be returned there afterwards. Cabinet pages
+   that still carry their own form do not need this; it exists for any page
+   that would rather delegate entirely. */
+function kgRequireLogin(next){
+  const to = next || (location.pathname.split("/").pop() || "index.html");
+  location.replace("kirish.html?next=" + encodeURIComponent(to));
 }

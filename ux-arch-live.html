@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ravoq — dinamika variantlari — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+body{background:var(--bg-soft);overflow-x:hidden}
+.lab{max-width:1240px;margin:0 auto;padding:0 24px 110px}
+.lab-top{padding:52px 0 24px;border-bottom:1px solid var(--line)}
+.lab-top .kick{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--navy)}
+.lab-top h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,44px);
+  font-weight:700;letter-spacing:-.025em;margin:12px 0 12px;color:var(--ink)}
+.lab-top p{max-width:72ch;font-size:16px;color:var(--text)}
+.lab-top p + p{margin-top:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px;margin-top:44px}
+.cell{display:flex;flex-direction:column;gap:12px}
+.cell h2{font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink);
+  display:flex;align-items:baseline;gap:9px}
+.cell h2 i{font-style:normal;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em}
+.cell p{font-size:13px;color:var(--muted);line-height:1.55}
+.cell .how{font-size:11.5px;color:var(--gold);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+/* one arch, one pattern — only the BEHAVIOUR changes between cells */
+.arch{position:relative;overflow:hidden;height:268px;
+  border-radius:112px 112px 10px 10px;
+  border:5px solid var(--gold-soft);
+  background:linear-gradient(170deg,#24598a,#12304c)}
+.arch .lay{position:absolute;inset:-14%;pointer-events:none;background:var(--gold-soft);
+  -webkit-mask-image:var(--naqsh-chorgul);mask-image:var(--naqsh-chorgul);
+  -webkit-mask-repeat:repeat;mask-repeat:repeat;
+  -webkit-mask-size:calc(54px * var(--p,1)) calc(54px * var(--p,1));
+          mask-size:calc(54px * var(--p,1)) calc(54px * var(--p,1));
+  opacity:var(--o,.28);will-change:transform;
+  transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.arch .glow{position:absolute;inset:-40%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,rgba(216,174,92,.5),transparent 62%);
+  will-change:transform,opacity;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .45s ease}
+
+/* 2 · tilt needs perspective on the frame itself */
+.t2{perspective:700px}
+.t2 .inner{position:absolute;inset:0;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.16,1,.3,1)}
+
+/* 3 · spotlight: the pattern only exists near the pointer */
+.t3 .lay{-webkit-mask-image:var(--naqsh-chorgul),radial-gradient(circle at var(--x,50%) var(--y,50%),#000 0,#000 22%,transparent 46%);
+                 mask-image:var(--naqsh-chorgul),radial-gradient(circle at var(--x,50%) var(--y,50%),#000 0,#000 22%,transparent 46%);
+  -webkit-mask-size:54px 54px,100% 100%;mask-size:54px 54px,100% 100%;
+  -webkit-mask-repeat:repeat,no-repeat;mask-repeat:repeat,no-repeat;
+  mask-composite:intersect;-webkit-mask-composite:source-in;
+  opacity:.5;transition:none}
+
+/* 4 · lens: a larger pitch showing only inside a moving circle */
+.t4 .lens{position:absolute;inset:0;pointer-events:none;background:var(--gold-soft);opacity:.42;
+  -webkit-mask-image:var(--naqsh-chorgul),radial-gradient(circle at var(--x,50%) var(--y,50%),#000 0,#000 15%,transparent 17%);
+          mask-image:var(--naqsh-chorgul),radial-gradient(circle at var(--x,50%) var(--y,50%),#000 0,#000 15%,transparent 17%);
+  -webkit-mask-size:104px 104px,100% 100%;mask-size:104px 104px,100% 100%;
+  -webkit-mask-repeat:repeat,no-repeat;mask-repeat:repeat,no-repeat;
+  mask-composite:intersect;-webkit-mask-composite:source-in}
+
+/* 5 · ripple rings born where the pointer moves */
+.rip{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;
+  border:1.5px solid var(--gold-soft);pointer-events:none;animation:ripOut 1.3s ease-out forwards}
+@keyframes ripOut{to{width:230px;height:230px;margin:-115px 0 0 -115px;opacity:0}}
+
+/* 8 · the one that does breathe on its own */
+.t8 .lay{animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{50%{-webkit-mask-size:66px 66px;mask-size:66px 66px;opacity:.4}}
+
+/* 9 · aperture: an iris that opens as the pointer nears */
+.t9 .lay{-webkit-mask-image:var(--naqsh-chorgul),radial-gradient(circle at 50% 55%,#000 var(--r,18%),transparent calc(var(--r,18%) + 26%));
+                 mask-image:var(--naqsh-chorgul),radial-gradient(circle at 50% 55%,#000 var(--r,18%),transparent calc(var(--r,18%) + 26%));
+  -webkit-mask-size:54px 54px,100% 100%;mask-size:54px 54px,100% 100%;
+  -webkit-mask-repeat:repeat,no-repeat;mask-repeat:repeat,no-repeat;
+  mask-composite:intersect;-webkit-mask-composite:source-in;
+  transition:-webkit-mask-image .5s,mask-image .5s}
+
+.pick{margin-top:70px;border:1px solid var(--ink);border-radius:var(--arch-sm);
+  background:var(--card);padding:28px 32px}
+.pick h2{font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.pick p{font-size:14.5px;color:var(--text);max-width:76ch}
+.pick p + p{margin-top:10px}
+.pick b{color:var(--ink)}
+.back{display:inline-block;margin-top:20px;background:var(--ink);color:var(--card);
+  padding:10px 20px;border-radius:var(--radius-pill);font-size:13.5px;font-weight:700}
+@media (prefers-reduced-motion:reduce){ .arch *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<div class="lab">
+  <div class="lab-top">
+    <div class="kick">TIJORAT MARKAZI · ravoq dinamikasi</div>
+    <h1>O'nta dinamika</h1>
+    <p>Naqsh hamma joyda bir xil — chorgul. O'zgaradigan narsa: ravoq nimaga javob beradi.
+      Ba'zilari sichqonchaga, biri aylantirishga, biri soatga, biri esa platformadagi
+      haqiqiy raqamlarga.</p>
+    <p>Har birining tagida nima uni harakatga keltirishi yozilgan. Sichqonchani ustiga
+      olib boring, sahifani aylantiring.</p>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="pick">
+    <h2>Tavsiya</h2>
+    <p><b>1 · Chuqurlik</b> hozirgi variant — bosilmaguncha jim turadi.
+      <b>3 · Fonar</b> eng ta'sirchani: naqsh faqat sichqoncha atrofida bor, qolgan joyi
+      qorong'i — odam o'zi kashf qiladi. <b>2 · Egilish</b> eng «qimmat» ko'rinadi.</p>
+    <p><b>6 · Aylantirish</b> — yagona variant, u sichqonchasiz ham ishlaydi (telefonda ham),
+      shuning uchun eng ishonchlisi. <b>10 · Raqamlar</b> esa eng mazmunlisi: naqsh zichligi
+      platformadagi haqiqiy mahsulotlar soniga bog'liq.</p>
+    <p>Raqamini ayting.</p>
+    <a class="back" href="index.html">← Saytga qaytish</a>
+  </section>
+</div>
+
+<script>
+(function(){
+  var theme = localStorage.getItem("kg_theme"); if(theme) document.documentElement.dataset.theme = theme;
+  var lang = localStorage.getItem("kg_lang") || "uz";
+  var li = {uz:0, ru:1, en:2}[lang]; if(li == null) li = 0;
+
+  var OPTS = [
+    ["Chuqurlik","sichqoncha",["Uch qatlam uch xil tezlikda suriladi. To'xtasangiz — mutlaqo jim.",
+      "Три слоя движутся с разной скоростью. Остановились — полная тишина.",
+      "Three layers at three rates. Stop moving and it is perfectly still."]],
+    ["Egilish","sichqoncha",["Ravoqning o'zi sichqoncha tomon 3D burчакda egiladi.",
+      "Сама арка наклоняется к курсору в 3D.",
+      "The arch itself tilts in 3D towards the pointer."]],
+    ["Fonar","sichqoncha",["Naqsh faqat sichqoncha atrofida ko'rinadi — qolgani qorong'i.",
+      "Узор виден только вокруг курсора — остальное темно.",
+      "The pattern exists only around the pointer — the rest is dark."]],
+    ["Linza","sichqoncha",["Sichqoncha ostida naqsh kattalashadi, xuddi lupa ostidagidek.",
+      "Под курсором узор увеличивается, как под лупой.",
+      "Under the pointer the pattern enlarges, as under a lens."]],
+    ["To'lqin","sichqoncha",["Sichqoncha tekkan joydan halqalar tarqaladi.",
+      "От касания курсора расходятся кольца.",
+      "Rings spread from wherever the pointer touches."]],
+    ["Aylantirish","scroll",["Sahifani aylantirsangiz naqsh suriladi. Telefonda ham ishlaydi.",
+      "Узор смещается при прокрутке. Работает и на телефоне.",
+      "The pattern shifts as you scroll. Works on a phone too."]],
+    ["Kun vaqti","soat",["Ravoq rangi haqiqiy soatga qarab o'zgaradi: tong, kunduz, shom, tun.",
+      "Цвет арки меняется по реальным часам: утро, день, закат, ночь.",
+      "The niche colour follows the real clock: dawn, day, dusk, night."]],
+    ["Nafas","o'zi",["Yagona o'z-o'zidan harakatlanadigan variant — sekin nafas oladi.",
+      "Единственный самодвижущийся вариант — медленно дышит.",
+      "The only one that moves by itself — a slow breath."]],
+    ["Diafragma","sichqoncha",["Markazdagi teshik sichqoncha yaqinlashganda ochiladi.",
+      "Отверстие в центре раскрывается, когда курсор ближе.",
+      "The opening at the centre widens as the pointer nears."]],
+    ["Raqamlar","ma'lumot",["Naqsh zichligi platformadagi haqiqiy mahsulotlar soniga bog'liq.",
+      "Плотность узора зависит от реального числа товаров на платформе.",
+      "The pattern's density follows the real number of products on the platform."]]
+  ];
+
+  document.getElementById("grid").innerHTML = OPTS.map(function(o,i){
+    var n = i+1;
+    var inner = n===2
+      ? '<span class="inner"><span class="lay" style="--p:1.6;--o:.12"></span>' +
+        '<span class="lay" style="--p:1;--o:.24"></span><span class="lay" style="--p:.62;--o:.3"></span></span>'
+      : n===4
+      ? '<span class="lay" style="--o:.2"></span><span class="lens"></span>'
+      : '<span class="lay" style="--p:1.6;--o:.12"></span><span class="lay" style="--p:1;--o:.24"></span>' +
+        '<span class="lay" style="--p:.62;--o:.3"></span>';
+    return '<div class="cell">' +
+      '<div class="arch t' + n + '" data-n="' + n + '">' + inner + '<span class="glow"></span></div>' +
+      '<h2><i>' + String(n).padStart(2,"0") + '</i>' + o[0] + '</h2>' +
+      '<span class="how">' + o[1] + '</span>' +
+      '<p>' + o[2][li] + '</p>' +
+    '</div>';
+  }).join("");
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll(".arch").forEach(function(arch){
+    var n = +arch.dataset.n;
+    var lays = [].slice.call(arch.querySelectorAll(".lay"));
+    var glow = arch.querySelector(".glow");
+    var depths = [0.35, 0.75, 1.35];
+    var mx = 0, my = 0, queued = false, on = 0;
+
+    function frame(){
+      queued = false;
+      if(n===1 || n===5){
+        lays.forEach(function(el,i){
+          el.style.transform = "translate3d(" + (mx*26*depths[i]) + "px," + (my*15*depths[i]) + "px,0)";
+        });
+      }
+      if(n===2){
+        arch.querySelector(".inner").style.transform =
+          "rotateY(" + (mx*14) + "deg) rotateX(" + (-my*12) + "deg)";
+      }
+      glow.style.opacity = on;
+      glow.style.transform = "translate3d(" + (mx*150) + "px," + (my*120) + "px,0)";
+    }
+    function queue(){ if(!queued){ queued = true; requestAnimationFrame(frame); } }
+
+    if(!reduced && [1,2,3,4,5,9].indexOf(n) >= 0){
+      arch.addEventListener("pointermove", function(e){
+        var r = arch.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        mx = px - 0.5; my = py - 0.5; on = 1;
+        if(n===3 || n===4){
+          arch.style.setProperty("--x", (px*100).toFixed(1) + "%");
+          arch.style.setProperty("--y", (py*100).toFixed(1) + "%");
+        }
+        if(n===9){
+          // the closer to the centre, the wider the iris opens
+          var d = Math.min(1, Math.hypot(mx, my) * 2);
+          arch.style.setProperty("--r", (34 - d*20).toFixed(1) + "%");
+        }
+        if(n===5 && Math.random() < 0.14){
+          var rip = document.createElement("span");
+          rip.className = "rip";
+          rip.style.left = (px*100) + "%"; rip.style.top = (py*100) + "%";
+          arch.appendChild(rip);
+          setTimeout(function(){ rip.remove(); }, 1300);
+        }
+        queue();
+      }, {passive:true});
+      arch.addEventListener("pointerleave", function(){ mx = my = 0; on = 0; queue(); });
+    }
+
+    // 6 · scroll-driven — the only one that needs no pointer at all
+    if(n===6 && !reduced){
+      var tick = false;
+      window.addEventListener("scroll", function(){
+        if(tick) return; tick = true;
+        requestAnimationFrame(function(){
+          tick = false;
+          var y = window.scrollY;
+          lays.forEach(function(el,i){
+            el.style.transform = "translate3d(0," + (y * 0.04 * depths[i]) + "px,0)";
+          });
+        });
+      }, {passive:true});
+    }
+
+    // 7 · the real clock
+    if(n===7){
+      var hr = new Date().getHours();
+      var sky = hr < 6  ? ["#070d18","#131f33"]
+              : hr < 10 ? ["#2b4a6b","#c98b52"]
+              : hr < 17 ? ["#2f6ea8","#7db3d8"]
+              : hr < 20 ? ["#22456d","#d08a4e"]
+              :           ["#0b1626","#1d3350"];
+      arch.style.background = "linear-gradient(170deg," + sky[0] + "," + sky[1] + ")";
+    }
+
+    // 10 · real platform data sets the pattern density
+    if(n===10){
+      fetch("/api/showroom").then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+        var count = d && d.items ? d.items.length : 0;
+        // more goods on the platform → a denser weave
+        var pitch = Math.max(0.5, 1.5 - count * 0.08);
+        lays.forEach(function(el,i){ el.style.setProperty("--p", (pitch * [1.6,1,0.62][i]).toFixed(2)); });
+        arch.insertAdjacentHTML("beforeend",
+          '<span style="position:absolute;left:0;right:0;bottom:12px;text-align:center;' +
+          'color:#e8dcc0;font-size:11.5px;letter-spacing:.06em">' + count + ' mahsulot</span>');
+      }).catch(function(){});
+    }
+  });
+})();
+</script>
+</body>
+</html>

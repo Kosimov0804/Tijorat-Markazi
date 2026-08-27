@@ -10,6 +10,13 @@ const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=nu
 
 let activeCat = "all";
 
+/* This page was committed without its dataset: PROJECT_CATS and PROJECTS are
+   referenced but defined nowhere, so every render threw. Falling back to empty
+   lists makes the page show its own "no projects" state instead of a broken
+   script — the content still needs to be supplied. */
+const PROJECT_CATS = typeof window.PROJECT_CATS !== "undefined" ? window.PROJECT_CATS : [];
+const PROJECTS     = typeof window.PROJECTS     !== "undefined" ? window.PROJECTS     : [];
+
 function catName(id){ const c=PROJECT_CATS.find(x=>x.id===id); return c?c.name[L()]:id; }
 
 function renderTabs(){

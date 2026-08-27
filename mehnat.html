@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HUMAN CAPITAL MARKAZI — mehnat bozori: vakansiya, nomzod, AI matching, ATS va real vaqt mehnat bozori analitikasi." />
+  <title>Mehnat bozori — Human Capital Markazi — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body class="mk" data-market="mehnat">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group is-active">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" class="active" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_services">Xizmatlar</button>
+          <div class="nav-menu">
+            <a href="xizmatlar.html" data-i18n="nav_svc_members">A'zo korxonalar</a>
+            <a href="davlat-xizmatlari.html" data-i18n="nav_gov_services">Davlat xizmatlari</a>
+            <a href="biznes-id.html" data-i18n="nav_bizid">Business ID</a>
+          </div>
+        </div>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="index.html" data-i18n="d_home">Bosh sahifa</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="mk-hero">
+      <div class="container mk-hero-inner">
+        <div>
+          <div class="mk-index" aria-hidden="true">03</div>
+          <span class="eyebrow" data-i18n="hc_eyebrow">HUMAN CAPITAL MARKAZI</span>
+          <h1 data-i18n-html="hc_h1">Haqiqiy <span class="mk-hl">mehnat bozori</span></h1>
+          <p class="lead" data-i18n="hc_lead">Vakansiya portali emas. Bu yerda talab, taklif va kelishuv narxi real tranzaksiyalardan o'lchanadi — ish beruvchi kadrni tezroq topadi, nomzod esa nima yetishmayotganini aniq ko'radi.</p>
+        </div>
+        <div class="mk-hero-side">
+          <div class="mk-pulse" id="hcPulse" aria-live="polite"></div>
+          <a class="btn btn-primary" href="#hcTabs" data-i18n="hc_cta">Ish qidirish →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="mk-tabs" id="hcTabs" role="tablist">
+          <button class="mk-tab is-on" type="button" data-tab="jobs" data-i18n="hc_tab_jobs">Vakansiyalar</button>
+          <button class="mk-tab" type="button" data-tab="talent" data-i18n="hc_tab_talent">Nomzodlar</button>
+          <button class="mk-tab" type="button" data-tab="me" data-i18n="hc_tab_me">Mening profilim</button>
+          <button class="mk-tab" type="button" data-tab="employer" data-i18n="hc_tab_employer">Ish beruvchi</button>
+          <button class="mk-tab" type="button" data-tab="intel" data-i18n="hc_tab_intel">Mehnat bozori analitikasi</button>
+        </div>
+
+        <!-- ===== JOBS ===== -->
+        <div data-panel="jobs">
+          <div class="mk-filter">
+            <input type="search" id="hcQ" data-i18n-ph="hc_search" placeholder="Lavozim, ko'nikma yoki kompaniya…" autocomplete="off" />
+            <select id="hcRegion"><option value="" data-i18n="hc_all_regions">Barcha hududlar</option></select>
+            <select id="hcSeniority"><option value="" data-i18n="hc_all_levels">Barcha darajalar</option></select>
+            <select id="hcFormat"><option value="" data-i18n="hc_all_formats">Barcha formatlar</option></select>
+            <input type="number" id="hcSalary" data-i18n-ph="hc_min_salary" placeholder="Min. maosh" min="0" />
+            <span class="mk-count" id="hcCount"></span>
+          </div>
+          <div class="mk-grid" id="hcGrid"></div>
+        </div>
+
+        <!-- ===== TALENT ===== -->
+        <div data-panel="talent" hidden>
+          <p class="mk-sub" data-i18n="hc_talent_sub">Nomzodlar o'z ko'rinuvchanligini o'zi belgilaydi. Anonim profillarda ism va aloqa ma'lumoti ochilmaydi — faqat ko'nikma, tajriba va kutilma.</p>
+          <div class="mk-filter">
+            <input type="search" id="hcTq" data-i18n-ph="hc_talent_search" placeholder="Ko'nikma, lavozim yoki tajriba…" autocomplete="off" />
+            <select id="hcTregion"><option value="" data-i18n="hc_all_regions">Barcha hududlar</option></select>
+            <select id="hcTsen"><option value="" data-i18n="hc_all_levels">Barcha darajalar</option></select>
+            <select id="hcTavail"><option value="" data-i18n="hc_all_avail">Barcha holatlar</option></select>
+            <span class="mk-count" id="hcTcount"></span>
+          </div>
+          <div class="mk-grid" id="hcTgrid"></div>
+        </div>
+
+        <!-- ===== CANDIDATE ===== -->
+        <div data-panel="me" hidden>
+          <div class="mk-id" id="hcId"></div>
+          <div id="hcMe"></div>
+        </div>
+
+        <!-- ===== EMPLOYER ===== -->
+        <div data-panel="employer" hidden>
+          <div class="mk-id" id="hcEmpId"></div>
+          <div id="hcEmployer"></div>
+        </div>
+
+        <!-- ===== INTELLIGENCE ===== -->
+        <div data-panel="intel" hidden>
+          <p class="mk-sub" data-i18n="hc_intel_sub">Indekslar vakansiya, ariza, intervyu, taklif va yollash hodisalaridan hisoblanadi. Kichik kesimlar maxfiylik uchun yashiriladi.</p>
+          <div class="mk-filter">
+            <select id="hcIregion"><option value="" data-i18n="hc_all_regions">Barcha hududlar</option></select>
+            <select id="hcIocc"><option value="" data-i18n="hc_all_occ">Barcha kasblar</option></select>
+          </div>
+          <div id="hcIntel"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-bottom">
+      <a href="royxatdan-otish.html" data-i18n="nav_register">Ro’yxatdan o’tish</a>
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="market-kit.js"></script>
+  <script src="mehnat.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="logout.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

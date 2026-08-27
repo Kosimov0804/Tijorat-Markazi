@@ -1,0 +1,290 @@
+/* ============================================================
+   BUSINESS ID — the public identity card
+
+   The card is a document first and a web page second: it has to
+   survive being printed on A4 and photographed off a screen. So it
+   is fixed-width and self-contained, the number is set in monospace
+   with real letter-spacing, and the print rules at the bottom drop
+   everything that is not the card itself.
+
+   Only biznes-id.html loads this, so nothing here is shared and
+   nothing here can regress another market page.
+   ============================================================ */
+.bid-lead{max-width:640px;margin:0 0 28px}
+.bid-lead h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,3.4vw,40px);
+  letter-spacing:-.022em;color:var(--ink);margin:0 0 10px}
+.bid-lead p{color:var(--text);font-size:15.5px;line-height:1.65}
+
+/* ---- the card ---- */
+.bid-card{position:relative;isolation:isolate;background:var(--card);
+  border:1px solid var(--line);border-radius:22px 22px 16px 16px;
+  box-shadow:var(--shadow);padding:0 30px 26px;overflow:hidden;max-width:760px}
+
+/* ---- the card's own ground ----
+   A document this size looks flat on a plain fill, so the card carries a
+   slow one of its own: the chorgul tile the rest of the platform is built
+   from, drifting behind a gilded light that crosses it. Both live INSIDE
+   the card — the page behind it is untouched — and both are pinned under
+   the content by z-index rather than by luck. Transform and opacity only,
+   so it stays on the compositor. */
+.bid-card::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 82% -10%,rgba(184,135,58,.16),transparent 58%),
+    radial-gradient(90% 70% at -10% 108%,rgba(31,78,121,.13),transparent 60%);
+  animation:bid-card-light 26s ease-in-out infinite}
+
+.bid-weave{position:absolute;inset:-40%;z-index:0;pointer-events:none;
+  background:var(--gold);opacity:.11;
+  -webkit-mask-image:var(--naqsh-chorgul);mask-image:var(--naqsh-chorgul);
+  -webkit-mask-size:54px 54px;mask-size:54px 54px;
+  animation:bid-card-weave 120s linear infinite}
+[data-theme="dark"] .bid-weave{opacity:.14}
+
+/* Everything written on the card sits above its ground. The weave is a
+   direct child too, so it has to be excluded by name — otherwise it lands on
+   the same layer as the text and only stays behind by DOM order, which is
+   luck rather than intent. */
+.bid-card > *:not(.bid-weave){position:relative;z-index:1}
+
+/* the gilded frame — the same language as the dialogs and the arch */
+.bid-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;z-index:2;
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft),var(--gold))}
+
+@keyframes bid-card-light{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%    {transform:translate3d(-3%,2%,0) scale(1.08)}
+}
+@keyframes bid-card-weave{
+  from{background-position:0 0}
+  to  {background-position:540px 270px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bid-card::after,.bid-weave{animation:none}
+}
+
+.bid-head{display:flex;gap:26px;align-items:flex-start;justify-content:space-between;
+  padding:30px 0 4px;flex-wrap:wrap}
+.bid-head-main{flex:1 1 300px;min-width:0}
+.bid-kind{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--navy);background:var(--bg-soft-2);
+  border:1px solid var(--line-2);border-radius:999px;padding:4px 12px;margin-bottom:12px}
+.bid-card[data-kind="assoc"] .bid-kind{color:var(--gold);border-color:var(--gold-soft)}
+.bid-head h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(22px,2.6vw,31px);
+  line-height:1.18;letter-spacing:-.02em;color:var(--ink);margin:0 0 6px;word-wrap:break-word}
+.bid-official{font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0}
+
+.bid-qr{margin:0;text-align:center;flex:0 0 auto}
+.bid-qr img{display:block;width:132px;height:132px;padding:9px;background:#fff;
+  border:1px solid var(--line);border-radius:12px}
+.bid-qr figcaption{font-size:11px;color:var(--muted);margin-top:7px;max-width:150px;line-height:1.4}
+
+/* ---- the number, treated like a document number ---- */
+.bid-num{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:0 0 16px;
+  border-bottom:1px solid var(--line)}
+.bid-plate{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:19px;font-weight:600;letter-spacing:.1em;color:var(--navy);
+  background:var(--bg-soft);border:1px solid var(--line-2);border-radius:9px;padding:7px 14px}
+
+/* ---- the written record, lifted off the weave ----
+   The pattern is allowed to be visible because nothing is read directly
+   on top of it: the number and every field sit on this panel instead.
+   color-mix keeps the panel tied to --card, so it follows the theme
+   rather than needing a second colour of its own; the plain rgba line
+   before it is the fallback where color-mix is not supported. */
+.bid-panel{position:relative;margin-top:22px;padding:20px 22px 18px;
+  background:rgba(255,253,247,.86);
+  background:color-mix(in srgb,var(--card) 88%,transparent);
+  border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+[data-theme="dark"] .bid-panel{background:var(--card);
+  background:color-mix(in srgb,var(--card) 90%,transparent);
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset}
+
+.bid-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding-top:18px}
+.bid-block h2{font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 12px}
+.bid-row{display:flex;gap:12px;align-items:baseline;padding:6px 0;
+  border-bottom:1px dashed var(--line);font-size:14.5px}
+.bid-row:last-child{border-bottom:0}
+.bid-row-k{flex:0 0 92px;color:var(--muted);font-size:12.5px}
+.bid-row-v{flex:1 1 auto;min-width:0;color:var(--ink);word-wrap:break-word}
+a.bid-row-v{color:var(--navy);text-decoration:none}
+a.bid-row-v:hover{color:var(--navy-2);text-decoration:underline}
+.bid-meta{color:var(--muted);font-size:12.5px}
+.bid-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12px;letter-spacing:.06em;color:var(--navy)}
+.bid-empty{color:var(--muted);font-size:14px;margin:6px 0}
+
+.bid-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+/* ---- what sits below the card ---- */
+.bid-extra{max-width:760px;margin:34px 0 0}
+.bid-extra > h2{font-family:'Source Serif 4',Georgia,serif;font-size:20px;
+  color:var(--ink);margin:0 0 14px}
+
+.bid-members{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.bid-members li{border:1px solid var(--line);border-radius:12px;
+  background:var(--card);padding:12px 15px;
+  transition:border-color .16s ease,transform .16s ease}
+.bid-members li:hover{border-color:var(--gold-soft);transform:translateX(2px)}
+.bid-members b{font-size:14.8px;font-weight:600}
+
+/* A member row carries two separate links — the name opens the company,
+   the number opens its card — so the row itself is the flex container.
+   Letting the anchors be flex made the number stretch the full width. */
+.bid-members li{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.bid-members li > a{text-decoration:none;color:var(--ink)}
+.bid-members li > a:first-child{flex:1 1 auto;min-width:0}
+.bid-members li > a:first-child:hover b{color:var(--navy)}
+.bid-members .bid-meta{width:100%;margin-top:-2px}
+/* the number reads as a control, not as part of the name beside it */
+.bid-memberid{flex:0 0 auto;background:var(--bg-soft);
+  border:1px solid var(--line-2);border-radius:999px;padding:4px 10px;transition:.16s}
+.bid-memberid:hover{border-color:var(--gold);color:var(--navy-2)}
+
+/* ---- the register, as cards ----
+   A row of 61 full-width lines reads as a database dump; at card size the
+   name, the kind and the number are all legible at a glance and the grid
+   reflows instead of leaving a metre of empty space beside each entry. */
+.bid-cards{display:grid;gap:12px;
+  grid-template-columns:repeat(auto-fill,minmax(288px,1fr))}
+.bid-c{position:relative;display:flex;align-items:center;gap:13px;
+  padding:15px 16px;text-decoration:none;background:var(--card);
+  border:1px solid var(--line);border-top:3px solid var(--gold-soft);
+  border-radius:var(--arch-sm,14px);box-shadow:var(--shadow-sm);
+  transition:border-color .18s var(--ease,ease),transform .18s var(--ease,ease),
+             box-shadow .18s var(--ease,ease)}
+.bid-c:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);
+  border-top-color:var(--navy)}
+.bid-c:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* the monogram doubles as the kind: gilded for an uyushma, navy for a korxona */
+.bid-c-mark{flex:0 0 auto;width:40px;height:40px;display:grid;place-items:center;
+  border-radius:var(--arch-xs,10px);font-weight:700;font-size:17px;color:#fff;
+  background:var(--navy)}
+.bid-c[data-kind="assoc"] .bid-c-mark{background:linear-gradient(160deg,var(--gold-soft),var(--gold))}
+.bid-c[data-kind="assoc"]{border-top-color:var(--gold)}
+
+.bid-c-body{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.bid-c-body b{font-size:14.5px;font-weight:600;line-height:1.3;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bid-c-meta{font-size:12.3px;color:var(--muted)}
+.bid-c-id{flex:0 0 auto;align-self:flex-start;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11.5px;letter-spacing:.05em;color:var(--navy);
+  background:var(--bg-soft);border:1px solid var(--line-2);
+  border-radius:999px;padding:4px 9px}
+.bid-c[data-kind="assoc"] .bid-c-id{color:var(--gold)}
+
+@media (max-width:420px){
+  .bid-cards{grid-template-columns:1fr}
+}
+
+.bid-goods{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px}
+.bid-good{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;background:var(--card);transition:border-color .16s ease,transform .16s ease}
+.bid-good:hover{border-color:var(--gold-soft);transform:translateY(-2px)}
+.bid-good img,.bid-good-blank{display:block;width:100%;height:112px;object-fit:cover;
+  background:var(--bg-soft-2)}
+.bid-good b{display:block;padding:10px 12px 2px;font-size:14px;color:var(--ink)}
+.bid-good span{display:block;padding:0 12px 12px;font-size:12.8px;color:var(--muted)}
+
+/* ---- the verify box ---- */
+.bid-verify{max-width:640px;margin-bottom:36px}
+.bid-form{display:flex;gap:9px;margin:14px 0 0;flex-wrap:wrap}
+.bid-form input,.bid-search{flex:1 1 220px;min-width:0;padding:11px 14px;font:inherit;
+  font-size:15px;color:var(--ink);background:var(--card);border:1px solid var(--line);
+  border-radius:10px;outline:none;transition:border-color .16s ease,box-shadow .16s ease}
+.bid-form input{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.08em}
+.bid-search{width:100%;flex:none;margin-bottom:14px}
+.bid-form input:focus,.bid-search:focus{border-color:var(--navy-3);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--navy) 26%,transparent)}
+
+.bid-verdict{margin-top:16px;padding:15px 17px;border-radius:13px;
+  border:1px solid var(--line);background:var(--bg-soft);border-left:3px solid var(--muted)}
+.bid-verdict b{display:block;font-size:14.8px;color:var(--ink);margin-bottom:6px}
+.bid-verdict p{margin:0 0 12px;font-size:14px;color:var(--text)}
+.bid-verdict.is-ok{border-left-color:var(--green)}
+.bid-verdict.is-bad{border-left-color:#b4453f}
+
+@media (max-width:720px){
+  .bid-cols{grid-template-columns:1fr;gap:18px}
+  .bid-card{padding:0 20px 22px}
+  .bid-head{gap:18px}
+  .bid-qr img{width:108px;height:108px}
+}
+
+/* ============================================================
+   PRINT — the card, and nothing else.
+
+   Backgrounds are forced on so the gilded rule and the number plate
+   survive the printer's default of dropping them; everything
+   chrome-like is removed so the sheet reads as the document rather
+   than a screenshot of a website.
+   ============================================================ */
+@media print{
+  .site-header,.site-footer,.bg-grid,.skyline,.bid-actions,.bid-extra,
+  .bid-verify,.bid-lead,.uid-back,.uid-toasts{display:none !important}
+  html,body{background:#fff !important}
+  body.mk{padding:0 !important}
+  .section{padding:0 !important}
+  .container{max-width:none !important;padding:0 !important}
+  .bid-card{max-width:none;box-shadow:none;border-color:#c9c2b2;border-radius:0;
+    page-break-inside:avoid;break-inside:avoid;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .bid-card::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .bid-card::after{display:none}          /* no moving light on paper */
+  .bid-weave{animation:none;opacity:.05;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .bid-panel{background:#fff !important;border-color:#c9c2b2;box-shadow:none}
+  .bid-qr img{border-color:#c9c2b2}
+  .bid-plate{background:#f4efe3 !important;border-color:#c9c2b2;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a[href]::after{content:""}          /* no URL footnotes on a business card */
+  @page{margin:14mm}
+}
+
+/* ============================================================
+   KORXONA — a company's own public page.
+   Shares the card's product grid and empty-state, so only the
+   header and the ID aside are new here.
+   ============================================================ */
+.ko-head{display:flex;gap:30px;align-items:flex-start;justify-content:space-between;
+  flex-wrap:wrap;margin-bottom:34px}
+.ko-head-main{flex:1 1 380px;min-width:0}
+.ko-head h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(26px,3.2vw,38px);
+  letter-spacing:-.022em;line-height:1.14;color:var(--ink);margin:0 0 8px;word-wrap:break-word}
+.ko-sub{color:var(--muted);font-size:14.5px;margin:0 0 18px}
+.ko-kv{margin:0 0 22px}
+
+/* the Business ID, offered rather than inlined — contact details live on
+   the card, so this is the door to them, not a copy of them */
+.ko-idcard{flex:0 0 236px;background:var(--card);border:1px solid var(--line);
+  border-left:3px solid var(--gold);border-radius:14px;padding:16px 18px}
+.ko-idcard-k{display:block;font-size:11px;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.ko-idcard-n{display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:15px;font-weight:600;letter-spacing:.09em;color:var(--navy);text-decoration:none;
+  background:var(--bg-soft);border:1px solid var(--line-2);border-radius:8px;padding:6px 12px}
+.ko-idcard-n:hover{border-color:var(--gold-soft);color:var(--navy-2)}
+.ko-idcard p{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+
+.ko-goods > h2{font-family:'Source Serif 4',Georgia,serif;font-size:21px;
+  color:var(--ink);margin:0 0 16px}
+
+@media (max-width:720px){
+  .ko-head{gap:20px}
+  .ko-idcard{flex:1 1 100%}
+}
+
+/* ---- directory filters ---- */
+.bid-filters{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.bid-count{font-size:12.5px;color:var(--muted);margin-left:auto}
+@media (max-width:560px){
+  .bid-filters{gap:10px}
+  .bid-count{margin-left:0;width:100%}
+}
+
+/* ---- the card sits in the middle of the column ---- */
+.bid-card,.bid-extra{margin-inline:auto}

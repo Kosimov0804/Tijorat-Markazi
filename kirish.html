@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI — yagona kirish. Kompaniya, uyushma, tahlilchi va administrator hisoblari uchun bitta login oynasi." />
+  <meta name="robots" content="noindex" />
+  <title>Kirish — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body>
+
+  <section class="admin-login" id="kiScreen">
+    <form class="ki-card" id="kiForm" autocomplete="on">
+      <span class="eyebrow" id="kiEyebrow">KIRISH</span>
+      <h1 id="kiTitle">Kabinetga kirish</h1>
+      <p class="ki-sub" id="kiSub">Login va parolingizni kiriting — tizim sizni o‘z kabinetingizga yo‘naltiradi.</p>
+
+      <div class="err" id="kiErr" role="alert" aria-live="polite"></div>
+
+      <label class="ki-f">
+        <span id="kiLoginLb">Login</span>
+        <input id="kiLogin" name="username" autocomplete="username" autocapitalize="none"
+               spellcheck="false" required />
+      </label>
+      <label class="ki-f">
+        <span id="kiPassLb">Parol</span>
+        <input id="kiPass" name="password" type="password" autocomplete="current-password" required />
+      </label>
+
+      <button class="btn btn-primary btn-lg" type="submit" id="kiBtn" style="width:100%">Kirish →</button>
+
+      <p class="ki-roles" id="kiRoles">
+        Bitta oyna — kompaniya, uyushma, tahlilchi va administrator hisoblari uchun.
+      </p>
+
+      <div class="ki-foot">
+        <a href="royxatdan-otish.html" id="kiReg">Ro‘yxatdan o‘tish</a>
+        <a href="index.html" id="kiBack">← Saytga qaytish</a>
+      </div>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-bottom">
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="auth.js"></script>
+  <script src="kirish.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="background.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

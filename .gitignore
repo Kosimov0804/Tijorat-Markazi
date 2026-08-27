@@ -6,6 +6,10 @@ node_modules/
 .claude/settings.local.json
 *.key
 *.pem
+data/google-token.json
+data/.gsetup-profile/
+data/.meet-profile/
+data/meet-bot.json
 .env
 .env.*
 
@@ -14,3 +18,24 @@ node_modules/
 
 # Expo
 .expo/
+
+# generated account list — never commit
+credentials.txt
+credentials.xlsx
+backups/
+
+# Runtime state — Postgres is the source of truth, these are a local mirror.
+# data/orgs.json held 54 plaintext account passwords and was public.
+data/*.json
+data/*.doc
+data/cert-hosts.txt
+data/cert.cnf
+data/reports/
+
+# User-uploaded documents — personal data, belongs in storage not git
+uploads/
+
+# Agent tooling / skill definitions
+.agents/
+.playwright-mcp/
+skills-lock.json

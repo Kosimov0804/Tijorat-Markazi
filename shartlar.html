@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI platformasidan foydalanish qoidalari: hisob qaydnomasi, joylashtiriladigan material, moderatsiya va shikoyat tartibi." />
+  <title>Foydalanish shartlari — TIJORAT MARKAZI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="markets.css" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body class="mk" data-market="bozor" data-legal-doc="shartlar">
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text"><strong>TIJORAT MARKAZI</strong></span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="lg-page">
+      <div class="container lg-inner">
+        <nav class="lg-tabs" aria-label="Huquqiy hujjatlar">
+          <a href="oferta.html">Ommaviy oferta</a>
+          <a href="maxfiylik.html">Maxfiylik siyosati</a>
+          <a href="shartlar.html">Foydalanish shartlari</a>
+        </nav>
+
+        <header class="lg-head">
+          <h1 id="lgTitle">Foydalanish shartlari</h1>
+          <p class="lg-stamp" id="lgStamp"></p>
+        </header>
+
+        <div id="lgBody" class="lg-body"></div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <div class="footer-bottom">
+        <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+        <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="markets-i18n.js"></script>
+  <script src="market-kit.js"></script>
+  <script src="legal-text-oferta.js"></script>
+  <script src="legal-text-maxfiylik.js"></script>
+  <script src="legal-text-shartlar.js"></script>
+  <script src="legal-render.js"></script>
+  <script src="legal-page.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

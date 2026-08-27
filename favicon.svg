@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TIJORAT MARKAZI">
+  <!-- the portal arch the site's visual language is built on -->
+  <rect width="64" height="64" rx="14" fill="#1f4e79"/>
+  <path d="M32 12c-8 0-13 5.6-13 13v27h26V25c0-7.4-5-13-13-13z" fill="none" stroke="#d8ae5c" stroke-width="3.5"/>
+  <path d="M32 22c-3.6 0-6 2.6-6 6v24h12V28c0-3.4-2.4-6-6-6z" fill="#d8ae5c" opacity=".85"/>
+</svg>

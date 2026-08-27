@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIJORAT MARKAZI — Milliy savdo platformasi." />
+  <title>[v2] TIJORAT MARKAZI — Milliy savdo platformasi</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="legal.css" />
+  <link rel="stylesheet" href="index-v2.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-text">
+          <strong>TIJORAT MARKAZI</strong>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#top" class="active" data-i18n="nav_home">Bosh sahifa</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_markets">Bozorlar</button>
+          <div class="nav-menu">
+            <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+            <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+            <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+          </div>
+        </div>
+        <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <div class="nav-group">
+          <button class="nav-gbtn" type="button" aria-expanded="false" aria-haspopup="true" data-i18n="nav_services">Xizmatlar</button>
+          <div class="nav-menu">
+            <a href="xizmatlar.html" data-i18n="nav_svc_members">A'zo korxonalar</a>
+            <a href="davlat-xizmatlari.html" data-i18n="nav_gov_services">Davlat xizmatlari</a>
+            <a href="biznes-id.html" data-i18n="nav_bizid">Business ID</a>
+          </div>
+        </div>
+        <a href="associations.html" data-i18n="nav_uyush">Uyushmalar</a>
+        <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema"></button>
+        <button class="lang-btn" id="langBtn" type="button" title="Til">UZ</button>
+        <a class="btn btn-ghost" href="assistant.html" data-i18n="btn_signin">Kirish</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-inner hero-inner-ayvan">
+      <div class="hero-copy">
+        <span class="pill"><span class="dot"></span> <span data-i18n="pill">Milliy savdo platformasi</span></span>
+        <h1 data-i18n-html="h1"><span class="grad">Tijorat Markazi</span></h1>
+        <p class="lead" data-i18n-html="lead">
+          TIJORAT MARKAZI — bu oddiy veb-sayt emas. U yirik kompaniyalar, investorlar,
+          ilmiy markazlar, davlat idoralari va xalqaro hamkorlarni bitta raqamli
+          infratuzilmada birlashtiradi.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="royxatdan-otish.html" data-i18n="nav_register">Ro'yxatdan o'tish</a>
+          <a class="btn btn-ghost btn-lg" href="associations.html" data-i18n="hero_cta1">Platformani ko'rish →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b data-count="50">0</b><span data-i18n="stat1">Uyushma</span></div>
+          <div class="stat"><b data-count="12">0</b><span data-i18n="stat2">Markaz</span></div>
+          <div class="stat"><b data-count="1240">0</b><span data-i18n="stat3">Kompaniya</span></div>
+          <div class="stat"><b>24/7</b><span data-i18n="stat4">AI yordam</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Associations + showroom, rendered live from the public API -->
+  <div id="homeSections"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+  <div class="container">
+      <div class="footer-legal" id="footerLegal"></div>
+      <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p></noscript>
+    </div>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div>
+          <strong>TIJORAT MARKAZI</strong>
+          <p data-i18n="foot_tagline">Milliy savdo platformasi</p>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4 data-i18n="foot_col_cab">Kabinetlar</h4>
+          <a href="kirish.html" data-i18n="foot_cab_in">Kirish</a>
+          <a href="royxatdan-otish.html" data-i18n="nav_register">Ro'yxatdan o'tish</a>
+        </div>
+        <div>
+          <h4 data-i18n="foot_col3">Aloqa</h4>
+          <a href="tel:+998999999999">+998 99 999 99 99</a>
+          <a href="mailto:info@tijoratmarkazi.uz">info@tijoratmarkazi.uz</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <a href="royxatdan-otish.html" data-i18n="nav_register">Ro’yxatdan o’tish</a>
+      <span data-i18n="foot_copy">© 2026 TIJORAT MARKAZI. Barcha huquqlar himoyalangan.</span>
+      <span data-i18n="foot_country">O'zbekiston · Milliy savdo platformasi</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="ui-dialog.js"></script>
+  <script src="nav.js"></script>
+  <script src="monument-bg.js"></script>
+  <script src="skyline.js"></script>
+  <script src="app.js"></script>
+  <script src="background.js"></script>
+  <script src="home-sections.js"></script>
+  <script src="logout.js"></script>
+  <script src="legal-footer.js"></script>
+</body>
+</html>

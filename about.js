@@ -8,43 +8,41 @@ const L = () => LANGS.indexOf(LANG);
 const $ = (s,r=document)=>r.querySelector(s);
 const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
 
-function renderStructure(){
-  const g=$("#structGrid"); if(!g) return;
-  g.innerHTML="";
-  AB_STRUCTURE.forEach(s=>{
-    g.appendChild(el("div","center-card reveal",
-      `<span class="center-tag">${s.code}</span>
-       <div class="center-icon">${ICONS[s.icon]||""}</div>
-       <h3>${s.name[L()]}</h3><p>${s.desc[L()]}</p>`));
-  });
-}
-function renderPillars(){
-  const g=$("#pillarsGrid"); if(!g) return;
-  g.innerHTML="";
-  AB_PILLARS.forEach(p=>{
-    g.appendChild(el("div","future-card reveal",
-      `<span class="fi">${ICONS[p.icon]||""}</span><h4>${p.name[L()]}</h4><p>${p.desc[L()]}</p>`));
-  });
-}
-function renderValues(){
-  const g=$("#valuesGrid"); if(!g) return;
-  g.innerHTML="";
-  AB_VALUES.forEach((v,i)=>{
-    g.appendChild(el("div","value-card reveal",
-      `<span class="value-num">${String(i+1).padStart(2,"0")}</span><b>${v[L()]}</b>`));
-  });
-}
-function renderResults(){
-  const g=$("#resultsGrid"); if(!g) return;
-  g.innerHTML="";
-  AB_RESULTS.forEach(r=>{
-    g.appendChild(el("div","result-card reveal",
-      `<b>${r.v}</b><span>${r.label[L()]}</span>`));
-  });
-}
-function renderAll(){ renderStructure();renderPillars();renderValues();renderResults();
-  document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in")); }
+/* Each grid is optional: a missing array must never take the page down,
+   which is exactly what happened when these renderers referenced data
+   that was never defined. */
+const grid = (id, rows, build) => {
+  const g = $(id);
+  if(!g) return;
+  if(!Array.isArray(rows) || !rows.length){ g.innerHTML = ""; return; }
+  g.innerHTML = "";
+  rows.forEach((row, i) => g.appendChild(build(row, i)));
+};
 
+/* what the platform can do today */
+function renderFeatures(){
+  grid("#featuresGrid", typeof AB_FEATURES !== "undefined" && AB_FEATURES, f =>
+    el("div","center-card reveal",
+      `<span class="center-tag">${f.code}</span>
+       <div class="center-icon">${ICONS[f.icon]||""}</div>
+       <h3>${f.name[L()]}</h3><p>${f.desc[L()]}</p>`));
+}
+/* the four cabinets */
+function renderRoles(){
+  grid("#rolesGrid", typeof AB_ROLES !== "undefined" && AB_ROLES, r =>
+    el("div","future-card reveal",
+      `<span class="fi">${ICONS[r.icon]||""}</span><h4>${r.name[L()]}</h4><p>${r.desc[L()]}</p>`));
+}
+/* the path an appeal travels, numbered */
+function renderHow(){
+  grid("#howGrid", typeof AB_HOW !== "undefined" && AB_HOW, (step, i) =>
+    el("div","value-card reveal",
+      `<span class="value-num">${String(i+1).padStart(2,"0")}</span><b>${step[L()]}</b>`));
+}
+function renderAll(){
+  renderFeatures(); renderRoles(); renderHow();
+  document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in"));
+}
 /* ---- static text + language + theme ---- */
 function applyStatic(){
   document.querySelectorAll("[data-i18n]").forEach(n=>{const k=n.dataset.i18n;if(T[k])n.textContent=T[k][L()];});

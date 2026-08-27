@@ -22,7 +22,7 @@ let current = null;         // {id,title,messages:[{role,text}]}
 const chatBody=$("#chatBody"), chatStatus=$("#chatStatus"), exList=$("#exList"), sessionList=$("#sessionList");
 const SUGGESTS=["sug1","sug2","sug3","sug4","sug5","sug6"];
 
-// Privileged roles (admin / super-admin / company / rais) get unlimited AI.
+// Privileged roles (admin / super-admin / company / rais / analyst) get unlimited AI.
 // Credentials come from the panel that opened the assistant (same-tab sessionStorage)
 // and are VALIDATED server-side — a faked flag won't bypass the limit.
 function panelAuth(){
@@ -30,10 +30,12 @@ function panelAuth(){
     if(sessionStorage.getItem("kg_admin")==="1") return { role:"admin", pass:"admin" };
     const co=JSON.parse(sessionStorage.getItem("kg_co")||"null"); if(co&&co.login) return { role:"company", login:co.login, password:co.password };
     const as=JSON.parse(sessionStorage.getItem("kg_as")||"null"); if(as&&as.login) return { role:"assoc",   login:as.login, password:as.password };
+    const an=JSON.parse(sessionStorage.getItem("kg_an")||"null"); if(an&&an.login) return { role:"analyst", login:an.login, password:an.password };
   }catch(e){}
   return null;
 }
 let LIMIT_META=null, LIMIT_REACHED=false;
+let ACTIVE=null;                    // in-flight answer, so it can be stopped
 let PANEL=false, PANEL_LABEL="", PANEL_HOME="index.html";
 // When the assistant is opened from a logged-in panel, sign in automatically using
 // that account's identity (no email gate) so the user lands straight in their AI chat.
@@ -73,16 +75,16 @@ const API = {
     if(HAS_BACKEND){try{const r=await fetch("/api/session?email="+encodeURIComponent(email)+"&id="+encodeURIComponent(id));if(r.ok)return await r.json();}catch(e){}}
     const all=lsAll();const s=all.sessions[id];return {messages:s?s.messages:[]};
   },
-  async ask(history,message,attachment){
-    if(HAS_BACKEND){try{const r=await fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({message,history,lang:LANG,attachment,guestId:GUEST_ID})});if(r.ok){return await r.json();}}catch(e){}}
+  async ask(history,message,attachment,signal){
+    if(HAS_BACKEND){try{const r=await fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},signal,
+      body:JSON.stringify({message,history,lang:LANG,attachment,guestId:GUEST_ID})});if(r.ok){return await r.json();}}catch(e){ if(e.name==="AbortError") throw e; }}
     return { reply: demoReply(message) };
   },
-  async chat(id,message,attachment){
+  async chat(id,message,attachment,signal){
     if(HAS_BACKEND){
-      try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+      try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},signal,
         body:JSON.stringify({email,id,message,lang:LANG,attachment,company:COMPANY_TAG,auth:panelAuth()})});
-        if(r.ok){return await r.json();}}catch(e){}
+        if(r.ok){return await r.json();}}catch(e){ if(e.name==="AbortError") throw e; }
     }
     // fallback: demo reply + persist to localStorage
     const note = attachment ? " 📎 "+(attachment.name||"file") : "";
@@ -103,12 +105,75 @@ function demoReply(message){const q=message.toLowerCase();const f=RESPONSES.find
 /* ============================================================
    CHAT UI
    ============================================================ */
-function addMsg(text,who){const m=el("div","msg "+who,esc(text));chatBody.appendChild(m);chatBody.scrollTop=chatBody.scrollHeight;return m;}
+function addMsg(text,who){const m=el("div","msg "+who,linkify(esc(text)));chatBody.appendChild(m);chatBody.scrollTop=chatBody.scrollHeight;return m;}
+/* A generated file arrives as a /uploads/... path in the reply. Turn it into a
+   real download button — the whole point is that the user gets the file. */
+const FILE_ICON={pdf:"📕",docx:"📘",xlsx:"📗",pptx:"📙"};
+/* Same card the group chat uses for attachments: icon tile, name, size. */
+function humanSize(n){
+  n = Number(n)||0;
+  if(n < 1024) return n + " B";
+  if(n < 1024*1024) return (n/1024).toFixed(0) + " KB";
+  return (n/1024/1024).toFixed(1) + " MB";
+}
+function fileBtn(url,label,size){
+  const name = label || url.split("/").pop();
+  const ext  = url.split(".").pop().toLowerCase();
+  return '<a class="msg-file" href="'+url+'" download="'+name+'">'
+       +   '<span class="msg-file-ic">'+(FILE_ICON[ext]||"📄")+'</span>'
+       +   '<span class="msg-file-tx"><b>'+name+'</b><em>'+(size ? humanSize(size) : ext.toUpperCase())+'</em></span>'
+       + '</a>';
+}
+/* Pull any file the reply links out of the sentence, so the message reads as
+   prose and every file shows up as its own card underneath — the same shape a
+   chat attachment has. Returns the cleaned text plus what was extracted. */
+const FILE_RE = /\/uploads\/[A-Za-z0-9._-]+\.(?:pdf|docx|xlsx|pptx)/;
+function splitFiles(text){
+  const found = [];
+  let clean = String(text||"")
+    .replace(new RegExp("\\[([^\\]\\n]+)\\]\\((" + FILE_RE.source + ")\\)", "g"),
+             (_, label, url) => { found.push({ url, name:label }); return ""; })
+    .replace(new RegExp("(^|\\s)(" + FILE_RE.source + ")", "g"),
+             (_, pre, url) => { found.push({ url, name:url.split("/").pop() }); return pre; });
+  clean = clean
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/[ \t]*([:\-—–])[ \t]*$/gm, "")   // "…yuklab olish:" left dangling by the removal
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  return { text:clean, files:found };
+}
+/* Merge what the server reported with what the text mentioned, without
+   showing the same document twice. */
+function mergeFiles(fromApi, fromText){
+  const out = [], seen = new Set();
+  for(const f of [].concat(fromApi||[], fromText||[])){
+    if(!f || !f.url || seen.has(f.url)) continue;
+    seen.add(f.url);
+    const better = (fromApi||[]).find(x => x && x.url === f.url) || f;   // API knows the size
+    out.push({ url:f.url, name:better.name || f.name, size:better.size });
+  }
+  return out;
+}
+function attachFiles(bubble, files){
+  if(!bubble || !files || !files.length) return;
+  const row = el("div","msg-files");
+  row.innerHTML = files.map(f => fileBtn(f.url, f.name, f.size)).join("");
+  bubble.appendChild(row);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function linkify(html){ return html; }   // file links are handled by splitFiles now
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");}
 function renderChat(){
   chatBody.innerHTML="";
+  syncExamples();                 // new chat shows them again; an opened one does not
   addMsg(T.chat_greeting[L()],"bot");
-  (current?.messages||[]).forEach(m=>addMsg(m.text, m.role==="user"?"user":"bot"));
+  // reopening an old conversation must bring its files back with it
+  (current?.messages||[]).forEach(m=>{
+    if(m.role==="user"){ addMsg(m.text,"user"); return; }
+    const split = splitFiles(m.text);
+    const bubble = addMsg(split.text || m.text, "bot");
+    attachFiles(bubble, mergeFiles(m.files, split.files));
+  });
 }
 async function send(text){
   const att=pendingAttachment;
@@ -119,19 +184,46 @@ async function send(text){
   const disp=(text+(att?"  📎 "+att.name:"")).trim();
   addMsg(disp,"user");
   current.messages.push({role:"user",text:disp});
+  syncExamples();                 // first message sent → the starter chips step aside
   clearAttach();
   const typing=el("div","msg bot typing","<span></span><span></span><span></span>");
   chatBody.appendChild(typing);chatBody.scrollTop=chatBody.scrollHeight;
   chatStatus.textContent=T.chat_typing[L()];
-  const out = GUEST ? await API.ask(history,text,att) : await API.chat(current.id,text,att);
+  ACTIVE = new AbortController();
+  setBusy(true);
+  let out=null, stopped=false;
+  try{
+    out = GUEST ? await API.ask(history,text,att,ACTIVE.signal)
+                : await API.chat(current.id,text,att,ACTIVE.signal);
+  }catch(e){ stopped = !!(e && e.name==="AbortError"); }
+  finally{ setBusy(false); ACTIVE=null; }
+  if(stopped){                    // stopped by the user — keep their message, drop the answer
+    typing.remove(); chatStatus.textContent=T.chat_online[L()];
+    return;
+  }
   const reply = (out && out.reply) || demoReply(text||"");
   typing.remove();chatStatus.textContent=T.chat_online[L()];
-  addMsg(reply,"bot");
-  current.messages.push({role:"assistant",text:reply});
+  const split=splitFiles(reply);
+  const files=mergeFiles(out && out.files, split.files);
+  const bubble=addMsg(split.text || reply,"bot");
+  attachFiles(bubble, files);
+  current.messages.push({role:"assistant",text:reply,files:files.length?files:undefined});
   if(out && out.max!=null){ LIMIT_META=out; updateLimitUI(out); }
   if(!current.title||current.title===T.asst_new_title[L()]) current.title=(text||att?.name||"…").slice(0,46);
   if(!GUEST && !(out&&out.limit)) await refreshSessions();
 }
+
+/* While an answer is on its way the Send button becomes Stop, so a long
+   generation (a document can take a minute) can always be called off. */
+function setBusy(on){
+  const send=document.querySelector(".ci-send:not(.ci-stop)"), stop=$("#stopBtn");
+  if(send) send.hidden=!!on;
+  if(stop) stop.hidden=!on;
+  chatStatus.textContent = on ? T.chat_typing[L()] : T.chat_online[L()];
+}
+document.addEventListener("click",e=>{
+  if(e.target && e.target.closest && e.target.closest("#stopBtn") && ACTIVE) ACTIVE.abort();
+});
 
 /* ---- free-question limit UI (regular email users only) ---- */
 function setChatEnabled(on){
@@ -153,6 +245,7 @@ function updateLimitUI(meta){
     LIMIT_REACHED=false; setChatEnabled(true);
     if(note){ note.className="limit-note"; note.textContent=T.limit_left[L()].replace("{n}",rem).replace("{max}",meta.max); }
   }
+  syncExamples();                 // the counter shares the chips' bar
 }
 async function refreshLimit(){
   if(!HAS_BACKEND){ updateLimitUI(null); return; }
@@ -184,12 +277,13 @@ function onFile(file){
     const r=new FileReader();r.onload=()=>{let c=String(r.result);if(c.length>20000)c=c.slice(0,20000);pendingAttachment={kind:"text",name:file.name,content:c};showChip(file.name,false);};r.readAsText(file);
   }else if(isDoc){
     const r=new FileReader();r.onload=()=>{pendingAttachment={kind:"binary",mime:file.type||"application/octet-stream",data:String(r.result).split(",")[1],name:file.name};showChip(file.name,false);};r.readAsDataURL(file);
-  }else{ alert(T.attach_bad[L()]); }
+  }else{ UI.alert(T.attach_bad[L()]); }
 }
 $("#attachBtn").addEventListener("click",()=>fileInput.click());
 fileInput.addEventListener("change",e=>{onFile(e.target.files[0]);fileInput.value="";});
 
-/* ---- voice input (record audio -> Gemini transcription) ---- */
+/* ---- voice input (recording works; transcription is currently unavailable —
+   Claude has no audio input, see claude.js) ---- */
 const micBtn=$("#micBtn");
 let mediaRec=null, recording=false, chunks=[];
 function micNote(msg){chatStatus.textContent=msg;chatStatus.style.color="#e25a4a";
@@ -261,6 +355,18 @@ function renderExamples(){
     b.addEventListener("click",()=>send(b.textContent));
     exList.appendChild(b);
   });
+  syncExamples();
+}
+/* The example prompts are a starting point, not a permanent fixture — once the
+   conversation is under way they only eat room the messages could use. The free
+   question counter shares the same bar, so the bar itself stays whenever that
+   counter is showing. */
+function syncExamples(){
+  const bar=document.querySelector(".ex-bar"); if(!bar) return;
+  const started=!!(current && current.messages && current.messages.length);
+  bar.classList.toggle("is-chatting", started);
+  const note=$("#limitNote");
+  bar.hidden = started && !(note && !note.hidden);
 }
 
 /* ============================================================

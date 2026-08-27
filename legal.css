@@ -1,0 +1,341 @@
+/* ============================================================
+   LEGAL — the document surface
+
+   These pages are read differently from the rest of the site.
+   Nobody browses an offer; they arrive looking for one clause,
+   scan headings until they find it, and read that paragraph
+   carefully. The layout is built for that pattern rather than
+   for the marketing rhythm the market pages use:
+
+   - one column at a real reading measure (~68ch), because a
+     paragraph of legal prose set across a 1200px container is
+     genuinely harder to parse, not just less pretty;
+   - Source Serif for body text. The site already loads it for
+     display, and a serif at 17px carries dense sentences with
+     fewer re-reads than the UI sans does;
+   - section numbers hung in the margin, so scanning for "9.
+     Javobgarlik" is a vertical eye movement and not a search;
+   - tables that scroll inside themselves, since the categories
+     table has to survive a 320px phone without pushing the page
+     sideways.
+
+   Everything is expressed in the tokens already defined in
+   styles.css, so both themes follow the rest of the site with
+   no separate dark palette to maintain here.
+   ============================================================ */
+
+.lg-page{ padding: clamp(1.5rem, 1rem + 3vw, 4rem) 0 clamp(3rem, 2rem + 4vw, 6rem); }
+
+.lg-inner{
+  max-width: 74ch;
+  margin-inline: auto;
+}
+
+/* ---------- document switcher ----------
+   Three siblings, and the current one is stated rather than merely
+   highlighted — `aria-current` does the work and the style follows it. */
+.lg-tabs{
+  display:flex; flex-wrap:wrap; gap:.35rem;
+  margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  border-bottom:1px solid var(--line);
+  padding-bottom:.75rem;
+}
+.lg-tabs a{
+  font-size:.82rem; letter-spacing:.01em; font-weight:500;
+  color:var(--text); text-decoration:none;
+  padding:.4rem .7rem; border-radius:var(--radius-pill);
+  border:1px solid transparent;
+  transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+}
+.lg-tabs a:hover{ color:var(--ink); background:var(--bg-soft); }
+.lg-tabs a:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+.lg-tabs a[aria-current="page"]{
+  color:var(--ink); font-weight:600;
+  background:var(--card); border-color:var(--line-2);
+}
+
+/* ---------- masthead ---------- */
+.lg-head{ margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+.lg-head h1{
+  font-family:"Source Serif 4", Georgia, serif;
+  font-size:clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
+  line-height:1.12; letter-spacing:-.015em;
+  color:var(--ink); margin:0 0 .5rem;
+}
+/* The version stamp is the one piece of metadata that carries legal weight —
+   which text was in force when. Small, but never hidden. */
+.lg-stamp{
+  font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); margin:0;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- body ---------- */
+.lg-body{
+  font-family:"Source Serif 4", Georgia, serif;
+  font-size:1.0625rem; line-height:1.72; color:var(--text);
+}
+.lg-body p{ margin:0 0 1.05em; }
+.lg-lead{
+  font-size:1.16rem; line-height:1.62; color:var(--ink);
+  padding-bottom:1.4rem; margin-bottom:1.4rem;
+  border-bottom:1px solid var(--line);
+}
+
+.lg-sec{ margin: clamp(1.75rem, 1.2rem + 2vw, 2.75rem) 0 0; scroll-margin-top:5rem; }
+.lg-sec h2{
+  font-family:Inter, system-ui, sans-serif;
+  font-size:.95rem; font-weight:650;
+  letter-spacing:.005em; line-height:1.35;
+  color:var(--ink); margin:0 0 .85em;
+  padding-bottom:.5rem; border-bottom:1px solid var(--line);
+}
+
+.lg-list{ margin:0 0 1.05em; padding-left:1.15rem; }
+.lg-list li{ margin-bottom:.55em; }
+.lg-list li::marker{ color:var(--gold); }
+
+.lg-links{ margin:.9em 0 0; font-family:Inter, system-ui, sans-serif; font-size:.85rem; }
+.lg-links a{
+  color:var(--navy); text-decoration:none; font-weight:500;
+  margin-right:1rem; border-bottom:1px solid transparent;
+}
+.lg-links a:hover{ border-bottom-color:currentColor; }
+
+/* ---------- requisites ----------
+   A definition list, not a table: these are label/value pairs, and on a
+   narrow screen they should stack rather than compress into two columns. */
+.lg-kv{
+  margin:0 0 1.2em; padding:1.1rem 1.25rem;
+  background:var(--card); border:1px solid var(--line);
+  border-radius:var(--radius);
+  display:grid; grid-template-columns:minmax(11rem, 34%) 1fr; gap:.55rem 1.25rem;
+  font-family:Inter, system-ui, sans-serif; font-size:.9rem; line-height:1.5;
+}
+.lg-kv dt{ color:var(--muted); font-size:.82rem; }
+.lg-kv dd{ margin:0; color:var(--ink); }
+@media (max-width:560px){
+  .lg-kv{ grid-template-columns:1fr; gap:.15rem; padding:1rem; }
+  .lg-kv dd{ margin-bottom:.6rem; }
+}
+
+/* An unfilled requisite must look wrong. It IS wrong — a public offer that
+   names no operator does not satisfy the disclosure it exists to make. */
+.lg-todo{
+  display:inline-block;
+  background:rgba(184,135,58,.14); color:var(--gold);
+  border:1px dashed var(--gold); border-radius:var(--radius-sm);
+  padding:.05rem .45rem; font-size:.82rem; font-weight:500;
+}
+
+/* ---------- tables ---------- */
+.lg-tablewrap{
+  overflow-x:auto; margin:0 0 1.2em;
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--card);
+  -webkit-overflow-scrolling:touch;
+}
+.lg-table{
+  width:100%; border-collapse:collapse;
+  font-family:Inter, system-ui, sans-serif; font-size:.875rem; line-height:1.5;
+  min-width:34rem;
+}
+.lg-table th{
+  text-align:left; font-weight:600; font-size:.76rem;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--muted);
+  padding:.7rem .9rem; border-bottom:1px solid var(--line-2);
+  background:var(--bg-soft); white-space:nowrap;
+}
+.lg-table td{
+  padding:.72rem .9rem; color:var(--ink);
+  border-bottom:1px solid var(--line); vertical-align:top;
+}
+.lg-table tbody tr:last-child td{ border-bottom:0; }
+.lg-table tbody tr:hover td{ background:var(--bg-soft); }
+
+/* ---------- notices ---------- */
+.lg-note{
+  font-family:Inter, system-ui, sans-serif;
+  font-size:.875rem; line-height:1.6;
+  padding:.9rem 1.1rem; margin:0 0 1.3rem;
+  border-radius:var(--radius); border:1px solid var(--line);
+  background:var(--bg-soft); color:var(--ink);
+}
+.lg-note-info{ border-left:3px solid var(--navy); }
+.lg-note-warn{
+  border-left:3px solid var(--gold);
+  background:rgba(184,135,58,.10);
+}
+
+/* ============================================================
+   FOOTER REQUISITES — on every page, not only the legal ones
+
+   Qoidalar 24-band wants the seller's identifying information
+   available before a transaction, and there is no single page
+   a visitor is guaranteed to pass through first. So the block
+   sits in the footer sitewide, which is also where a reader
+   already looks for it.
+   ============================================================ */
+.footer-legal{
+  display:grid; gap:1.25rem 2.5rem;
+  grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
+  padding:1.6rem 0 1.4rem;
+  border-bottom:1px solid rgba(255,255,255,.09);
+  margin-bottom:1rem;
+  font-size:.82rem; line-height:1.6;
+}
+.footer-legal:empty{ display:none; border:0; margin:0; padding:0; }
+
+/* The footer sits on the deep navy ground in BOTH themes — styles.css paints
+   it with fixed colours rather than tokens for exactly that reason. These
+   follow suit: reaching for --text here would render the requisites in the
+   light theme's dark grey on a dark blue field, which is how they became
+   unreadable the first time. */
+.footer-legal h3{
+  font-family:Inter, system-ui, sans-serif;
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.09em; text-transform:uppercase;
+  color:var(--deep-text); margin:0 0 .6rem;
+}
+.footer-legal p{ margin:0 0 .3rem; color:var(--deep-muted); }
+.footer-legal strong{ color:#fff; font-weight:600; }
+.footer-legal a{
+  color:var(--deep-muted); text-decoration:none;
+  border-bottom:1px solid transparent; transition:color .2s;
+}
+.footer-legal a:hover{ color:#fff; border-bottom-color:rgba(255,255,255,.35); }
+.footer-legal a:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; }
+.footer-legal ul{ list-style:none; margin:0; padding:0; }
+.footer-legal li{ margin-bottom:.35rem; }
+.footer-legal .lg-todo{ font-size:.76rem; }
+
+/* ============================================================
+   ACCEPTANCE GATE — the offer, before registration
+
+   A modal that has to hold a real legal document, so it is sized
+   as a reading surface rather than a dialog: the body scrolls, the
+   header and footer do not, and the footer states plainly why the
+   accept button is still disabled. Nothing is hidden behind the
+   fold without the reader being told the fold exists.
+   ============================================================ */
+.lgate-back{
+  position:fixed; inset:0; z-index:9000;
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(.5rem, 2vw, 2rem);
+  background:rgba(6,6,7,.66);
+  backdrop-filter:blur(3px);
+  animation:lgateIn .18s var(--ease);
+}
+@keyframes lgateIn{ from{ opacity:0 } to{ opacity:1 } }
+
+.lgate{
+  display:flex; flex-direction:column;
+  width:min(760px, 100%); max-height:min(88vh, 900px);
+  background:var(--bg); color:var(--ink);
+  border:1px solid var(--line-2); border-radius:var(--radius);
+  box-shadow:var(--shadow-lift); overflow:hidden;
+}
+
+.lgate-head{
+  padding:1.15rem clamp(1rem, 3vw, 1.75rem) 0;
+  border-bottom:1px solid var(--line); background:var(--card);
+}
+.lgate-head h2{
+  font-family:"Source Serif 4", Georgia, serif;
+  font-size:clamp(1.15rem, 1rem + 1vw, 1.5rem); font-weight:600;
+  margin:0 0 .35rem; color:var(--ink);
+}
+.lgate-lead{
+  font-size:.86rem; line-height:1.55; color:var(--text);
+  margin:0 0 .9rem; max-width:60ch;
+}
+.lgate-tabs{ display:flex; gap:.25rem; }
+.lgate-tabs button{
+  appearance:none; background:none; cursor:pointer;
+  font:inherit; font-size:.83rem; font-weight:500;
+  color:var(--muted); padding:.55rem .85rem;
+  border:0; border-bottom:2px solid transparent;
+  transition:color .18s var(--ease), border-color .18s var(--ease);
+}
+.lgate-tabs button:hover{ color:var(--ink); }
+.lgate-tabs button.on{ color:var(--ink); font-weight:600; border-bottom-color:var(--gold); }
+.lgate-tabs button:focus-visible{ outline:2px solid var(--navy); outline-offset:-2px; }
+
+.lgate-body{
+  flex:1 1 auto; overflow-y:auto; overscroll-behavior:contain;
+  padding:1.25rem clamp(1rem, 3vw, 1.75rem);
+  -webkit-overflow-scrolling:touch;
+}
+.lgate-body:focus{ outline:none; }
+/* The document inside is the same markup the pages use, only tighter. */
+.lgate-body .lg-body{ font-size:.98rem; line-height:1.66; }
+.lgate-body .lg-sec{ margin-top:1.5rem; }
+.lgate-body .lg-lead{ font-size:1.03rem; }
+.lgate-body .lg-table{ min-width:0; font-size:.82rem; }
+.lgate-body .lg-kv{ grid-template-columns:minmax(9rem,38%) 1fr; font-size:.85rem; }
+
+.lgate-foot{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; flex-wrap:wrap;
+  padding:.9rem clamp(1rem, 3vw, 1.75rem);
+  border-top:1px solid var(--line); background:var(--card);
+}
+.lgate-hint{
+  font-size:.8rem; color:var(--muted); display:flex; align-items:center; gap:.4rem;
+}
+.lgate-hint::before{
+  content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--muted); flex:none; transition:background .2s var(--ease);
+}
+.lgate-hint.ok{ color:var(--green); }
+.lgate-hint.ok::before{ background:var(--green); }
+.lgate-acts{ display:flex; gap:.5rem; margin-left:auto; }
+.lgate-foot .btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+@media (max-width:560px){
+  .lgate{ max-height:100vh; height:100%; border-radius:0; border:0; }
+  .lgate-back{ padding:0; }
+  .lgate-acts{ width:100%; }
+  .lgate-acts .btn{ flex:1; }
+}
+
+/* ============================================================
+   RIGHTS PANEL — mounted in every cabinet's settings
+   ============================================================ */
+.lg-settings h2{ margin-top:0; }
+.lg-set-intro{ color:var(--muted); font-size:.88rem; line-height:1.6; margin:0 0 1.5rem; max-width:70ch; }
+.lg-set-sec{
+  padding:1.15rem 0; border-top:1px solid var(--line);
+}
+.lg-set-sec:first-of-type{ border-top:0; padding-top:0; }
+.lg-set-sec h3{
+  font-size:.8rem; font-weight:650; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 .7rem;
+}
+.lg-set-sec p{ font-size:.9rem; line-height:1.6; color:var(--text); margin:0 0 .8rem; max-width:70ch; }
+.lg-set-sec code{ font-size:.85em; }
+.lg-set-lbl{
+  display:block; font-size:.78rem; color:var(--muted);
+  margin:0 0 .35rem; letter-spacing:.02em;
+}
+.lg-set-ta, .lg-set-in{
+  display:block; width:100%; max-width:34rem; margin:0 0 .75rem;
+  padding:.55rem .7rem; font:inherit; font-size:.9rem;
+  color:var(--ink); background:var(--card);
+  border:1px solid var(--line-2); border-radius:var(--radius-sm);
+}
+.lg-set-ta:focus, .lg-set-in:focus{ outline:2px solid var(--navy); outline-offset:-1px; border-color:var(--navy); }
+.lg-set-in{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.06em; max-width:20rem; }
+.lg-set-msg{ font-size:.85rem; margin:.6rem 0 0; }
+.lg-set-msg.err{ color:#c83c3c; }
+.lg-set-msg.ok{ color:var(--green); }
+/* The one section that ends an account gets a visible edge. */
+.lg-set-danger{ border-top-color:var(--gold); }
+
+/* The standalone rights page has no cabinet chrome around it, so the panel
+   supplies its own card rather than inheriting a cabinet's. */
+.lg-page-panel{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:var(--radius); padding:clamp(1.1rem, 1rem + 1.5vw, 2rem);
+  box-shadow:var(--shadow-sm);
+}
