@@ -1,0 +1,5 @@
+/* styles.css was written for elements that sit directly under <body>. The React
+   root carries no box, so layout, stacking and sticky behave the same. */
+#root {
+  display: contents;
+}

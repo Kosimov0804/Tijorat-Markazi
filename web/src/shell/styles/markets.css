@@ -1,0 +1,4 @@
+/* markets.css sits between the two, as the old pages load it. See standard.css. */
+@import "@legacy/styles.css";
+@import "@legacy/markets.css";
+@import "@legacy/legal.css";

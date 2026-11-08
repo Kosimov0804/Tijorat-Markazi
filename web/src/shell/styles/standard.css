@@ -1,0 +1,4 @@
+/* One ordered file per stylesheet combination. Equal-specificity overrides in
+   these sheets are settled by source order, so the order is part of the design. */
+@import "@legacy/styles.css";
+@import "@legacy/legal.css";

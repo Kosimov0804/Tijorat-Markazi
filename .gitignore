@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# React build output, produced by `npm run build` in web/
+web/dist/
+
 # Secrets — API keys, bot tokens, TLS material
 .claude/
 .claude/settings.local.json

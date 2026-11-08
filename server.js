@@ -1226,11 +1226,15 @@ const MIME={ ".webm":"audio/webm",".ogg":"audio/ogg",".mp3":"audio/mpeg",".m4a":
    text) all answered 200. The site is a flat folder of pages next to the
    backend, so the fix is an explicit denylist rather than a public/ move,
    which would mean rewriting every page path. */
-const PRIVATE_DIRS  = ["data", "srv", "node_modules", "backups", ".git", ".claude", "telegram bot"];
+const PRIVATE_DIRS  = ["data", "srv", "node_modules", "backups", ".git", ".claude", "telegram bot", "web"];
 const PRIVATE_FILES = new Set(["server.js","core.js","db.js","claude.js","ws.js","meet-bot.js",
   "google-meet.js","setup-google.js","package.json","package-lock.json"]);
 function isPrivatePath(rel){
-  const parts = rel.split(/[\\/]+/).filter(Boolean);
+  /* Windows ignores case and trailing dots or spaces, and opens "name::$DATA"
+     and 8.3 short names as the same file, so /Data/orgs.json and
+     /anthropic.key::$DATA used to walk straight past the names below. */
+  if(/[:~]/.test(rel)) return true;
+  const parts = rel.split(/[\\/]+/).filter(Boolean).map(part => part.toLowerCase().replace(/[. ]+$/, ""));
   if(!parts.length) return false;
   if(PRIVATE_DIRS.includes(parts[0])) return true;
   const name = parts[parts.length-1].toLowerCase();
@@ -1238,20 +1242,34 @@ function isPrivatePath(rel){
   return name.endsWith(".key") || name.startsWith("credentials.") || name.startsWith(".env");
 }
 
+const REACT_BUILD = path.join(ROOT, "web", "dist");
+
 function serveStatic(res, pathname){
   let f = pathname==="/" ? "/index.html" : pathname;
-  const p = path.join(ROOT, decodeURIComponent(f));
-  if(!p.startsWith(ROOT)){ res.writeHead(403); return res.end("403"); }
+  /* A malformed escape or a NUL byte throws here, outside any try, and the
+     request would hang unanswered. */
+  let decoded;
+  try { decoded = decodeURIComponent(f); } catch(e){ decoded = "\0"; }
+  if(decoded.includes("\0")){ res.writeHead(400); return res.end("400"); }
+  const p = path.join(ROOT, decoded);
+  if(!p.startsWith(ROOT + path.sep)){ res.writeHead(403); return res.end("403"); }
   if(isPrivatePath(path.relative(ROOT, p))){
     res.writeHead(404,{ "Content-Type":"text/html" }); return res.end("404 — not found");
   }
-  fs.readFile(p,(e,d)=>{ if(e){ res.writeHead(404,{ "Content-Type":"text/html" }); return res.end("404 — not found"); }
+  const send = d => {
     const ext = path.extname(p);
     // never cache the app shell (html/js/css) so every visitor always gets the latest version
     const noCache = ext===".html"||ext===".js"||ext===".css";
     const headers = { "Content-Type": MIME[ext]||"text/plain" };
     if(noCache) headers["Cache-Control"]="no-store, no-cache, must-revalidate, max-age=0";
-    res.writeHead(200, headers); res.end(d); });
+    res.writeHead(200, headers); res.end(d); };
+  /* A page converted to React is served from its build; every other page
+     still comes from the project root, so pages can move over one at a time. */
+  fs.readFile(path.join(REACT_BUILD, path.relative(ROOT, p)),(builtErr,built)=>{
+    if(!builtErr) return send(built);
+    fs.readFile(p,(e,d)=>{ if(e){ res.writeHead(404,{ "Content-Type":"text/html" }); return res.end("404 — not found"); }
+      send(d); });
+  });
 }
 
 let HTTPS_READY = false;

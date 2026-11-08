@@ -1,0 +1,5 @@
+/* The Business ID and company pages. See standard.css on why order matters. */
+@import "@legacy/styles.css";
+@import "@legacy/markets.css";
+@import "@legacy/legal.css";
+@import "@legacy/biznes-id.css";
