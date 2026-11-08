@@ -26,6 +26,18 @@ const PW = require("./srv/passwords");  // hashing at rest + the migration off p
 const loadJSON = (f,def) => DB.get(f, def);
 const saveJSON = (f,o)   => DB.set(f, o);
 const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const LEGAL = require("./srv/legal");  // operator requisites, as oversight keeps them in the admin panel
+
+/* Letterhead requisites come from the operator record, not from this file, so a
+   letter never states a STIR or address nobody has filled in. publicOperator()
+   blanks every unfilled one, and a blank simply drops out of the line. */
+const LETTERHEAD_KEYS = ["stir", "address", "phone", "email"];
+function operatorLine(labelled, keys = LETTERHEAD_KEYS){
+  const o = LEGAL.publicOperator();
+  const F = { stir: ["STIR: ", o.stir], address: ["Manzil: ", o.address.uz],
+              phone: ["Tel: ", o.phone], email: ["e-mail: ", o.email] };
+  return esc(keys.filter(k => F[k][1]).map(k => (labelled ? F[k][0] : "") + F[k][1]).join(" · "));
+}
 
 function getStore(){ return loadJSON(CHATS_FILE, {}); }
 function saveStore(store){ saveJSON(CHATS_FILE, store); }
@@ -192,7 +204,7 @@ function orgLetterHtml(r, ymR, dateStr, ymRaw, bodyText){
       <td style="vertical-align:top">
         <div style="font-size:16px;font-weight:bold;letter-spacing:1px">TIJORAT MARKAZI</div>
         <div style="font-size:11px;color:#445">Milliy sun'iy intellekt biznes operatsion tizimi</div>
-        <div style="font-size:10.5px;color:#697586">STIR: 300000000 · Manzil: Toshkent sh., Amir Temur ko'ch. · Tel: +998 71 200 00 00 · e-mail: info@tijoratmarkazi.uz</div>
+        <div style="font-size:10.5px;color:#697586">${operatorLine(true)}</div>
       </td>
     </tr></table>
 
@@ -218,7 +230,7 @@ function orgLetterHtml(r, ymR, dateStr, ymRaw, bodyText){
       <td>Hurmat bilan,<br>TIJORAT MARKAZI tizimi rahbariyati</td>
       <td style="text-align:right;vertical-align:bottom">_______________ /TIJORAT MARKAZI/<br><span style="font-size:11px;color:#697586">(imzo)</span></td>
     </tr></table>
-    <p style="font-size:11px;color:#697586;margin-top:14px">Ijrochi: TIJORAT MARKAZI · Tel: +998 71 200 00 00 · e-mail: info@tijoratmarkazi.uz</p>
+    <p style="font-size:11px;color:#697586;margin-top:14px">Ijrochi: TIJORAT MARKAZI · ${operatorLine(true, ["phone", "email"])}</p>
   </div>`;
 }
 /* ---- letter cache: generate each org's letter once per month, reuse afterwards ---- */
@@ -334,7 +346,7 @@ function companyLetterHtml(c, a, ymR, dateStr, ymRaw, bodyText){
       <td style="vertical-align:top">
         <div style="font-size:16px;font-weight:bold;letter-spacing:1px">TIJORAT MARKAZI</div>
         <div style="font-size:11px;color:#445">Milliy sun'iy intellekt biznes operatsion tizimi</div>
-        <div style="font-size:10.5px;color:#697586">STIR: 300000000 · Manzil: Toshkent sh., Amir Temur ko'ch. · Tel: +998 71 200 00 00 · e-mail: info@tijoratmarkazi.uz</div>
+        <div style="font-size:10.5px;color:#697586">${operatorLine(true)}</div>
       </td>
     </tr></table>
 
@@ -361,7 +373,7 @@ function companyLetterHtml(c, a, ymR, dateStr, ymRaw, bodyText){
       <td>Hurmat bilan,<br>TIJORAT MARKAZI tizimi rahbariyati</td>
       <td style="text-align:right;vertical-align:bottom">_______________ /TIJORAT MARKAZI/<br><span style="font-size:11px;color:#697586">(imzo)</span></td>
     </tr></table>
-    <p style="font-size:11px;color:#697586;margin-top:14px">Ijrochi: TIJORAT MARKAZI · Tel: +998 71 200 00 00 · e-mail: info@tijoratmarkazi.uz</p>
+    <p style="font-size:11px;color:#697586;margin-top:14px">Ijrochi: TIJORAT MARKAZI · ${operatorLine(true, ["phone", "email"])}</p>
   </div>`;
 }
 // ONE association's Word file: a cover line + a letter per child company that has problems
@@ -501,7 +513,7 @@ function appealDoc(item){
     <td style="vertical-align:top">
       <div style="font-size:16px;font-weight:bold;letter-spacing:1px">TIJORAT MARKAZI</div>
       <div style="font-size:11px;color:#445">Milliy sun'iy intellekt biznes operatsion tizimi</div>
-      <div style="font-size:10.5px;color:#697586">STIR: 300000000 · Toshkent sh., Amir Temur ko'ch. · +998 71 200 00 00 · info@tijoratmarkazi.uz</div>
+      <div style="font-size:10.5px;color:#697586">${operatorLine(false)}</div>
     </td>
   </tr></table>
 

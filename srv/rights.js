@@ -48,6 +48,7 @@
 const H = require("./store");
 const L = require("./legal");
 const PW = require("./passwords");
+const MS = require("./moliya-scoring");
 
 const col  = H.collection("rights.json", ["requests", "events"]);
 const load = col.load, save = col.save;
@@ -118,6 +119,15 @@ function exportFor(subject, core){
     })) : [];
   }catch(e){ chats = []; }
 
+  /* Baholangan investitsiya loyihalari ham shu shaxsning ma'lumoti — va
+     eng batafsili: pasport, uch yillik moliyaviy tarix, audit izi. Ularni
+     qoldirib ketish subyekt so'roviga to'liq bo'lmagan javob berish demak.
+     Loyiha hisob id si bilan ham, e-pochta identifikatori bilan ham
+     bog'langan bo'lishi mumkin (srv/api.js dagi aktyor zanjiri) — shuning
+     uchun ikkalasi ham tekshiriladi, sameSubject() mantig'i kabi. */
+  const scoredProjects = MS.projectsOf(subject.id).concat(
+    subject.email ? MS.projectsOf("u:" + subject.email.toLowerCase()) : []);
+
   const mine = load().requests.filter(r => r.subjectId === subject.id);
 
   return {
@@ -129,6 +139,8 @@ function exportFor(subject, core){
        person is entitled to see the evidence held about their own agreement */
     applications,
     aiConversations: chats,
+    /* har bir loyiha o'z ball tafsiloti va o'zgarishlar izi bilan */
+    scoredProjects,
     rightsRequests: mine.map(publicRequest),
     notice: {
       withheld: {
@@ -138,7 +150,7 @@ function exportFor(subject, core){
       },
       retention: L.RETENTION,
       transfers: L.TRANSFERS,
-      contact: L.OPERATOR.dpoEmail,
+      contact: L.operator().dpoEmail,
     },
   };
 }

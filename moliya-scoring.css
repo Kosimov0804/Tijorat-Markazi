@@ -1,0 +1,760 @@
+/* ============================================================
+   MOLIYA · INVESTITSIYA LOYIHASI SKORINGI  (ms-*)
+
+   Bu blok ilgari markets.css ning oxirida turardi; endi u alohida
+   varaq, ammo dalil o'zgarmadi — faqat miqyosi kattalashdi. Varaqlar
+   qat'iy tartibda yuklanadi — styles.css -> markets.css ->
+   moliya-scoring.css -> legal.css — va bu yerda na @layer, na @import,
+   na ichma-ich yozuv bor: har bir selektor bitta klass, ya'ni kaskadni
+   faqat manba tartibi hal qiladi. Skoring qatlami markets.css dagi
+   mk-* komponentlarini kengaytiradi (mk-card, mk-f, mk-table,
+   mk-tablewrap, mk-chip), shuning uchun <link> BUTUN markets.css dan
+   keyin turishi shart: oldinga ko'chirilsa, kengaytirma o'zi
+   kengaytirayotgan qoidadan avval o'qiladi va jimgina yo'qoladi.
+
+   Nega yangi prefiks kerak bo'ldi: mk-step — o'qish uchun bosqich
+   relsi, mk-dial — conic-gradient (unga chegara belgisi ham,
+   animatsiyalanadigan yoy ham sig'maydi), mk-form esa auto-fit
+   minmax(200px,1fr) bo'lgani uchun yil x ko'rsatkich matritsasini
+   ifodalay olmaydi. Qolgan hamma narsa — mk-card, mk-chip,
+   mk-tablewrap, mk-msg, mk-note, mk-actions — o'z joyida ishlatiladi.
+
+   Ranglar faqat tokenlardan olinadi; holat esa --mk-good/--mk-warn/
+   --mk-bad orqali, hech qachon --green yoki literal orqali emas.
+   Izohlar butun fayl bo'ylab bitta tilda — o'zbekcha.
+   ============================================================ */
+
+/* ---------- 1 · sehrgar bosqichlari relsi ----------
+   Yuqoridagi .mk-step faqat ko'rsatkich: unda tugma qayta o'rnatishi
+   ham, kursor ham, fokus halqasi ham yo'q, chunki u shunchaki bitim
+   qaysi darvozaga yetganini aytardi. Sehrgarda esa har bir bosqich
+   foydalanuvchi qaytib keladigan manzil, shuning uchun bu yerdagi har
+   qadam belgisi va bajarilgan holati bor haqiqiy tugma. Tugmalar
+   .ms-stepper ning bevosita farzandi, chunki bog'lovchi qo'shni-element
+   qoidasi bilan chiziladi; qadamlar qatorni teng bo'lishadi va aynan
+   shu bog'lovchiga -50% orqaga cho'zilish imkonini beradi. */
+.ms-stepper{ --ms-dot:30px; display:flex; gap:0; align-items:flex-start; list-style:none;
+  overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+.ms-stepper::-webkit-scrollbar{ display:none; }
+.ms-step{ appearance:none; border:0; background:none; font:inherit; cursor:pointer; color:inherit;
+  position:relative; flex:1 1 0; min-width:104px; padding:0 6px;
+  display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
+.ms-step[disabled]{ cursor:default; }
+.ms-step:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; border-radius:var(--radius-sm); }
+
+/* Bog'lovchi: oldingi belgining markazidan shu belgigacha ingichka
+   chiziq. U ikkalasining ORQASIDA chiziladi, chunki belgilar o'zining
+   xira bo'lmagan foniga ega. */
+.ms-step + .ms-step::before{ content:""; position:absolute; left:-50%; right:50%;
+  top:calc(var(--ms-dot)/2 - 1px); height:2px; background:var(--line-2); }
+.ms-step.is-done + .ms-step::before{ background:var(--mk-good); }
+
+.ms-step-n{ position:relative; z-index:1; flex:none; width:var(--ms-dot); height:var(--ms-dot);
+  border-radius:50%; display:grid; place-items:center; background:var(--card);
+  border:2px solid var(--line-2); color:var(--muted); font-size:13px; font-weight:700;
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em; line-height:1;
+  transition:background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease); }
+.ms-step:hover .ms-step-n{ border-color:var(--mk); color:var(--ink); }
+.ms-step.is-now .ms-step-n{ background:var(--mk); border-color:var(--mk); color:#fff; transform:scale(1.06); }
+.ms-step.is-todo .ms-step-n{ border-style:dashed; }
+/* Bajarilgan belgi raqamini DOM'da — ekran o'quvchisi uchun —
+   qoldiradi va uni to'ldirilgan disk bilan yopadi: CSS element
+   matnini almashtira olmaydi, shaffof rang hiylasi esa raqamni
+   ostida tanlanadigan holda qoldirardi. */
+.ms-step.is-done .ms-step-n::after{ content:"✓"; position:absolute; inset:-2px; border-radius:50%;
+  background:var(--mk-good); color:#fff; display:grid; place-items:center; font-size:14px; font-weight:700; }
+
+.ms-step-t{ display:flex; flex-direction:column; gap:2px; min-width:0;
+  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+.ms-step.is-done .ms-step-t{ color:var(--text); }
+.ms-step.is-now .ms-step-t{ color:var(--ink); }
+.ms-step-t small{ font-size:11px; font-weight:500; text-transform:none; letter-spacing:0; color:var(--muted); }
+
+/* Kechasi --mk va --mk-good deyarli qora fon ustida MATN sifatida
+   o'qish uchun tanlangan xira tuslar; ular ustidagi #fff taxminan
+   1.3:1 beradi. Shu sababli yorliq sahifa fonini oladi — yuqoridagi
+   .mk-step.is-now ham xuddi shu tuzatishni olib yuradi. */
+[data-theme="dark"] .ms-step.is-now .ms-step-n{ color:var(--bg); }
+[data-theme="dark"] .ms-step.is-done .ms-step-n::after{ color:var(--bg); }
+
+/* 760px dan pastda sakkizta qisqartirilgan sarlavha bir qatorda
+   sirpanish bilan ham o'qilmaydi, shuning uchun rels yon tomonga
+   buriladi: bog'lovchi belgilar orqasidagi to'liq balandlikdagi
+   chiziqqa aylanadi, har bir belgi esa o'z bo'lagini yopadi. */
+@media (max-width:760px){
+  .ms-stepper{ flex-direction:column; align-items:stretch; overflow-x:visible; }
+  .ms-step{ flex:none; flex-direction:row; align-items:flex-start; gap:12px;
+    text-align:left; padding:0 0 16px; min-width:0; }
+  .ms-step::before{ content:""; position:absolute; left:calc(var(--ms-dot)/2 - 1px); right:auto;
+    top:0; bottom:0; width:2px; height:auto; background:var(--line-2); }
+  .ms-step:last-child::before{ display:none; }
+  .ms-step.is-done::before{ background:var(--mk-good); }
+  .ms-step + .ms-step::before{ left:calc(var(--ms-dot)/2 - 1px); right:auto; top:0; height:auto; }
+  /* Vertikal holatda chiziq o'zi KELGAN qadamga emas, o'zi CHIQQAN
+     qadamga tegishli bo'ladi. Shu sababli kiruvchi bog'lovchini
+     ranglaydigan qo'shni-element qoidasi qaytarib olinadi, so'ng
+     bajarilgan qadamdan keyin kelgan bajarilgan qadam uchun qayta
+     tasdiqlanadi — aks holda u kulrang bo'lib qolardi. */
+  .ms-step.is-done + .ms-step::before{ background:var(--line-2); }
+  .ms-step.is-done + .ms-step.is-done::before{ background:var(--mk-good); }
+}
+@media (prefers-reduced-motion:reduce){
+  .ms-step-n{ transition:none; }
+  .ms-step.is-now .ms-step-n{ transform:none; }
+}
+
+/* ---------- 2 · SVG ball gauge'i ----------
+   .mk-dial — conic-gradient: bitta tus, bitta yoy, ustiga boshqa hech
+   narsa chizib bo'lmaydi. Skoring hukmiga yana uchtasi kerak — 60/75/90
+   chegaralari, qayta hisob ko'rinishi uchun oldingi balldan boshlanadigan
+   animatsiya va sahifa aksentidan farqli hukm rangi. Uchalasi ham
+   haqiqiy stroke yo'lini talab qiladi, shuning uchun bu ichki <svg>:
+   200x200 viewBox, r=86, stroke-width 14, aylana 540.35. Markup
+   --ms-circ va --ms-off beradi; butun svg -90deg buriladi, shunda yoy
+   va bo'linma belgilari bitta burchak boshlanishini bo'lishadi. Ballning
+   o'zi HTML qatlamda qoladi, ya'ni tanlanadigan matn. */
+.ms-gauge{ position:relative; display:grid; grid-template-columns:minmax(0,1fr);
+  place-items:center; width:min(100%,232px); margin-inline:auto; }
+.ms-gauge-svg{ display:block; width:100%; height:auto; transform:rotate(-90deg); }
+.ms-gauge-track{ fill:none; stroke:var(--bg-soft-2); stroke-width:14; }
+.ms-gauge-arc{ fill:none; stroke:var(--mk); stroke-width:14; stroke-linecap:round;
+  stroke-dasharray:var(--ms-circ,540.35); stroke-dashoffset:var(--ms-off,540.35);
+  transition:stroke-dashoffset .9s var(--ease), stroke .3s var(--ease); }
+/* Bo'linmalar ustiga qo'shilgan belgi emas, kartochka rangi bilan
+   kesilgan o'yiq: shunda ular halqaning darajalari bo'lib o'qiladi,
+   o'z ma'lumoti bo'lib emas. */
+.ms-gauge-tick{ stroke:var(--card); stroke-width:2.5; }
+.ms-gauge-tick.is-met{ stroke:var(--mk-good); }
+
+.ms-gauge-mid{ position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:2px; pointer-events:none; }
+.ms-gauge-num{ font-size:clamp(36px,5.6vw,54px); font-weight:700; line-height:1;
+  letter-spacing:-.04em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.ms-gauge-cap{ font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.09em; color:var(--muted); font-variant-numeric:tabular-nums; }
+.ms-gauge-verdict{ margin-top:12px; padding:4px 13px; border-radius:var(--radius-pill);
+  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
+  background:var(--bg-soft-2); color:var(--text); }
+
+/* Hukm ranglari. "shartli" ataylab sahifa aksentini saqlaydi: shartli
+   ma'qullash — platformaning o'z qarori, ogohlantirish emas; uni sariq
+   bilan bo'yash uni rad etishdan past darajaga tushirardi, ko'z esa rad
+   etishni allaqachon balandroq o'qiydi. */
+.ms-gauge.is-tayyor   .ms-gauge-arc{ stroke:var(--mk-good); }
+.ms-gauge.is-shartli  .ms-gauge-arc{ stroke:var(--mk); }
+.ms-gauge.is-qayta    .ms-gauge-arc{ stroke:var(--mk-warn); }
+.ms-gauge.is-rad      .ms-gauge-arc{ stroke:var(--mk-bad); }
+.ms-gauge.is-knockout .ms-gauge-arc{ stroke:var(--mk-bad); }
+.ms-gauge.is-tayyor   .ms-gauge-num{ color:var(--mk-good); }
+.ms-gauge.is-shartli  .ms-gauge-num{ color:var(--mk); }
+.ms-gauge.is-qayta    .ms-gauge-num{ color:var(--mk-warn); }
+.ms-gauge.is-rad      .ms-gauge-num{ color:var(--mk-bad); }
+.ms-gauge.is-knockout .ms-gauge-num{ color:var(--mk-bad); }
+.ms-gauge.is-tayyor   .ms-gauge-verdict{ background:color-mix(in srgb,var(--mk-good) 14%,transparent); color:var(--mk-good); }
+.ms-gauge.is-shartli  .ms-gauge-verdict{ background:var(--mk-soft); color:var(--mk); }
+.ms-gauge.is-qayta    .ms-gauge-verdict{ background:color-mix(in srgb,var(--mk-warn) 16%,transparent); color:var(--mk-warn); }
+.ms-gauge.is-rad      .ms-gauge-verdict{ background:color-mix(in srgb,var(--mk-bad) 13%,transparent); color:var(--mk-bad); }
+/* To'xtatuvchi — past ball emas, to'xtatilgan jarayon; shu sababli
+   yoy ortidagi halqa ham qizil tus oladi va dialning bo'sh qismi
+   loyiha hali qo'lga kiritishi mumkin bo'lgan zaxira bo'lib
+   o'qilmay qoladi. */
+.ms-gauge.is-knockout .ms-gauge-track{ stroke:color-mix(in srgb,var(--mk-bad) 22%,var(--bg-soft-2)); }
+.ms-gauge.is-knockout .ms-gauge-verdict{ background:var(--mk-bad); color:#fff; }
+[data-theme="dark"] .ms-gauge.is-knockout .ms-gauge-verdict{ color:var(--bg); }
+@media (prefers-reduced-motion:reduce){
+  .ms-gauge-arc{ transition:none; }
+}
+
+/* ---------- 3 · ikki yo'lakli blok yo'lakchasi ----------
+   Blok bali o'z shiftisiz ma'nosiz: 12 ball 12 dan a'lo, 25 dan esa
+   past. Shuning uchun yo'lakcha ikkala yo'lakni birdan olib yuradi —
+   qo'lga kiritilgani sahifa aksentida, qo'lga kiritilmagani esa bo'sh
+   joy emas, ko'rinadigan, ozgina tuslangan zaxira sifatida. Raqam buni
+   sonlarda takrorlaydi, dvigatel asoslashi esa ostida ichki-eslatma
+   materialida turadi, chunki bu — mashinaning o'zini tushuntirishi,
+   asosiy matn emas. */
+.ms-blocks{ display:flex; flex-direction:column; gap:var(--mk-gap); }
+.ms-block{ display:flex; flex-direction:column; gap:7px; }
+.ms-block-top{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.ms-block-name{ font-size:12px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--muted); min-width:0; }
+.ms-block-val{ flex:none; font-size:15px; font-weight:700; color:var(--ink);
+  letter-spacing:-.03em; font-variant-numeric:tabular-nums; }
+.ms-block-val i{ font-style:normal; font-weight:500; color:var(--muted); margin:0 3px; }
+.ms-block-bar{ height:10px; border-radius:var(--radius-pill); overflow:hidden;
+  background:color-mix(in srgb,var(--mk) 10%,var(--bg-soft-2));
+  box-shadow:inset 0 0 0 1px var(--line-2); }
+/* To'ldiruvchi ilgari min-width:3px olib yurardi, ya'ni 0 ballik blok
+   kichkina aksent nuqtasini chizardi va nol "ozgina" bo'lib o'qilardi.
+   Endi nol haqiqatan nol: ko'rinadigan narsa — zaxira yo'lakning o'zi,
+   o'z tusi va --line-2 halqasi bilan, ya'ni bo'sh yo'lakcha ham bor
+   predmet bo'lib qoladi. */
+.ms-block-bar i{ display:block; height:100%; border-radius:inherit; background:var(--mk);
+  transition:width .6s var(--ease), background-color .3s var(--ease); }
+.ms-block.is-full .ms-block-bar i{ background:var(--mk-good); }
+.ms-block.is-full .ms-block-val{ color:var(--mk-good); }
+.ms-block-why{ font-size:13px; line-height:1.55; color:var(--text);
+  background:var(--bg-soft); border-left:3px solid var(--mk);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:8px 12px; }
+.ms-block.is-full .ms-block-why{ border-left-color:var(--mk-good); }
+@media (prefers-reduced-motion:reduce){
+  .ms-block-bar i{ transition:none; }
+}
+
+/* ---------- 4 · tusi va chegarasi bor KPI plitkalari ----------
+   .mk-kpi raqamni aytadi va shu bilan tugaydi. Moliyaviy kovenant esa
+   faqat o'z chegarasiga qarab o'qiladi, shuning uchun har bir plitka
+   o'lchangan qoidani (me'yor >= 1.25) va raqam o'qilmasdan oldin
+   javob beradigan tus nuqtasini olib yuradi. Aynan nuqta, chunki
+   qizil 1,18 va qizil 1,28 bir qarashda bir xil ko'rinadi, nuqta esa
+   ikkilantirmaydi — raqamning o'zi eng o'qiluvchan --ink da qoladi. */
+.ms-kpis{ display:grid; gap:var(--mk-gap); grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); }
+.ms-kpi{ background:var(--card); border:var(--mk-rail); border-radius:var(--radius);
+  padding:14px 16px; display:flex; flex-direction:column; gap:5px; min-width:0; }
+.ms-kpi-l{ display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.07em; color:var(--muted); }
+.ms-kpi-l::before{ content:""; flex:none; width:8px; height:8px; border-radius:50%; background:var(--muted); }
+.ms-kpi b{ font-size:clamp(20px,2.2vw,27px); font-weight:700; line-height:1.05;
+  letter-spacing:-.035em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.ms-kpi b small{ font-size:13px; font-weight:600; color:var(--muted); letter-spacing:0; }
+.ms-kpi-note{ font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.ms-kpi.is-ok   .ms-kpi-l::before{ background:var(--mk-good); }
+.ms-kpi.is-warn .ms-kpi-l::before{ background:var(--mk-warn); }
+.ms-kpi.is-bad  .ms-kpi-l::before{ background:var(--mk-bad); }
+.ms-kpi.is-ok   .ms-kpi-note{ color:var(--mk-good); }
+.ms-kpi.is-warn .ms-kpi-note{ color:var(--mk-warn); }
+.ms-kpi.is-bad  .ms-kpi-note{ color:var(--mk-bad); }
+/* Buzilgan kovenant chegarani ham oladi, chunki shartni buzgan
+   plitka sakkizta plitka ichida ko'z yugurtirganda ham omon qolishi
+   kerak. */
+.ms-kpi.is-bad{ border-color:color-mix(in srgb,var(--mk-bad) 45%,var(--line));
+  background:color-mix(in srgb,var(--mk-bad) 5%,var(--card)); }
+
+/* ---------- 5 · to'xtatuvchi (knockout) paneli ----------
+   Varaqlardagi eng kuchli salbiy holat — .mk-msg.is-err, ya'ni
+   tuslangan bir qator matn: rad etilgan forma maydoni uchun to'g'ri,
+   bu yer uchun esa juda jimgina. To'xtatuvchi mezon ariza umuman
+   baholanmayotganini bildiradi, gauge'dagi raqam esa natija emas,
+   shift. Shuning uchun panel to'liq to'ldirilgan sarlavha lentasini
+   oladi — bu market qatlamida butun bir lenta holat rangi bilan
+   to'ldirilgan yagona joy, va shu yagonalik signalning o'zi. */
+.ms-knockout{ border:1px solid var(--mk-bad); border-radius:var(--radius); overflow:hidden;
+  background:color-mix(in srgb,var(--mk-bad) 8%,var(--card)); }
+.ms-knockout-head{ display:flex; align-items:center; gap:9px; padding:11px var(--mk-pad);
+  background:var(--mk-bad); color:#fff; font-size:12.5px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.08em; }
+.ms-knockout-head::before{ content:"✕"; flex:none; display:grid; place-items:center;
+  width:19px; height:19px; border-radius:50%; background:color-mix(in srgb,var(--card) 24%,transparent); font-size:11px; }
+/* --mk-bad kechasi xiralashadi, shuning uchun lenta o'rniga to'q
+   matn oladi — yuqoridagi .mk-step.is-now dagi xuddi shu inversiya.
+   Belgi diski ichidagi parda — --card 24% da: kunduzi oq, kechasi
+   to'q yuvish beradi, ya'ni yonidagi matn bilan birga ikkinchi
+   qoidasiz ag'dariladi. */
+[data-theme="dark"] .ms-knockout-head{ color:var(--bg); }
+.ms-knockout-body{ padding:var(--mk-pad); display:flex; flex-direction:column; gap:12px; }
+.ms-knockout-list{ list-style:none; display:flex; flex-direction:column; gap:9px; font-size:13.5px; }
+.ms-knockout-list li{ display:flex; gap:9px; align-items:flex-start; color:var(--text); }
+.ms-knockout-list li::before{ content:"✕"; flex:none; color:var(--mk-bad); font-weight:700; line-height:1.5; }
+.ms-knockout-list b{ display:block; color:var(--ink); font-size:14px; }
+.ms-knockout-list small{ display:block; font-size:12px; color:var(--muted); margin-top:1px; }
+.ms-knockout-cap{ padding-top:11px; border-top:1px solid color-mix(in srgb,var(--mk-bad) 28%,transparent);
+  font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.ms-knockout-cap b{ color:var(--mk-bad); font-weight:700; }
+
+/* ---------- 6 · yil x ko'rsatkich raqamli matritsasi ----------
+   .mk-form — auto-fit minmax(200px,1fr): u yil yorlig'iga qarshi
+   to'rtta raqam qatorini ushlay olmaydi, chunki har bir katak 200px
+   talab qilardi va panel torayishi bilan grid bitta ustunga yotardi.
+   Qarz jadvali — jadval, va jadval sifatida quriladi. Uni telefonda
+   ishlatsa bo'ladigan qiladigan ikki narsa: yil ustuni yopishqoq,
+   ya'ni raqam o'z qatorini yo'qotmaydi, va sirpanish qobiqda yashaydi
+   — chegara bilan radius ham o'sha yerda, chunki sirpanayotgan
+   jadvaldagi dumaloq chegara o'z burchaklarini qirqadi.
+   border-collapse ajratilgan bo'lib qolishi shart: yig'ilgan chegaralar
+   yopishqoq kataklardan tushib qoladi. */
+.ms-matrixwrap{ overflow-x:auto; border:var(--mk-rail); border-radius:var(--radius); background:var(--card); }
+.ms-matrix{ width:100%; min-width:620px; border-collapse:separate; border-spacing:0; font-size:13.5px; }
+.ms-matrix th{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
+  color:var(--muted); background:var(--bg-soft); padding:11px 12px; text-align:right;
+  white-space:nowrap; border-bottom:1px solid var(--line); }
+.ms-matrix thead th:first-child{ position:sticky; left:0; z-index:2; text-align:left; }
+.ms-matrix td{ padding:6px; border-bottom:1px solid var(--line); vertical-align:middle; }
+.ms-matrix tr:last-child td, .ms-matrix tr:last-child .ms-matrix-row{ border-bottom:0; }
+/* Muzlatilgan yil yorlig'i. Unga o'z xira bo'lmagan foni va qo'lda
+   qo'yilgan o'ng chizig'i kerak, chunki yopishqoq katak qo'shnilarining
+   chegaralari ustidan sirpanadi. */
+.ms-matrix .ms-matrix-row{ position:sticky; left:0; z-index:1; background:var(--bg-soft);
+  color:var(--ink); font-weight:700; font-size:12.5px; text-align:left; white-space:nowrap;
+  padding:6px 12px; font-variant-numeric:tabular-nums; box-shadow:1px 0 0 var(--line); }
+.ms-matrix input{ width:100%; min-width:96px; padding:8px 10px; border:var(--mk-rail);
+  border-radius:var(--radius-sm); background:var(--card); color:var(--ink); font:inherit;
+  font-size:14px; text-align:right; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.ms-matrix input:focus{ outline:2px solid var(--mk); outline-offset:1px; }
+/* O'n besh qatorli gridda strelkalar — hech kim bosmaydigan oltmishta
+   tugma, va ular raqamga kerak bo'lgan kenglikni o'g'irlaydi. */
+.ms-matrix input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
+.ms-matrix input[type=number]::-webkit-outer-spin-button,
+.ms-matrix input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+.ms-matrix .is-calc{ text-align:right; color:var(--muted); font-weight:600;
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em; padding-right:12px; }
+/* Pul oqimi o'z xizmatini qoplamagan yil — butun jadval aynan shu
+   fakt uchun mavjud. */
+.ms-matrix tr.is-short .is-calc{ color:var(--mk-bad); }
+.ms-matrix tr.is-short td{ background:color-mix(in srgb,var(--mk-bad) 8%,transparent); }
+.ms-matrix tr.is-short .ms-matrix-row{ background:color-mix(in srgb,var(--mk-bad) 12%,var(--bg-soft)); }
+
+/* ---------- 7 · "nima bo'lsa" simulyatori ----------
+   Panelning butun ma'nosi — o'zgarish bilan ball orasidagi bog'liqlik,
+   shuning uchun javoblar surilayotganda gauge ko'rish maydonini tark
+   etmasligi kerak. Boshqaruvlar o'z ustunida sirpanadi, gauge ustuni
+   esa 96px da yopishqoq — styles.css scroll-padding-top ga bergan o'sha
+   masofa, ya'ni ko'rinishga sakragan fokusli boshqaruvni yopishqoq
+   sarlavha yopib qolmaydi. Har bir qator joriy / maksimum ni aytadi,
+   va bu raqam javob o'z shiftiga yetganda yashil bo'ladi: hali qolgan
+   ballar qayerdaligini ko'rishning eng tez yo'li. */
+.ms-sim{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,268px);
+  gap:var(--mk-gap); align-items:start; }
+.ms-sim-list{ display:flex; flex-direction:column; gap:10px;
+  max-height:min(62vh,560px); overflow-y:auto; padding-right:4px; }
+.ms-sim-row{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:7px 12px;
+  align-items:center; padding:11px 13px; border:var(--mk-rail); border-radius:var(--radius-sm);
+  background:var(--card); transition:border-color .2s var(--ease); }
+.ms-sim-row:hover{ border-color:var(--mk); }
+.ms-sim-row label{ font-size:13px; font-weight:600; color:var(--text); min-width:0; }
+.ms-sim-fig{ flex:none; font-size:12.5px; font-weight:700; color:var(--muted);
+  letter-spacing:-.02em; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.ms-sim-row.is-max{ border-color:color-mix(in srgb,var(--mk-good) 45%,var(--line)); }
+.ms-sim-row.is-max .ms-sim-fig{ color:var(--mk-good); }
+.ms-sim select{ grid-column:1/-1; padding:9px 30px 9px 12px; border:var(--mk-rail);
+  border-radius:var(--radius-sm); background:var(--card); color:var(--ink); font:inherit;
+  font-size:14px; width:100%; appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+  background-size:5px 5px,5px 5px; background-repeat:no-repeat; }
+.ms-sim select:focus{ outline:2px solid var(--mk); outline-offset:1px; }
+
+/* Yopishqoq javob ustuni. Bu — ostidagi ro'yxat qimirlayotganda ufq
+   chizig'i ustida suzadigan yagona sirt, shuning uchun u shisha
+   materialini oladi — majburiy zaxira qoidasi bilan, chunki
+   backdrop-filter'siz qotib turgan shahar ustidagi yarim shaffof tus
+   umuman o'qilmaydi. */
+.ms-sim-side{ position:sticky; top:96px; display:flex; flex-direction:column; gap:12px;
+  padding:var(--mk-pad); border-radius:var(--radius);
+  background:var(--sh-face-tint);
+  -webkit-backdrop-filter:var(--sh-blur);
+          backdrop-filter:var(--sh-blur);
+  border:1px solid var(--sh-edge);
+  box-shadow:inset 0 1px 0 var(--sh-sheen), var(--shadow); }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .ms-sim-side{ background:var(--card); border:var(--mk-rail); }
+}
+.ms-sim-delta{ text-align:center; font-size:13px; font-weight:600; color:var(--muted);
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.ms-sim-delta.is-up{ color:var(--mk-good); }
+.ms-sim-delta.is-down{ color:var(--mk-bad); }
+
+@media (prefers-reduced-motion:reduce){
+  .ms-sim-row{ transition:none; }
+}
+@media (max-width:900px){
+  /* Ustma-ust taxlanganda yopishqoq ustun gauge'ni o'zi javob berishi
+     kerak bo'lgan boshqaruvlar ustiga qadab qo'yardi, shuning uchun u
+     oqimga, ularning ustiga qaytadi. */
+  .ms-sim{ grid-template-columns:1fr; }
+  .ms-sim-side{ position:static; order:-1; }
+  .ms-sim-list{ max-height:none; overflow-y:visible; padding-right:0; }
+}
+
+/* ---------- 8 · metodika ayrilishi ----------
+   Korxona yoki startup tanlash — filtr emas: u butun arizaning qaysi
+   rubrika bo'yicha baholanishini hal qiladi va yo'lning yarmida
+   o'zgartirib bo'lmaydi. .mk-seg — filtrlar uchun qurilgan 13.5px lik
+   tugmalar qatori va aynan shunday o'qiladi; bu yerda esa qaror
+   hajmidagi ikkita panel kerak.
+
+   Manba materialida startup yo'liga binafsha aksent berilgan. Literal
+   binafsha platformada token qatlamidan tashqaridagi yagona rang
+   bo'lardi, kechgi temaga ag'darilmasdi va aksenti feruza yoki sariq
+   bo'lgan ikki bozorda noto'g'ri ko'rinardi. Shuning uchun ikkinchi
+   yo'l platformaning o'z birlamchi rangi --navy ni sahifa aksentiga
+   aralashtirib oladi: moliyada u manba so'ragan indigo-binafshaga
+   tushadi, bozor va mehnatda esa begona emas, ataylab tanlangan
+   ikkinchi tus bo'lib o'qiladi va ikkala temaga tekin ergashadi.
+   --ms-alt .mk da e'lon qilinadi, shunda har bir avlod uni o'qiy
+   oladi, har bir ishlatilish joyi esa --mk ga qaytishni saqlaydi. */
+.mk{ --ms-alt:color-mix(in srgb,var(--navy) 62%,var(--mk)); }
+.ms-track{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--mk-gap); }
+.ms-track-opt{ appearance:none; font:inherit; text-align:left; cursor:pointer; position:relative;
+  display:flex; flex-direction:column; gap:6px; padding:var(--mk-pad);
+  border:2px solid var(--line); border-radius:var(--radius); background:var(--card); color:inherit;
+  transition:border-color .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease); }
+.ms-track-opt:hover{ border-color:var(--line-2); transform:translateY(-2px); box-shadow:var(--shadow-lift); }
+.ms-track-opt:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; }
+.ms-track-opt em{ font-style:normal; font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.09em; color:var(--muted); }
+.ms-track-opt b{ font-size:17px; letter-spacing:-.02em; color:var(--ink); }
+.ms-track-opt span{ font-size:13.5px; line-height:1.5; color:var(--text); }
+.ms-track-opt.is-on{ border-color:var(--mk); background:color-mix(in srgb,var(--mk) 7%,var(--card)); }
+.ms-track-opt.is-on::after{ content:"✓"; position:absolute; top:12px; right:12px;
+  width:22px; height:22px; border-radius:50%; background:var(--mk); color:#fff;
+  display:grid; place-items:center; font-size:12px; font-weight:700; }
+.ms-track-opt.is-startup.is-on{ border-color:var(--ms-alt,var(--mk));
+  background:color-mix(in srgb,var(--ms-alt,var(--mk)) 8%,var(--card)); }
+.ms-track-opt.is-startup.is-on::after{ background:var(--ms-alt,var(--mk)); }
+.ms-track-opt.is-startup:focus-visible{ outline-color:var(--ms-alt,var(--mk)); }
+[data-theme="dark"] .ms-track-opt.is-on::after{ color:var(--bg); }
+
+/* Yo'lga oid eslatma: ichki-eslatma materiali, chunki u o'zidan
+   bevosita yuqoridagi sirtni tushuntiradi, o'zicha turmaydi. */
+/* display:flex bu yerda xato edi: markup <p> ichida bir nechta <b>
+   chiqaradi, flex esa har bir matn bo'lagini va har bir <b> ni alohida
+   ustunga aylantirardi — metodika sahifasidagi startup eslatmasi besh
+   ustunga parchalanib ketgan edi. Bu oddiy xatboshi, va u blok bo'lib
+   oqishi kerak. */
+.ms-banner{ display:block; padding:12px 14px;
+  background:var(--bg-soft); border-left:3px solid var(--mk);
+  border-radius:0 var(--radius) var(--radius) 0; font-size:13.5px; line-height:1.55; color:var(--text); }
+.ms-banner b{ color:var(--ink); }
+.ms-banner.is-startup{ border-left-color:var(--ms-alt,var(--mk)); }
+.ms-banner.is-startup b{ color:var(--ms-alt,var(--mk)); }
+@media (max-width:640px){
+  .ms-track{ grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce){
+  .ms-track-opt{ transition:none; }
+  .ms-track-opt:hover{ transform:none; }
+}
+
+/* ---------- 9 · sahifa sarlavhasi va statistika plitkalari ----------
+   Beshta ko'rinishning hammasi bitta #msRoot ichida almashadi, ya'ni
+   sarlavha qatori ro'yxatda ham, sehrgarda ham, natijada ham bir xil
+   bo'lishi kerak: chapda nom va nishonlar, o'ngda amallar. Telefonda
+   tugmalar qatori sarlavhani siqib qo'ymasligi uchun qator ustunga
+   yotadi va amallar chap chetdan boshlanadi. */
+.ms-head{ display:flex; align-items:flex-end; justify-content:space-between;
+  gap:var(--mk-gap); flex-wrap:wrap; margin-bottom:var(--mk-gap);
+  padding-bottom:14px; border-bottom:var(--mk-rail); }
+.ms-head h2{ font-size:clamp(21px,2.5vw,29px); line-height:1.18; letter-spacing:-.028em; }
+.ms-head .mk-sub{ margin-bottom:0; margin-top:5px; }
+/* Ikkala ustun ham qisqara olishi shart. 1440px da sarlavha 448px,
+   amallar qatori 677px edi — yig'indi konteynerdan atigi bir piksel
+   oshib, tugmalar pastga uzilib ketardi, shuning uchun sarlavha
+   torayadi. Amallar qatoriga flex:none berish esa telefonda sahifani
+   694px gacha yon tomonga sirpantirardi: qator o'zi flex-wrap, ya'ni
+   uning tabiiy asosi to'rt tugmaning bitta satrdagi kengligi, va
+   flex-shrink:0 unga ham torayishni, ham o'ralishni taqiqlardi. */
+.ms-head > div:first-child{ flex:1 1 320px; min-width:0; }
+.ms-head .mk-actions{ flex:0 1 auto; }
+.ms-title-row{ display:flex; align-items:center; flex-wrap:wrap; gap:9px; }
+
+/* To'rtta plitka — alohida kartochkalar emas, bitta asbob paneli:
+   oraliq 1px va ostidagi --line fon ajratuvchi chiziqni beradi, shunda
+   ular "yana bir kartochka gridi" emas, bitta o'lchov bloki bo'lib
+   o'qiladi. Xuddi shu usul yuqorida .mk-pulse da ishlatilgan. */
+.ms-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+  gap:1px; background:var(--line); border:var(--mk-rail); border-radius:var(--radius);
+  overflow:hidden; margin-bottom:var(--mk-gap); }
+.ms-stat{ background:var(--card); padding:13px var(--mk-pad);
+  display:flex; flex-direction:column; gap:3px; min-width:0; }
+.ms-stat span{ font-size:11.5px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--muted); }
+.ms-stat b{ font-size:clamp(24px,2.6vw,34px); font-weight:700; line-height:1.05;
+  letter-spacing:-.04em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.ms-stat i{ font-style:normal; font-size:12px; line-height:1.4; color:var(--muted); }
+.ms-stat.is-good b{ color:var(--mk-good); }
+.ms-stat.is-bad b{ color:var(--mk-bad); }
+
+/* ---------- 10 · ro'yxat jadvalining ichki elementlari ----------
+   .mk-table katakni chizadi, katak ichidagi ierarxiyani emas. Loyiha
+   kataki uch qavatli: bosiladigan nom, ostida tur nishoni bilan sektor,
+   va o'ng chekkada qator amallari. Amal tugmalari .btn emas — qatordagi
+   ikkita to'ldirilgan tugma jadvalni tugmalar gridiga aylantirardi —
+   shuning uchun ular havolaga o'xshaydi va faqat asosiysi aksent oladi. */
+.ms-rowname{ display:inline-block; font-size:14px; font-weight:700; color:var(--ink);
+  letter-spacing:-.012em; text-decoration:none; border-bottom:1px solid transparent;
+  transition:border-color .18s var(--ease); }
+.ms-rowname:hover{ color:var(--mk); border-bottom-color:var(--mk); }
+.ms-rowname:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; border-radius:var(--radius-sm); }
+.ms-rowsub{ display:flex; align-items:center; flex-wrap:wrap; gap:4px 8px; margin-top:5px;
+  font-size:12px; color:var(--muted); }
+.ms-rowact{ text-align:right; white-space:nowrap; }
+.ms-rowact .ms-link{ margin-left:13px; }
+
+.ms-link{ appearance:none; border:0; background:none; padding:0; font:inherit;
+  font-size:13px; font-weight:600; line-height:1.5; color:var(--muted); cursor:pointer;
+  border-bottom:1px solid transparent; transition:border-color .18s var(--ease); }
+.ms-link:hover{ color:var(--ink); border-bottom-color:var(--line-2); }
+.ms-link:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; border-radius:var(--radius-sm); }
+.ms-link.is-primary{ color:var(--mk); }
+.ms-link.is-primary:hover{ border-bottom-color:var(--mk); }
+/* Simulyator javob ustunida tugma yagona farzand va flex uni cho'zib
+   yuborardi; havola esa matn kengligida qolishi kerak. */
+.ms-sim-side .ms-link{ align-self:center; }
+
+/* Saralash strelkasi — sarlavhadagi yagona aksent belgisi: qaysi ustun
+   tartibni ushlab turganini bir qarashda aytadi. */
+.ms-sort{ font-style:normal; margin-left:5px; font-size:11px; color:var(--mk); }
+
+/* Bo'sh holat ro'yxat o'rnini egallaydi, shuning uchun u chegara emas,
+   punktir oladi: bu yerda hali hech narsa yo'q, lekin joy ajratilgan. */
+.ms-empty{ display:flex; flex-direction:column; align-items:center; gap:9px;
+  text-align:center; margin-top:var(--mk-gap); padding:clamp(28px,4vw,48px) var(--mk-pad);
+  background:var(--bg-soft); border:2px dashed var(--line); border-radius:var(--radius); }
+.ms-empty b{ font-size:16px; color:var(--ink); letter-spacing:-.018em; }
+.ms-empty p{ font-size:13.5px; line-height:1.55; color:var(--muted); max-width:52ch; }
+@media (prefers-reduced-motion:reduce){
+  .ms-rowname, .ms-link{ transition:none; }
+}
+
+/* ---------- 11 · nishonlar: yo'naltirish, holat, tur, rentabellik ----------
+   Bitta katakda ikkita nishon yonma-yon turadi va ular bir-biri bilan
+   raqobatlashmasligi kerak. Shu sababli material bo'yicha ajratilgan:
+   yo'naltirish hukmi (.ms-badge) — to'ldirilgan tabletka, nuqtali,
+   chunki u sahifaning yakuniy javobi; jarayon holati (.ms-status) —
+   faqat konturli va tinch, chunki u hujjat qayerdaligini aytadi, uni
+   baholamaydi. Tur (.ms-type) esa startup yo'lida ikkinchi aksentni,
+   --ms-alt ni oladi va shu bilan qaysi rubrika ishlaganini eslatadi. */
+.ms-badge{ display:inline-flex; align-items:center; gap:6px; padding:4px 11px 4px 9px;
+  border-radius:var(--radius-pill); font-size:12px; font-weight:700; letter-spacing:.02em;
+  white-space:nowrap; background:var(--bg-soft-2); color:var(--text); }
+.ms-badge i{ flex:none; width:7px; height:7px; border-radius:50%; background:currentColor; }
+.ms-badge.is-tayyor{ background:color-mix(in srgb,var(--mk-good) 14%,transparent); color:var(--mk-good); }
+.ms-badge.is-shartli{ background:var(--mk-soft); color:var(--mk); }
+.ms-badge.is-qayta{ background:color-mix(in srgb,var(--mk-warn) 16%,transparent); color:var(--mk-warn); }
+.ms-badge.is-rad{ background:color-mix(in srgb,var(--mk-bad) 13%,transparent); color:var(--mk-bad); }
+.ms-badge.is-knockout{ background:var(--mk-bad); color:#fff; }
+/* Kechasi --mk-bad xira tus: ustidagi oq matn taxminan 1.3:1 beradi,
+   shuning uchun to'xtatuvchi nishoni sahifa fonini oladi. */
+[data-theme="dark"] .ms-badge.is-knockout{ color:var(--bg); }
+
+.ms-status{ display:inline-flex; align-items:center; padding:3px 9px; border:var(--mk-rail);
+  border-radius:var(--radius-sm); background:transparent; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.06em; color:var(--muted); white-space:nowrap; }
+.ms-status.is-draft{ border-style:dashed; }
+.ms-status.is-scored{ color:var(--text); border-color:var(--line-2); }
+.ms-status.is-submitted{ color:var(--mk); border-color:color-mix(in srgb,var(--mk) 42%,var(--line)); }
+.ms-status.is-review{ color:var(--mk-warn); border-color:color-mix(in srgb,var(--mk-warn) 42%,var(--line)); }
+.ms-status.is-approved{ color:var(--mk-good); border-color:color-mix(in srgb,var(--mk-good) 45%,var(--line)); }
+.ms-status.is-rejected{ color:var(--mk-bad); border-color:color-mix(in srgb,var(--mk-bad) 45%,var(--line)); }
+
+/* Ikkala tur ham TUS oladi, to'ldirilgan fon emas: --mk-soft kechasi
+   to'q indigo bloki bo'lib, tur nishonini yonidagi yo'naltirish
+   hukmidan ham og'irroq qilib ko'rsatardi — holda esa tur ikkinchi
+   darajali ma'lumot. */
+.ms-type{ display:inline-flex; align-items:center; padding:3px 9px; border-radius:var(--radius-sm);
+  background:color-mix(in srgb,var(--mk) 12%,transparent); color:var(--mk); font-size:11px;
+  font-weight:700; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+.ms-type.is-startup{ background:color-mix(in srgb,var(--ms-alt,var(--mk)) 15%,transparent);
+  color:var(--ms-alt,var(--mk)); }
+
+/* Ko'rsatkichlar jadvalidagi rentabel / zararli bayrog'i. */
+.ms-flag{ display:inline-flex; align-items:center; padding:3px 9px; border-radius:var(--radius-pill);
+  font-size:11.5px; font-weight:700; letter-spacing:.03em; white-space:nowrap; }
+.ms-flag.is-good{ background:color-mix(in srgb,var(--mk-good) 14%,transparent); color:var(--mk-good); }
+.ms-flag.is-bad{ background:color-mix(in srgb,var(--mk-bad) 13%,transparent); color:var(--mk-bad); }
+
+/* ---------- 12 · natija sahifasining tuzilishi ----------
+   Sahifa ikkita juftlikdan iborat: gauge va KPI, kamchiliklar va
+   simulyator. Ustunlar ataylab teng emas (.85 / 1.15) — chapdagisi
+   javob, o'ngdagisi dalil, va teng ikki ustun bu farqni yo'q qilardi.
+   1040px dan pastda juftlik ma'nosini yo'qotadi: simulyatorning o'zi
+   ichida ikki ustun, ya'ni tor ekranda to'rtta ustun paydo bo'lardi. */
+.ms-split{ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:var(--mk-gap); align-items:start; margin-bottom:var(--mk-gap); }
+@media (max-width:1040px){ .ms-split{ grid-template-columns:1fr; } }
+.ms-score{ align-items:center; justify-content:center; text-align:center; gap:12px; }
+.ms-score .mk-note{ width:100%; }
+
+/* "+N ball" tavsiyalari. Raqam jumlaning ichida emas, yonidagi
+   tabular chipda: ro'yxat aynan shu ustun bo'ylab o'qiladi — qayerda
+   ko'proq ball turgani jumlalarni o'qimasdan ko'rinishi kerak. */
+.ms-gaps{ list-style:none; display:flex; flex-direction:column; gap:9px; }
+.ms-gaps li{ display:flex; align-items:flex-start; gap:11px;
+  font-size:13.5px; line-height:1.5; color:var(--text); }
+.ms-gaps b{ flex:none; min-width:48px; padding:3px 9px; border-radius:var(--radius-pill);
+  background:color-mix(in srgb,var(--mk-good) 13%,transparent); color:var(--mk-good);
+  font-size:13px; font-weight:700; text-align:center; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; }
+.ms-allmax{ display:flex; align-items:center; gap:9px; padding:12px 14px;
+  border-radius:var(--radius); background:color-mix(in srgb,var(--mk-good) 10%,transparent);
+  color:var(--mk-good); font-size:13.5px; font-weight:600; line-height:1.5; }
+.ms-allmax::before{ content:"✓"; flex:none; display:grid; place-items:center;
+  width:20px; height:20px; border-radius:50%; background:var(--mk-good); color:#fff;
+  font-size:12px; font-weight:700; }
+[data-theme="dark"] .ms-allmax::before{ color:var(--bg); }
+
+/* Yo'naltirish hali ochilmagan holat. Bu bo'shliq emas, yopiq eshik —
+   shuning uchun panel to'liq chegara emas, punktir oladi: natija bor,
+   lekin u hali ko'rsatilmaydi. */
+.ms-locked{ display:flex; flex-direction:column; align-items:center; gap:10px;
+  text-align:center; padding:clamp(24px,3vw,40px) var(--mk-pad);
+  background:var(--bg-soft); border:2px dashed var(--line-2); border-radius:var(--radius); }
+.ms-locked p{ font-size:14px; line-height:1.55; color:var(--text); max-width:56ch; }
+.ms-locked .mk-note{ background:transparent; border-left:0; padding:0; }
+
+/* ---------- 13 · moliya instituti kartochkasi ----------
+   Kartochka ikkita savolga javob beradi: bu kim, va nima uchun (yoki
+   nega emas) mos keldi. Shuning uchun moslik foizi sarlavha qatorida
+   raqam sifatida turadi, mezonlar esa ta'rif ro'yxatida — har bir
+   qatorda yorliq chapda, qiymat o'ngda, tabular raqamlar bilan.
+   To'liq mos kelgan kartochka --mk-good chegarasini oladi: bu
+   ro'yxatdagi yaxshi natija va u ko'z yugurtirganda ajralib turishi
+   kerak. Mos kelmagan mezonlar pastda, jimgina — ular rad javobi
+   emas, keyingi qadam. */
+.ms-inst{ display:flex; flex-direction:column; gap:12px; padding:var(--mk-pad);
+  background:var(--card); border:var(--mk-rail); border-radius:var(--radius); min-width:0;
+  transition:border-color .2s var(--ease), box-shadow .2s var(--ease); }
+.ms-inst:hover{ border-color:var(--line-2); box-shadow:var(--shadow-sm); }
+.ms-inst.is-full{ border-color:color-mix(in srgb,var(--mk-good) 45%,var(--line));
+  background:color-mix(in srgb,var(--mk-good) 4%,var(--card)); }
+.ms-inst-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.ms-inst-head h4{ font-size:15.5px; line-height:1.3; letter-spacing:-.018em; color:var(--ink); }
+.ms-inst-type{ display:block; margin-top:4px; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.07em; color:var(--muted); }
+.ms-inst-pct{ flex:none; padding:4px 10px; border-radius:var(--radius-pill);
+  background:var(--bg-soft-2); color:var(--text); font-size:13px; font-weight:700;
+  letter-spacing:-.03em; font-variant-numeric:tabular-nums; }
+.ms-inst-pct.is-full{ background:color-mix(in srgb,var(--mk-good) 15%,transparent); color:var(--mk-good); }
+.ms-inst-kv{ border-top:var(--mk-rail); }
+.ms-inst-kv div{ display:flex; align-items:baseline; justify-content:space-between;
+  gap:12px; padding:7px 0; border-bottom:1px solid var(--line); }
+.ms-inst-kv div:last-child{ border-bottom:0; }
+.ms-inst-kv dt{ flex:none; font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--muted); }
+.ms-inst-kv dd{ min-width:0; text-align:right; font-size:13px; color:var(--text);
+  overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.ms-inst-kv a{ color:var(--mk); }
+.ms-inst-miss{ padding-top:10px; border-top:var(--mk-rail);
+  font-size:12px; line-height:1.5; color:var(--muted); }
+@media (prefers-reduced-motion:reduce){
+  .ms-inst{ transition:none; }
+}
+
+/* ---------- 14 · metodika: vazn bloklari va yo'naltirish pog'onalari ----------
+   Metodika — o'qish uchun hujjat, shuning uchun har bir vazn bloki
+   sarlavha (nom + maksimum ball) va pog'ona ro'yxatidan iborat kichik
+   jadval. Eng yuqori pog'ona aksent foni bilan belgilanadi: jadvalning
+   butun mazmuni "qayerga intilish kerak" degan savolga javob berish.
+   Startup bo'limi --ms-alt chegarasini oladi — u alohida rubrika, va
+   uni korxona bloklari bilan aralashtirib yubormaslik kerak. */
+.ms-met-title{ font-size:13px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.09em; color:var(--muted); margin-bottom:var(--mk-gap);
+  padding-bottom:8px; border-bottom:var(--mk-rail); }
+.ms-met-grid{ display:grid; gap:var(--mk-gap);
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); margin-bottom:var(--mk-gap); }
+.ms-met-block{ background:var(--card); border:var(--mk-rail);
+  border-radius:var(--radius); overflow:hidden; min-width:0; }
+.ms-met-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  padding:11px 14px; background:var(--bg-soft); border-bottom:var(--mk-rail); }
+.ms-met-head span{ min-width:0; font-size:12.5px; font-weight:700;
+  letter-spacing:-.012em; color:var(--ink); }
+.ms-met-head b{ flex:none; font-size:12px; font-weight:700; color:var(--mk);
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.ms-met-block ul{ list-style:none; }
+.ms-met-block li{ display:flex; align-items:baseline; justify-content:space-between;
+  gap:12px; padding:8px 14px; border-bottom:1px solid var(--line);
+  font-size:13px; line-height:1.45; color:var(--text); }
+.ms-met-block li:last-child{ border-bottom:0; }
+.ms-met-block li.is-top{ background:var(--mk-soft); color:var(--ink); font-weight:600; }
+.ms-met-block i{ flex:none; font-style:normal; font-weight:700; color:var(--ink);
+  letter-spacing:-.03em; font-variant-numeric:tabular-nums; }
+.ms-met-block li.is-top i{ color:var(--mk); }
+
+.ms-tiers{ display:grid; gap:var(--mk-gap);
+  grid-template-columns:repeat(auto-fit,minmax(206px,1fr)); margin-bottom:var(--mk-gap); }
+.ms-tier{ position:relative; display:flex; flex-direction:column; gap:4px;
+  padding:13px 15px 13px 19px; background:var(--card); border:var(--mk-rail);
+  border-radius:var(--radius); overflow:hidden; min-width:0; }
+.ms-tier i{ position:absolute; inset:0 auto 0 0; width:4px; background:var(--line-2); }
+.ms-tier span{ font-size:11.5px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--muted); font-variant-numeric:tabular-nums; }
+.ms-tier b{ font-size:14.5px; line-height:1.3; letter-spacing:-.018em; color:var(--ink); }
+.ms-tier.is-tayyor i{ background:var(--mk-good); }
+.ms-tier.is-shartli i{ background:var(--mk); }
+.ms-tier.is-qayta i{ background:var(--mk-warn); }
+.ms-tier.is-rad i{ background:var(--mk-bad); }
+
+.ms-met-startup{ margin-top:calc(var(--mk-gap) * 1.6); padding-top:var(--mk-gap);
+  border-top:3px solid var(--ms-alt,var(--mk)); }
+.ms-met-startup .ms-met-title{ color:var(--ms-alt,var(--mk)); }
+.ms-met-startup .ms-met-head b{ color:var(--ms-alt,var(--mk)); }
+.ms-met-startup .ms-met-block li.is-top{
+  background:color-mix(in srgb,var(--ms-alt,var(--mk)) 11%,transparent); }
+.ms-met-startup .ms-met-block li.is-top i{ color:var(--ms-alt,var(--mk)); }
+
+/* ---------- 15 · bo'lim sarlavhalari va forma boshqaruvlari ----------
+   Sehrgar ham, natija sahifasi ham bitta kichik sarlavha idiomasidan
+   foydalanadi (.ms-sec): qalin bir qator va ostida jimroq izoh. U
+   .mk-sub dan farq qiladi, chunki .mk-sub sahifa sarlavhasiga tegishli,
+   bu esa panel ichidagi bo'limga.
+
+   Boshqaruvlar .mk-f qiyofasini aynan takrorlaydi, lekin klass sifatida:
+   DD jadvalidagi select .mk-f ichida emas, jadval katagida turadi va
+   u yerda ham xuddi shunday ko'rinishi shart. */
+.ms-sec{ display:flex; flex-direction:column; gap:4px;
+  margin:calc(var(--mk-gap) * 1.2) 0 12px; }
+.ms-sec:first-child{ margin-top:0; }
+.ms-sec h3{ font-size:15px; font-weight:700; letter-spacing:-.018em; color:var(--ink); }
+.ms-sec p{ font-size:13px; line-height:1.55; color:var(--muted); max-width:72ch; }
+
+.ms-in{ width:100%; padding:10px 12px; border:var(--mk-rail); border-radius:var(--radius-sm);
+  background:var(--card); color:var(--ink); font:inherit; font-size:14.5px; }
+.ms-in:focus{ outline:2px solid var(--mk); outline-offset:1px; }
+/* Yulduzcha tarjima matnidan ajratilgan, shunda u tilga emas, uslubga
+   bo'ysunadi — va majburiylik yorliqning o'zi kabi jimgina qolmaydi. */
+.ms-req{ font-style:normal; margin-left:3px; font-weight:700; color:var(--mk-bad); }
+.ms-hint{ font-size:11.5px; line-height:1.45; color:var(--muted); }
+
+/* Belgilash katagi butun qator bo'lib bosiladi: 17px lik kvadratni
+   nishonga olish sensorli ekranda deyarli imkonsiz. */
+.ms-check{ display:flex; align-items:center; gap:10px; margin-top:12px;
+  padding:9px 13px; border:var(--mk-rail); border-radius:var(--radius-sm);
+  background:var(--card); font-size:13.5px; line-height:1.45; color:var(--text);
+  cursor:pointer; transition:border-color .18s var(--ease); }
+.ms-check:hover{ border-color:var(--mk); }
+.ms-check input{ flex:none; width:17px; height:17px; margin:0; accent-color:var(--mk); cursor:pointer; }
+.ms-check input:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; }
+
+/* Kichik yo'q qilish tugmasi: yil qatorida ham, hujjat qatorida ham
+   bir xil. U tinch turadi va faqat kursor ostida qizilga o'tadi —
+   jadvalda o'n beshta qizil tugma qatori ogohlantirishga o'xshardi. */
+.ms-x{ appearance:none; display:inline-grid; place-items:center; width:27px; height:27px;
+  border:var(--mk-rail); border-radius:var(--radius-sm); background:var(--card);
+  color:var(--muted); font:inherit; font-size:12px; line-height:1; cursor:pointer;
+  transition:border-color .18s var(--ease); }
+.ms-x:hover{ color:var(--mk-bad); border-color:var(--mk-bad); }
+.ms-x:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; }
+
+.ms-docs{ list-style:none; display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+.ms-doc{ display:flex; align-items:center; gap:12px; padding:8px 12px;
+  background:var(--bg-soft); border:var(--mk-rail); border-radius:var(--radius-sm);
+  font-size:13px; color:var(--text); }
+.ms-doc span{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ms-doc i{ flex:none; font-style:normal; font-size:12px; color:var(--muted);
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+/* Fayl tanlash maydoni <label> ichida yashiringan: .btn .btn-ghost
+   qiyofasini allaqachon oladi, unga faqat kursor va fokus halqasi
+   yetishmaydi — yashirin input fokusni ko'rsata olmaydi. */
+.ms-upload{ cursor:pointer; }
+.ms-upload:focus-within{ outline:2px solid var(--mk); outline-offset:1px; }
+@media (prefers-reduced-motion:reduce){
+  .ms-check, .ms-x{ transition:none; }
+}
+
+/* ---------- 16 · sehrgar qobig'i va uning pastki paneli ----------
+   Forma uzun, pastki panel esa yagona chiqish yo'li. Telefonda u
+   sahifaning eng oxirida qolsa, foydalanuvchi "Keyingi" ni topish
+   uchun to'rt ekran surishga majbur bo'ladi — shuning uchun tor
+   ekranda panel kartochkaning pastki chetiga yopishadi va manfiy
+   margin bilan uning butun kengligini egallaydi. */
+.ms-wizard{ margin-top:var(--mk-gap); }
+.ms-wiz-foot{ display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap; margin-top:var(--mk-gap);
+  padding-top:var(--mk-gap); border-top:var(--mk-rail); }
+@media (max-width:640px){
+  .ms-wiz-foot{ position:sticky; bottom:0; z-index:5;
+    margin:var(--mk-gap) calc(var(--mk-pad) * -1) calc(var(--mk-pad) * -1);
+    padding:12px var(--mk-pad); background:var(--card);
+    border-top:var(--mk-rail); border-radius:0 0 var(--radius) var(--radius); }
+  .ms-wiz-foot .btn{ flex:1 1 auto; }
+}

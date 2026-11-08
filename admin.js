@@ -151,6 +151,31 @@ const AT = {
   nav_buyers:["Xaridorlar","Покупатели","Buyers"],
   nav_set:["Sozlamalar","Настройки","Settings"],
 
+  /* Operator requisites. Qoidalar 24-band (KM 185-son) and ZRU-792 require
+     these to be published; until they are filled in, srv/legal.js redacts
+     every unfilled slot so a placeholder can never reach a visitor, and this
+     panel is the only place they can be supplied. */
+  op_title:["Operator rekvizitlari","Реквизиты оператора","Operator requisites"],
+  op_sub:["Qoidalar 24-band va ZRU-792 talabiga ko'ra bu ma'lumotlar har bir sahifaning pastki qismida e'lon qilinadi. To'ldirilmagan maydon saytda umuman ko'rsatilmaydi.","Согласно 24-пункту Правил и ЗРУ-792 эти сведения публикуются в нижней части каждой страницы. Незаполненное поле на сайте не отображается вовсе.","Under Qoidalar 24-band and ZRU-792 these details are published in the footer of every page. An unfilled field is not shown on the site at all."],
+  op_ready:["Barcha majburiy rekvizitlar to'ldirilgan","Все обязательные реквизиты заполнены","Every required requisite is filled in"],
+  op_missing:["To'ldirilmagan majburiy rekvizitlar","Незаполненные обязательные реквизиты","Required requisites still unfilled"],
+  op_save:["Saqlash","Сохранить","Save"],
+  op_saved:["Saqlandi","Сохранено","Saved"],
+  op_err:["Saqlab bo'lmadi","Не удалось сохранить","Could not save"],
+  op_req:["majburiy","обязательно","required"],
+  op_f_legalName:["To'liq yuridik nomi","Полное юридическое наименование","Full legal name"],
+  op_f_brand:["Brend nomi","Бренд","Brand name"],
+  op_f_legalForm:["Tashkiliy-huquqiy shakli","Организационно-правовая форма","Legal form"],
+  op_f_stir:["STIR","ИНН","Taxpayer number"],
+  op_f_regNumber:["Davlat ro'yxatidan o'tkazilganlik raqami","Номер государственной регистрации","State registration number"],
+  op_f_regDate:["Ro'yxatdan o'tkazilgan sana","Дата регистрации","Registration date"],
+  op_f_address:["Pochta manzili","Почтовый адрес","Postal address"],
+  op_f_email:["Rasmiy elektron pochta","Официальная электронная почта","Official e-mail"],
+  op_f_phone:["Telefon","Телефон","Telephone"],
+  op_f_dpoEmail:["Shaxsga doir ma'lumotlar bo'yicha mas'ul shaxs e-pochtasi","E-mail ответственного за персональные данные","Data protection contact e-mail"],
+  op_f_dpoName:["Mas'ul shaxsning F.I.Sh.","Ф.И.О. ответственного лица","Data protection contact name"],
+  op_f_licence:["Litsenziya (bo'lsa)","Лицензия (если есть)","Licence (if any)"],
+
   /* Buyer applications. Oversight is the ONLY approver for this tier — no
      association vouches for a buyer — so this queue exists nowhere else. */
   bq_title:["Xaridor arizalari","Заявки покупателей","Buyer applications"],
@@ -1019,6 +1044,7 @@ function renderSettings(){
           </div></div>
       </div>
       <p class="ac-label" style="margin-top:20px">${t("set_note")}</p>
+      <div id="opCard" style="margin-top:26px;padding-top:22px;border-top:1px solid var(--line)"></div>
       <div id="gCard" style="margin-top:26px;padding-top:22px;border-top:1px solid var(--line)">
         <h3 style="font-size:15px;margin:0 0 6px">${t("g_title")}</h3>
         <p class="ac-label">${t("g_sub")}</p>
@@ -1027,7 +1053,98 @@ function renderSettings(){
   $("#thLight").addEventListener("click",()=>{setTheme("light");renderSettings();});
   $("#thDark").addEventListener("click",()=>{setTheme("dark");renderSettings();});
   $("#view-settings").querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.l)));
+  renderOperatorCard();
   renderGoogleCard();
+}
+
+
+/* ============================================================
+   OPERATOR REQUISITES
+
+   These used to live only as bracketed placeholders in srv/legal.js, which
+   made correcting a phone number a code change and a redeploy — and it is why
+   an unfilled template survived into production and printed
+   "[TO'LDIRILSIN: STIR]" into the footer of every public page as though it
+   were a legal requisite.
+
+   The server now redacts anything unfilled before /api/legal answers, so this
+   form is the only route by which a real value reaches a visitor.
+   ============================================================ */
+const opApi = body =>
+  fetch("/api/legal/operator", { method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(Object.assign({ pass:"admin" }, body||{})) })
+    .then(r=>r.json()).catch(()=>({ error:"network" }));
+
+const OP_LANGS = ["uz","ru","en"];
+const OP_I18N  = ["legalName","legalForm","address"];
+const OP_PLAIN = ["brand","stir","regNumber","regDate","email","phone","dpoName","dpoEmail","licence"];
+const opEsc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+async function renderOperatorCard(note){
+  const host = $("#opCard");
+  if(!host) return;
+  const cfg = await opApi({});
+  if(!cfg || !cfg.ok){
+    host.innerHTML = `<h3 style="font-size:15px;margin:0 0 6px">${t("op_title")}</h3>
+      <p class="ac-label">${t("op_err")}</p>`;
+    return;
+  }
+  const o = cfg.operator || {}, tpl = cfg.template || {};
+  const i18n = cfg.i18nKeys || OP_I18N, required = cfg.required || [];
+
+  /* The template string becomes the input's PLACEHOLDER: it says what belongs
+     in the box without ever being stored, or published as if it were data. */
+  const ph = (k, l) => {
+    const v = tpl[k];
+    const s = (v && typeof v === "object") ? (v[l||"uz"] || v.uz || "") : (v || "");
+    return String(s).replace(/^\[/, "").replace(/\]$/, "")
+      .replace(/^(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED):\s*/, "");
+  };
+  const val = (k, l) => {
+    const v = o[k];
+    const s = (v && typeof v === "object") ? (l ? v[l] : v.uz) : v;
+    return String(s == null ? "" : s);
+  };
+  const label = k => `<div class="ac-label">${t("op_f_"+k)}${
+    required.includes(k) ? ` <b style="color:#b45309">· ${t("op_req")}</b>` : ""}</div>`;
+
+  const field = k => i18n.includes(k)
+    ? `<div style="flex:1 1 100%">${label(k)}
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+          ${OP_LANGS.map(l=>`<input data-op="${k}" data-lang="${l}" value="${opEsc(val(k,l))}"
+            placeholder="${opEsc(l.toUpperCase()+" — "+ph(k,l))}" />`).join("")}
+        </div></div>`
+    : `<div style="flex:1 1 240px">${label(k)}
+        <div style="display:flex;margin-top:6px"><input data-op="${k}" value="${opEsc(val(k))}"
+          placeholder="${opEsc(ph(k))}" /></div></div>`;
+
+  const missing = (cfg.missing||[]).map(k=>t("op_f_"+k)).join(", ");
+  host.innerHTML = `
+    <h3 style="font-size:15px;margin:0 0 6px">${t("op_title")}</h3>
+    <p class="ac-label">${t("op_sub")}</p>
+    <p style="margin-top:8px;font-size:13px;font-weight:600;color:${cfg.ready?"#15795c":"#b45309"}">
+      ${cfg.ready ? "✓ "+t("op_ready") : "⚠ "+t("op_missing")+": "+opEsc(missing)}</p>
+    <div class="admin-form" style="align-items:flex-start">
+      ${i18n.map(field).join("")}${OP_PLAIN.map(field).join("")}
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;margin-top:16px">
+      <button class="btn btn-primary" id="opSave">${t("op_save")}</button>
+      <span class="ac-label" id="opMsg">${opEsc(note||"")}</span>
+    </div>`;
+
+  $("#opSave").addEventListener("click", async () => {
+    const btn = $("#opSave"); btn.disabled = true;
+    const payload = {};
+    host.querySelectorAll("[data-op]").forEach(el => {
+      const k = el.dataset.op, l = el.dataset.lang;
+      if(l){ payload[k] = payload[k] || {}; payload[k][l] = el.value; }
+      else payload[k] = el.value;
+    });
+    const r = await opApi({ op:"save", operator: payload });
+    btn.disabled = false;
+    renderOperatorCard(r && r.ok ? t("op_saved") : t("op_err"));
+  });
 }
 
 /* ---- the Google session the Meet bot drives ---- */

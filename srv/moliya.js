@@ -22,8 +22,12 @@ const OFFER_STATUS = ["indicative", "shortlisted", "declined", "withdrawn"];
 /* §10 — instrument names are shown as-is; the platform never rules on Sharia compliance. */
 const ISLAMIC = ["Murabaha", "Ijara", "Musharaka", "Mudaraba", "Salam", "Istisna", "Sukuk"];
 
+/* "scored" — loyiha skoringi qatorlari (srv/moliya-scoring.js). Ular shu
+   hujjatda yashaydi va hujjat kalitlari FAQAT shu yerda e'lon qilinadi:
+   ro'yxatda yo'q massiv birinchi save() dayoq jimgina o'chib ketadi. */
 const col  = H.collection("moliya.json",
-  ["products", "requests", "offers", "passports", "investors", "projects", "startups", "ideas", "events"]);
+  ["products", "requests", "offers", "passports", "investors", "projects", "startups",
+   "ideas", "scored", "interest", "events"]);
 const load = col.load, save = col.save;
 
 /* ---------- provider product catalogue (TZ §4.2) ---------- */
@@ -55,6 +59,12 @@ function cleanProduct(b, provider, prev){
     licence:      H.S(b.licence, 200),              // §4.2 requires the legal/licence status on the card
     sharia:       H.BOOL(b.sharia),
     status:       H.ONE(b.status, ["live", "archived"], "live"),
+    /* Loyiha skoringi routeri (srv/moliya-scoring.js) mahsulotni faqat
+       routable = true bo'lganda institutlar reyestriga qo'shadi: provayder
+       o'zi rozilik bermaguncha katalog kartochkasi yo'naltirishga tushmaydi.
+       minScore — loyiha o'tishi shart bo'lgan ball poli (0..100). */
+    routable:     H.BOOL(b.routable),
+    minScore:     Math.max(0, Math.min(100, H.N(b.minScore))),
     created:      prev ? prev.created : now,
     updated:      now,
   };

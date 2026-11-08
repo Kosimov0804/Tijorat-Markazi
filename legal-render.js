@@ -204,12 +204,23 @@
       + "The Uzbek text below is the operative version; use the language switch for Russian.</div>");
 
     /* An unfilled requisite is a compliance defect, so it is shown as one
-       instead of being quietly rendered as if it were data. */
-    if (cfg && !cfg.ready) parts.push(
-      '<div class="lg-note lg-note-warn">' + esc(pick({
-        uz: "DIQQAT: operator rekvizitlari hali to'ldirilmagan. Hujjat huquqiy kuchga ega bo'lishi uchun srv/legal.js faylidagi OPERATOR ma'lumotlari real ro'yxatdan o'tish ma'lumotlari bilan almashtirilishi shart.",
-        ru: "ВНИМАНИЕ: реквизиты оператора ещё не заполнены. Для юридической силы документа сведения OPERATOR в файле srv/legal.js должны быть заменены реальными регистрационными данными."
+       rather than quietly rendered as if it were data. Both audiences are
+       told, but not the same thing: a visitor needs to know the document is
+       incomplete so they do not rely on it, while the instruction for fixing
+       it — and the internal file path it used to name — belongs only to the
+       people who can act on it. Naming a source file to the public leaked an
+       implementation detail and told a reader to do something they cannot. */
+    if (cfg && !cfg.ready) {
+      var oversight = false;
+      try { oversight = sessionStorage.getItem("kg_admin") === "1"; } catch (e) {}
+      parts.push('<div class="lg-note lg-note-warn">' + esc(pick(oversight ? {
+        uz: "DIQQAT: operator rekvizitlari to'ldirilmagan. Admin panel > Sozlamalar > Operator rekvizitlari bo'limida real ro'yxatdan o'tish ma'lumotlarini kiriting — hujjat to'liq huquqiy kuchga shundan keyin ega bo'ladi.",
+        ru: "ВНИМАНИЕ: реквизиты оператора не заполнены. Укажите реальные регистрационные данные в разделе Админ-панель > Настройки > Реквизиты оператора — только после этого документ обретёт полную юридическую силу."
+      } : {
+        uz: "Eslatma: operator rekvizitlari hozircha to'liq ko'rsatilmagan. Savollar bo'yicha platforma ma'muriyatiga murojaat qiling.",
+        ru: "Примечание: реквизиты оператора указаны не полностью. По вопросам обращайтесь к администрации платформы."
       })) + "</div>");
+    }
 
     if (doc.lead) parts.push('<p class="lg-lead">' + esc(fill(pick(doc.lead))) + "</p>");
 

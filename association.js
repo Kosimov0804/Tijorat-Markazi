@@ -814,8 +814,10 @@ document.addEventListener("click", async e => {
 /* ============================================================
    CHROME: lang + theme + static
    ============================================================ */
+const langBtns  = ["#langBtn","#pubLangBtn"].map(sel=>$(sel)).filter(Boolean);
+const themeBtns = ["#themeBtn","#pubThemeBtn"].map(sel=>$(sel)).filter(Boolean);
 function applyChrome(){
-  $("#langBtn").textContent=LANG.toUpperCase();
+  langBtns.forEach(b=>b.textContent=LANG.toUpperCase());
   $("#logoutBtn").textContent=t("logout");
   $("#backSite").textContent=t("back");
   $("#aiNav").textContent="🤖 "+["AI Assistant","AI Ассистент","AI Assistant"][L()];
@@ -828,11 +830,14 @@ function setLang(lang){ LANG=lang; localStorage.setItem("kg_lang",lang); applyCh
   if(!$("#asShell").hidden){ paintBrand(); buildNav(); renderView(); }
   if(!$("#asPublic").hidden && PAGE_ID) loadPublic(PAGE_ID);
 }
-$("#langBtn").addEventListener("click",()=>setLang(LANGS[(L()+1)%LANGS.length]));
+/* This page is the only one carrying two chrome bars in a single document:
+   the public site header (opened with ?id=) and the cabinet topbar. Only one
+   is ever visible, so both copies of the theme/lang controls must be wired --
+   querySelector would silently bind whichever came first in the markup. */
+langBtns.forEach(b=>b.addEventListener("click",()=>setLang(LANGS[(L()+1)%LANGS.length])));
 
-const themeBtn=$("#themeBtn");
-function setTheme(theme){document.documentElement.dataset.theme=theme;localStorage.setItem("kg_theme",theme);themeBtn.innerHTML=theme==="dark"?ICON_SUN:ICON_MOON;}
-themeBtn.addEventListener("click",()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+function setTheme(theme){document.documentElement.dataset.theme=theme;localStorage.setItem("kg_theme",theme);themeBtns.forEach(b=>b.innerHTML=theme==="dark"?ICON_SUN:ICON_MOON);}
+themeBtns.forEach(b=>b.addEventListener("click",()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")));
 
 /* ============================================================
    INIT

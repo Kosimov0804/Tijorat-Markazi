@@ -576,7 +576,7 @@ h1,h2,h3,h4{font-family:'Inter',system-ui,sans-serif;color:var(--ink);line-heigh
 
 .admin-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
 .admin-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow-sm)}
-.admin-card .ac-label{font-size:12.5px;color:var(--muted)}
+.admin-card .ac-label,.admin-panel .ac-label{font-size:12.5px;color:var(--muted)}
 .admin-card .ac-val{font-family:'Inter',sans-serif;font-size:30px;color:var(--ink);margin-top:4px;line-height:1}
 .admin-card .ac-sub{font-size:12px;color:var(--green);font-weight:600;margin-top:6px}
 

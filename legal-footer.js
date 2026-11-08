@@ -41,13 +41,25 @@
   const val = v => (v && typeof v === "object") ? (v[tl()] || v.uz || "") : (v || "");
 
   const PLACEHOLDER = /^\[(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
-  const cell = v => {
-    const s = String(v == null ? "" : v);
-    if(!s) return "";
-    return PLACEHOLDER.test(s)
-      ? `<span class="lg-todo">${esc(s)}</span>`
-      : esc(s);
+  /* The server redacts every unfilled requisite to an empty string before it
+     leaves /api/legal, so nothing bracketed can arrive here any more. This
+     test stays as a second line of defence: it costs nothing, and a footer is
+     the last place that should be trusting its input to already be clean. */
+  const filled = v => { const s = String(v == null ? "" : v).trim();
+                        return s && !PLACEHOLDER.test(s) ? s : ""; };
+  /* A row with nothing in it is omitted rather than printed empty. An empty
+     <p> reads as a rendering fault; a missing line reads as a missing line. */
+  const row = (v, wrap) => { const s = filled(v);
+    return s ? (wrap ? wrap(esc(s)) : "<p>" + esc(s) + "</p>") : ""; };
+
+  /* Oversight sees what a visitor must not: that the requisites are unfilled,
+     and where to fix it. Everyone else sees a shorter footer, because naming
+     an obligation the operator has not met does a visitor no good and stating
+     a placeholder as though it were a requisite actively misleads them. */
+  const isOversight = () => {
+    try { return sessionStorage.getItem("kg_admin") === "1"; } catch(e){ return false; }
   };
+
 
   /* Fixed, like the cross-links in legal-page.js — an href built from fetched
      data is one refactor away from being an href built from user data. */
@@ -75,32 +87,42 @@
       return `<li><a href="${PAGES[k]}">${esc(nm)}</a></li>`;
     }).join("");
 
-    /* The label is concatenated AFTER cell() has judged the value. Building
-       "STIR: [TO'LDIRILSIN...]" first and passing the whole string in meant
-       the placeholder no longer started the string, so it slipped past the
-       test and rendered as ordinary body text. */
-    const stir = val(o.stir)
-      ? `${esc(pick(LBL.stir))}: ${cell(val(o.stir))}`
+    const stir = filled(val(o.stir))
+      ? `<p>${esc(pick(LBL.stir))}: ${esc(filled(val(o.stir)))}</p>`
+      : "";
+
+    const about = row(val(o.legalName), s => `<p><strong>${s}</strong></p>`)
+      + row(val(o.legalForm)) + stir + row(val(o.address));
+
+    /* When the data contact is the general mailbox, the column already shows
+       it; printing it a second time adds a line, not a channel. */
+    const dpoMail = filled(val(o.dpoEmail));
+    const dpo = dpoMail && dpoMail.toLowerCase() !== filled(val(o.email)).toLowerCase()
+      ? `<p><span style="opacity:.75">${esc(pick(LBL.dpo))}:</span> ${esc(dpoMail)}</p>`
+      : "";
+    const contact = row(val(o.email)) + row(val(o.phone)) + dpo;
+
+    /* Qoidalar 24-band wants these on every page; when they are absent the
+       honest thing is to say so to the one person who can act on it. */
+    const todo = (!cfg.ready && isOversight())
+      ? `<p class="lg-todo">${esc(pick({
+          uz: "Operator rekvizitlari to'ldirilmagan — Admin panel > Sozlamalar",
+          ru: "Реквизиты оператора не заполнены — Админ-панель > Настройки" }))}</p>`
       : "";
 
     host.innerHTML = `
-      <div>
+      ${about || todo ? `<div>
         <h3>${esc(pick(LBL.about))}</h3>
-        <p><strong>${cell(val(o.legalName))}</strong></p>
-        ${val(o.legalForm) ? `<p>${cell(val(o.legalForm))}</p>` : ""}
-        ${stir ? `<p>${stir}</p>` : ""}
-        <p>${cell(val(o.address))}</p>
-      </div>
+        ${about}${todo}
+      </div>` : ""}
       <div>
         <h3>${esc(pick(LBL.docs))}</h3>
         <ul>${links}</ul>
       </div>
-      <div>
+      ${contact ? `<div>
         <h3>${esc(pick(LBL.contact))}</h3>
-        <p>${cell(val(o.email))}</p>
-        <p>${cell(val(o.phone))}</p>
-        ${val(o.dpoEmail) ? `<p><span style="opacity:.75">${esc(pick(LBL.dpo))}:</span> ${cell(val(o.dpoEmail))}</p>` : ""}
-      </div>`;
+        ${contact}
+      </div>` : ""}`;
   }
 
   /* Marks whichever legal page is open, for the .lg-tabs switcher. */

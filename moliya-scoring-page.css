@@ -1,0 +1,279 @@
+/* ============================================================
+   MOLIYA BOZORI — LOYIHA SKORINGI: SAHIFA QATLAMI
+
+   NEGA ALOHIDA FAYL
+
+   moliya-scoring.css 1014 qatorga yetdi va loyihaning 800 qatorlik
+   shiftidan oshib ketdi. Bo'linish joyi ixtiyoriy tanlanmagan:
+   1-16 bo'limlar KOMPONENTLAR (stepper, gauge, plitka, jadval),
+   bu yerdagi to'rttasi esa SAHIFA darajasidagi qatlam — tayyor
+   dossier, ustun ritmi, o'qiluvchanlik chegaralari va qog'oz.
+
+   YUKLASH TARTIBI SHART
+
+   Bu varaq moliya-scoring.css dan KEYIN, hech qanday boshqa varaq
+   oralig'isiz turishi kerak. Sabab 19-bo'limda: u .ms-tier span,
+   .ms-hint va .ms-print-eyebrow kabi selektorlarga bir xil xoslik
+   bilan chegara qo'yadi va faqat oxirgi bo'lgani uchun yutadi.
+   Shu sababli 17-bo'limni 19-dan keyinga o'tkazib bo'lmaydi ham —
+   ichki tartib aynan shu holida saqlangan.
+   ============================================================ */
+
+/* ---------- 17 · chop etiladigan dossier — ekran ko'rinishi ----------
+   Teaser ekranda ham, qog'ozda ham bir xil hujjat bo'lishi kerak,
+   shuning uchun uning uslublari print blokida emas, shu yerda —
+   tokenlar bilan — yoziladi, print bloki esa faqat tokenlarni qog'ozga
+   qaytarib yo'naltiradi. Sarlavha ostidagi aksent chizig'i va katta
+   ball raqami hujjatning birinchi sahifasini tanib olinadigan qiladi.
+
+   Bo'lim sarlavhalari va jadvallar orasidagi masofa umumiy sibling
+   selektori orqali beriladi (.ms-print-head ~ h3): dossier ichidagi
+   elementlarning o'z klassi yo'q, id bo'yicha yozish esa bu varaqning
+   "faqat klass" qoidasini buzardi. */
+.ms-print-bar{ display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap; margin-bottom:var(--mk-gap);
+  padding-bottom:12px; border-bottom:var(--mk-rail); }
+/* Teaser ochilganda body ms-printing bayrog'ini oladi. Ekranda hujjat
+   ustida reklama sarlavhasi turishi noo'rin — hero olib qo'yiladi. */
+.ms-printing .mk-hero{ display:none; }
+
+.ms-print-head{ display:flex; align-items:flex-start; justify-content:space-between;
+  gap:var(--mk-gap); padding-bottom:var(--mk-pad); margin-bottom:var(--mk-pad);
+  border-bottom:3px solid var(--mk); }
+.ms-print-eyebrow{ display:block; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.09em; color:var(--mk); }
+.ms-print-head h1{ font-size:clamp(23px,3vw,34px); line-height:1.14;
+  letter-spacing:-.032em; color:var(--ink); margin:7px 0 8px; }
+.ms-print-head p{ font-size:13px; line-height:1.5; color:var(--muted); }
+.ms-print-score{ flex:none; display:flex; flex-direction:column; align-items:flex-end;
+  gap:7px; text-align:right; }
+.ms-print-score b{ font-size:clamp(34px,4.4vw,52px); font-weight:700; line-height:.95;
+  letter-spacing:-.045em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.ms-print-score i{ font-style:normal; font-size:.4em; font-weight:600;
+  color:var(--muted); letter-spacing:-.02em; }
+
+.ms-print-head ~ h3{ font-size:12px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.09em; color:var(--muted); margin-top:var(--mk-pad);
+  padding-bottom:7px; border-bottom:var(--mk-rail); }
+.ms-print-head ~ .ms-kpis, .ms-print-head ~ .ms-knockout{ margin:12px 0 var(--mk-gap); }
+
+/* Dossier jadvallari .mk-tablewrap ichida emas — markup ularni qobiqsiz
+   chiqaradi — shuning uchun ular min-width olmaydi va suyuq qoladi:
+   qog'ozda ham, telefonda ham gorizontal sirpanish paydo bo'lmasligi
+   kerak. */
+.ms-print-t{ width:100%; border-collapse:collapse; margin:12px 0 var(--mk-gap);
+  font-size:13px; line-height:1.5; }
+/* overflow-wrap:anywhere, break-word EMAS. Farqi shundaki, anywhere
+   katakning min-content kengligiga ham ta'sir qiladi. Institutlar
+   jadvalidagi uzun pochta manzillari (deals@silkroadgrowth.com)
+   uzilmas so'z bo'lib, katakni 187px ga, jadvalni esa 388px ga
+   cho'zardi va telefonda butun dossier yon tomonga sirpanardi. */
+.ms-print-t td{ padding:8px 10px; border-bottom:1px solid var(--line);
+  color:var(--text); vertical-align:top; overflow-wrap:anywhere; }
+.ms-print-t b{ color:var(--ink); font-weight:700; }
+.ms-print-t .num{ text-align:right; white-space:nowrap;
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+
+/* Ball jadvalining o'rta ustuni — yo'lakcha. U ekrandagi .ms-block-bar
+   bilan bitta til: to'ldirilgan qism aksentda, qolgani tuslangan
+   zaxira. Halqa box-shadow emas, border bilan chiziladi, chunki print
+   bloki .ms-print ichida barcha soyalarni o'chiradi. */
+.ms-print-score-t td:nth-child(2){ width:44%; }
+.ms-print-bar-track{ display:block; height:9px; border:1px solid var(--line-2);
+  border-radius:var(--radius-pill); overflow:hidden;
+  background:color-mix(in srgb,var(--mk) 10%,var(--bg-soft-2)); }
+.ms-print-bar-track i{ display:block; height:100%; border-radius:inherit; background:var(--mk); }
+.ms-print-total td{ padding-top:11px; border-top:2px solid var(--line-2); border-bottom:0; }
+.ms-print-total b{ font-size:15px; letter-spacing:-.03em; color:var(--ink); }
+
+.ms-print-foot{ display:flex; align-items:baseline; justify-content:space-between;
+  gap:12px; flex-wrap:wrap; margin-top:var(--mk-pad); padding-top:12px;
+  border-top:var(--mk-rail); font-size:11.5px; line-height:1.5; color:var(--muted); }
+@media (max-width:640px){
+  .ms-print-head{ flex-direction:column; }
+  .ms-print-score{ align-items:flex-start; text-align:left; }
+}
+
+/* ---------- 18 · sahifa ustunining vertikal ritmi ----------
+   styles.css da *{margin:0} turadi, #msRoot esa oddiy blok: natija
+   sahifasidagi oltita panel hech qanday oraliqsiz bir-biriga yopishib
+   qolardi. Oraliq shu yerda — sahifaga bog'lab — beriladi, chunki
+   .mk-card boshqa bozorlarda ro'yxat kartochkasi bo'lib, u yerda
+   masofani grid gap'i beradi. .ms-split ichida gap allaqachon ishlaydi,
+   shuning uchun u yerda margin qaytarib olinadi.
+
+   Xuddi shu sababdan .mk-card ning kursor ostida ko'tarilishi ham
+   bekor qilinadi: bu effekt bosiladigan plitka uchun yozilgan, butun
+   kenglikdagi panel esa sichqoncha o'tganda qimirlamasligi kerak. */
+.mk[data-market="moliya"] .mk-card{ margin-bottom:var(--mk-gap); }
+.mk[data-market="moliya"] .ms-split .mk-card{ margin-bottom:0; }
+.mk[data-market="moliya"] .mk-card:hover{ transform:none; box-shadow:none; border-color:var(--line); }
+.mk[data-market="moliya"] .mk-card:hover::before{ opacity:0; }
+.mk[data-market="moliya"] .ms-banner{ margin-bottom:var(--mk-gap); }
+.mk[data-market="moliya"] .ms-knockout{ margin-bottom:var(--mk-gap); }
+/* Yo'l ayrilishi kartochkalari #ms-wiz-body ichida to'g'ridan-to'g'ri
+   .mk-form dan oldin turadi va u yerda flex gap yo'q — o'lchangan
+   oraliq 11px edi, ya'ni qaror kartasi birinchi yorliqqa yopishib
+   qolardi. */
+.ms-track{ margin-bottom:var(--mk-gap); }
+
+/* ---------- 19 · o'qiluvchanlik va sensor chegaralari ----------
+   11-11.5px lik kichik bosh harflar — uyning yorliq idiomasi va ish
+   stoli monitorida ular bemalol o'qiladi. Telefonni qo'lda ushlab
+   turganda esa yo'q, va bu yerdagi har bir shunday yorliq chegara yoki
+   hukmni olib yuradi — sahifaning foydalanuvchi eng taxmin qila
+   olmaydigan qismini. Yuqoridagi .mk-chip chegarasi bilan bir xil
+   dalil. Bu blok yangi bo'limlardan KEYIN turadi: bir xil aniqlikdagi
+   selektorlar orasida g'olibni manba tartibi hal qiladi. */
+@media (max-width:900px){
+  .ms-gauge-cap, .ms-kpi-l, .ms-kpi-note, .ms-knockout-cap,
+  .ms-block-name, .ms-step-t small, .ms-track-opt em,
+  .ms-stat span, .ms-status, .ms-type, .ms-inst-type, .ms-inst-kv dt,
+  .ms-tier span, .ms-hint, .ms-print-eyebrow, .ms-print-foot,
+  .ms-met-title, .ms-flag{ font-size:12px; }
+  .ms-step-t{ font-size:12.5px; }
+}
+@media (hover:none) and (pointer:coarse){
+  /* Sensorda maqsad — ichidagi 13px lik boshqaruv emas, butun qator. */
+  .ms-step{ min-height:44px; }
+  .ms-sim-row label{ display:flex; align-items:center; min-height:44px; }
+  .ms-sim-row input[type=checkbox], .ms-track-opt input[type=checkbox],
+  .ms-track-opt input[type=radio]{ width:18px; height:18px; accent-color:var(--mk); }
+  .ms-track-opt{ min-height:44px; }
+  .ms-sim select, .ms-matrix input{ min-height:44px; }
+  .ms-check{ min-height:44px; }
+  .ms-check input{ width:20px; height:20px; }
+  .ms-in{ min-height:44px; }
+  .ms-x{ width:44px; min-height:44px; }
+  /* Havolaga o'xshagan tugmalarning o'zi baland bo'lolmaydi — ular
+     matn satri — shuning uchun nishon maydoni vertikal padding bilan
+     kengaytiriladi va qator amallari orasidagi masofa oshiriladi. */
+  .ms-link{ padding:12px 0; }
+  .ms-rowact .ms-link{ margin-left:20px; }
+  .ms-rowname{ display:inline-flex; align-items:center; min-height:44px; }
+  .ms-upload{ min-height:44px; }
+}
+
+/* ============================================================
+   20 · A4 CHOP ETISH — skoring dossieri
+
+   Skoring qarori ekrandan avval hujjat: u kredit jildiga tikiladi,
+   imzolanadi va saqlanadi. styles.css da ham, markets.css da ham
+   hech qachon chop etish qoidasi bo'lmagan, shuning uchun brauzer
+   qotib turgan shahar manzarasini, birinchi varaqdagi yopishqoq
+   sarlavhani va kechgi temada yo qop-qora sahifani, yo printerning
+   sukut sozlamasida har bir gauge va yo'lakchani jimgina tashlab
+   ketgan, faqat raqamlar qolgan sahifani chiqarardi.
+
+   Bu blokni ikki qaror ushlab turadi. Birinchisi: yuzta qoidani
+   qayta yozish o'rniga chop etish TOKEN qatlamini qog'ozdagi siyohga
+   qaytarib yo'naltiradi — bitta e'lon ikkala temani oq fon va to'q
+   matnga yig'adi, va ikkala varaqdagi har bir qoida unga ergashadi,
+   chunki ularning hech biri literal ushlamaydi. Aksent oilalari
+   yorug' qiymatlarida qayta aytiladi, chunki kechgi variantlar
+   deyarli qora fon uchun tanlangan xira tuslar va qog'ozda deyarli
+   hech narsa bo'lib chiqadi. Ikkinchisi: print-color-adjust:exact
+   butun hudud bo'ylab majburlanadi — gauge yoyi va yo'lakchalar ayni
+   dalilning o'zi, foydali niyatda fonlarni tashlab ketgan printer esa
+   dossierni yorliqsiz raqamlar ro'yxatiga aylantiradi.
+
+   !important shu yerda va boshqa hech qayerda uchramaydi: chop etish
+   inline uslublardan ham, tema atributidan ham ustun chiqishi kerak,
+   va buni qildiradigan keyingi varaq yo'q.
+   ============================================================ */
+@media print{
+  @page{ size:A4; margin:14mm; }
+
+  /* DIQQAT: quyidagi qiymatlar styles.css va markets.css dagi yorug'
+     palitraning ATAYLAB qilingan ikkinchi nusxasi. CSS da yuqori
+     xoslikdagi e'lonni "bekor qilish" yo'li yo'q, ya'ni to'q tema
+     tokenlarini qog'oz uchun qaytarishning yagona usuli — ularni
+     qayta aytish. Palitrani sozlaganda shu blok ham yangilanadi,
+     aks holda o'zgarish qog'ozga yetib bormaydi. Manba: styles.css
+     :root va markets.css :root. */
+  :root, :root[data-theme="dark"]{
+    --ink:#14181f; --text:#333a45; --muted:#5b6270;
+    --navy:#1f4e79;
+    --line:#c9c2b2; --line-2:#b5ad99;
+    --bg:#fff; --bg-soft:#fff; --bg-soft-2:#eceae4; --card:#fff;
+    --shadow-sm:none; --shadow:none; --shadow-lift:none;
+    --glass:#fff; --glass-line:#c9c2b2;
+    --sh-face-tint:#fff; --sh-edge:#c9c2b2; --sh-sheen:transparent; --sh-cast:none; --sh-blur:none;
+    --mk-bozor:#0f766e; --mk-bozor-soft:#ccfbf1;
+    --mk-moliya:#4338ca; --mk-moliya-soft:#e0e7ff;
+    --mk-mehnat:#b45309; --mk-mehnat-soft:#fef3c7;
+    --mk-good:#15795c; --mk-warn:#b45309; --mk-bad:#b91c1c;
+  }
+
+  /* Chrome — navigatsiya, qog'ozda esa navigatsiya yo'q. Bu sahifaning
+     pastki qismi .footer, boshqa varaqlarda esa .site-footer — ikkalasi
+     ham ro'yxatda turishi kerak, aks holda dossier ortidan ikki ustunli
+     havolalar bloki chiqib ketadi. */
+  .site-header, .site-footer, .footer, .footer-legal, .bg-grid, .skyline, .nav, .burger,
+  .mk-drawer, .uid-toasts, .no-print{ display:none !important; }
+  /* Fon va matn ikki qator yuqorida qayta e'lon qilingan tokenlardan
+     olinadi; ilgari bu yerda o'sha qiymatlar literal takrorlangan edi
+     va token qatlamini chetlab o'tardi. */
+  html, body{ background:var(--bg) !important; color:var(--text) !important; }
+  body.mk{ padding:0 !important; }
+  .section{ padding:0 !important; }
+  .container{ max-width:none !important; padding:0 !important; }
+
+  /* Dossier hududining o'zi. Ichidagi hamma narsa to'ldirishini saqlaydi. */
+  .ms-print{ display:block; max-width:none; margin:0; padding:0;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .ms-print *{ -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    box-shadow:none !important; text-shadow:none !important; }
+  /* Qog'ozda ishlatib bo'lmaydigan boshqaruvlar va "nima bo'lsa"
+     paneli — u qarorga yetish vositasi, qarorning qismi emas. */
+  .ms-print .no-print, .ms-print .mk-actions, .ms-print .ms-sim,
+  .ms-print .ms-stepper, .ms-print button{ display:none !important; }
+
+  /* Sirpanmaydigan varaqda hech narsa yopishmaydi, suzmaydi, xiralashmaydi. */
+  .ms-sim-side, .ms-matrix .ms-matrix-row, .ms-matrix thead th:first-child{
+    position:static !important; box-shadow:none !important;
+    -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+  .ms-matrixwrap, .mk-tablewrap{ overflow:visible !important; }
+  .ms-matrix, .mk-table{ min-width:0 !important; }
+  .ms-sim-list{ max-height:none !important; overflow:visible !important; }
+  .ms-wiz-foot{ position:static !important; }
+
+  /* Buklama bilan bo'lingan kartochka ikkita yarim fakt bo'lib o'qiladi. */
+  .ms-print .mk-card, .ms-print .mk-box, .ms-print .mk-kpi, .ms-print .mk-note,
+  .ms-print .ms-kpi, .ms-print .ms-block, .ms-print .ms-gauge, .ms-print .ms-knockout,
+  .ms-print .ms-banner, .ms-print tr, .ms-print figure{
+    page-break-inside:avoid; break-inside:avoid; }
+  .ms-print h1, .ms-print h2, .ms-print h3{ page-break-after:avoid; break-after:avoid; }
+  /* Uzun jadval o'zi tushgan har bir varaqda ustun sarlavhalarini takrorlaydi. */
+  thead{ display:table-header-group; }
+  tfoot{ display:table-footer-group; }
+
+  /* Dossierning o'z lug'ati. Uning ranglari yuqoridagi tokenlardan
+     keladi, ammo ikkitasi qayta aytilishi shart: yo'lakcha halqasi
+     box-shadow emas, border bo'lib chiziladi (soyalar .ms-print ichida
+     o'chirilgan), va masshtablar qog'oz uchun qisqartiriladi — ekranda
+     clamp() ni viewport kengligi boshqaradi, varaqda esa u yo'q. */
+  .ms-print-head{ border-bottom-color:var(--mk); }
+  .ms-print-head h1{ font-size:24pt; color:var(--ink); }
+  .ms-print-eyebrow{ color:var(--mk); }
+  .ms-print-score b{ font-size:32pt; color:var(--ink); }
+  .ms-print-t td{ border-bottom-color:var(--line); color:var(--text); }
+  .ms-print-t b{ color:var(--ink); }
+  .ms-print-bar-track{ border-color:var(--line-2);
+    background:color-mix(in srgb,var(--mk) 12%,var(--bg-soft-2)); }
+  .ms-print-bar-track i{ background:var(--mk); }
+  .ms-print-total td{ border-top-color:var(--line-2); }
+  .ms-print-foot{ border-top-color:var(--line); color:var(--muted); }
+
+  /* Yoy sahifa rasterlanayotganda animatsiyaga kirmasdan, o'zining
+     yakuniy siljishida turishi kerak. */
+  .ms-gauge-arc{ transition:none !important; }
+  .ms-gauge{ width:208px; }
+  /* Yorug' ekranda yetarli bo'lgan ingichka chiziqlarga qog'ozda
+     og'irlik kerak. Ilgari bu qoida --line ning aynan o'sha qiymatini
+     literal takrorlab, hech narsani o'zgartirmasdi; endi u bir pog'ona
+     to'qroq bo'lgan --line-2 ni oladi. */
+  .ms-print .mk-card, .ms-print .mk-box, .ms-print .ms-kpi, .ms-print .ms-matrixwrap,
+  .ms-print .mk-tablewrap, .ms-print .ms-inst{ border-color:var(--line-2); }
+  a[href]::after{ content:""; }
+}

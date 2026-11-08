@@ -43,12 +43,21 @@
    which is the list the privacy policy is generated from.
    ============================================================ */
 
+const H  = require("./store");
+const DB = require("../db");
+
 /* ---------- 1. the operator ----------
-   TO'LDIRILSIN: replace every [ ] placeholder with the real registration
-   data of the legal entity that operates the platform. Nothing else in the
-   codebase hard-codes these — the footer, the offer and the privacy policy
-   all render from this object, and /api/legal serves it to the browser. */
-const OPERATOR = {
+   The bracketed values below are a TEMPLATE, not data. They name what has to
+   be supplied; they are never published. Oversight fills the real registration
+   details in from the admin panel (Sozlamalar -> Operator rekvizitlari), they
+   are persisted through db.js like every other collection, and operator()
+   merges them over this template.
+
+   Editing this object is no longer how the requisites get set. That used to
+   require a code change and a redeploy to correct a typo in a phone number,
+   which is why an unfilled template survived into production and rendered
+   "[TO'LDIRILSIN: STIR]" to visitors as though it were a legal requisite. */
+const DEFAULT_OPERATOR = {
   legalName:   { uz: "[TO'LDIRILSIN: to'liq yuridik nomi]",
                  ru: "[ZAPOLNIT: полное юридическое наименование]",
                  en: "[TO BE COMPLETED: full legal name]" },
@@ -62,24 +71,130 @@ const OPERATOR = {
   address:     { uz: "[TO'LDIRILSIN: pochta manzili, O'zbekiston]",
                  ru: "[ZAPOLNIT: почтовый адрес, Узбекистан]",
                  en: "[TO BE COMPLETED: postal address, Uzbekistan]" },
-  email:       "[TO'LDIRILSIN: rasmiy elektron pochta]",
-  phone:       "[TO'LDIRILSIN: +998 ...]",
+  /* Real values, supplied by the operator — not template. They publish as they
+     stand until oversight saves something else over them from the admin panel. */
+  email:       "tijoratmarkazi@gmail.com",
+  phone:       "+998 90 096 33 77",
   /* Modda 22 ZRU-547: the person must be told where to send a request about
-     their own data. One named channel, answered inside RESPONSE_DAYS. */
-  dpoEmail:    "[TO'LDIRILSIN: mas'ul shaxs e-pochtasi]",
+     their own data. One named channel, answered inside RESPONSE_DAYS. Until a
+     separate contact is appointed, the operator's own mailbox is that channel. */
+  dpoEmail:    "tijoratmarkazi@gmail.com",
   dpoName:     "[TO'LDIRILSIN: mas'ul shaxsning F.I.Sh.]",
   licence:     "",   // fill only if the platform itself trades under a licence
 };
 
-/** True once a real value has replaced a placeholder — the site uses this to
-    show an unmistakable warning banner instead of publishing a placeholder
-    to the public as if it were a legal requisite. */
+/* ---------- the operator, as actually configured ----------
+   Persisted separately from the code so a requisite can be corrected without
+   a deploy. db.js mirrors the row in memory and writes it straight through to
+   Postgres, exactly as every other collection on the platform behaves. */
+const OPERATOR_FILE = H.file("legal-operator.json");
+
+/** Only the keys the template declares, so a stored row cannot introduce a
+    field the documents do not know how to render. */
+const OPERATOR_KEYS = Object.keys(DEFAULT_OPERATOR);
+/** The three requisites that exist in all three languages. */
+const I18N_KEYS = ["legalName", "legalForm", "address"];
+
 const isPlaceholder = v => typeof v === "string" && /^\[(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/.test(v);
-function operatorReady(){
-  const flat = [OPERATOR.legalName.uz, OPERATOR.stir, OPERATOR.address.uz,
-                OPERATOR.email, OPERATOR.phone, OPERATOR.dpoEmail];
-  return !flat.some(isPlaceholder);
+
+/** A stored value counts only when it is a real, non-placeholder string. */
+const realValue = v => typeof v === "string" && v.trim() !== "" && !isPlaceholder(v);
+
+/**
+ * The live requisites: whatever oversight has saved, over the template.
+ * Merged per FIELD rather than per object, so filling in the Uzbek address
+ * without the Russian one leaves the Russian slot honestly empty instead of
+ * silently reinstating the template underneath it.
+ */
+function operator(){
+  const saved = DB.get(OPERATOR_FILE, null) || {};
+  const out = {};
+  for(const k of OPERATOR_KEYS){
+    const def = DEFAULT_OPERATOR[k];
+    if(I18N_KEYS.includes(k)){
+      const s = (saved[k] && typeof saved[k] === "object") ? saved[k] : {};
+      out[k] = { uz: realValue(s.uz) ? s.uz : def.uz,
+                 ru: realValue(s.ru) ? s.ru : def.ru,
+                 en: realValue(s.en) ? s.en : def.en };
+    } else {
+      out[k] = realValue(saved[k]) ? saved[k] : def;
+    }
+  }
+  return out;
 }
+
+/**
+ * What the browser is allowed to see. Every unfilled slot becomes an empty
+ * string HERE, on the server, rather than being trusted to each of the three
+ * client renderers to suppress. A placeholder is scaffolding addressed to the
+ * operator; publishing it to a visitor states a false requisite, and the one
+ * place that can guarantee it never happens is the boundary it would have to
+ * cross to reach them.
+ */
+function publicOperator(){
+  const o = operator(), out = {};
+  for(const k of OPERATOR_KEYS){
+    if(I18N_KEYS.includes(k))
+      out[k] = { uz: realValue(o[k].uz) ? o[k].uz : "",
+                 ru: realValue(o[k].ru) ? o[k].ru : "",
+                 en: realValue(o[k].en) ? o[k].en : "" };
+    else out[k] = realValue(o[k]) ? o[k] : "";
+  }
+  return out;
+}
+
+/* The requisites Qoidalar 24-band and ZRU-792 actually require in the footer.
+   `licence` is not here: it is filled only by a platform that trades under
+   one, so demanding it would make every compliant operator look incomplete. */
+const REQUIRED_REQUISITES = ["legalName", "stir", "address", "email", "phone", "dpoEmail"];
+
+/** Which required requisites are still unfilled — the admin panel lists them. */
+function operatorMissing(){
+  const o = operator();
+  return REQUIRED_REQUISITES.filter(k =>
+    I18N_KEYS.includes(k) ? !realValue(o[k].uz) : !realValue(o[k]));
+}
+
+/** True once every required requisite carries a real value. */
+const operatorReady = () => operatorMissing().length === 0;
+
+/**
+ * Save what oversight typed. Only declared keys are read, everything is
+ * trimmed and length-capped, and a blank field clears back to the template
+ * rather than storing an empty string that would read as "deliberately none".
+ */
+function operatorSave(body){
+  const patch = (body && typeof body === "object") ? body : {};
+  const saved = DB.get(OPERATOR_FILE, null) || {};
+  const next = {};
+  for(const k of OPERATOR_KEYS){
+    if(I18N_KEYS.includes(k)){
+      const inc = (patch[k] && typeof patch[k] === "object") ? patch[k] : {};
+      const cur = (saved[k] && typeof saved[k] === "object") ? saved[k] : {};
+      const row = {};
+      for(const l of ["uz", "ru", "en"]){
+        const v = H.S(Object.prototype.hasOwnProperty.call(inc, l) ? inc[l] : cur[l], 300);
+        if(realValue(v)) row[l] = v;
+      }
+      if(Object.keys(row).length) next[k] = row;
+    } else {
+      const v = H.S(Object.prototype.hasOwnProperty.call(patch, k) ? patch[k] : saved[k], 300);
+      if(realValue(v)) next[k] = v;
+    }
+  }
+  DB.set(OPERATOR_FILE, next);
+  return { ok: true, operator: operator(), ready: operatorReady(), missing: operatorMissing() };
+}
+
+/** The editing view: real values, the template as the placeholder to type
+    over, and the list of what is still outstanding. Oversight only. */
+function adminConfig(){
+  return { ok: true, operator: operator(), template: DEFAULT_OPERATOR,
+           required: REQUIRED_REQUISITES, i18nKeys: I18N_KEYS,
+           ready: operatorReady(), missing: operatorMissing() };
+}
+
+
 
 /* ---------- 2. the documents ----------
    Bump `version` whenever the substance changes, never for a typo. The date
@@ -223,7 +338,7 @@ function consentRecord(req, given){
 /** What /api/legal hands the browser — requisites, versions, and honest flags. */
 function publicConfig(){
   return {
-    operator: OPERATOR,
+    operator: publicOperator(),
     ready: operatorReady(),
     docs: DOCS,
     collected: COLLECTED,
@@ -235,6 +350,7 @@ function publicConfig(){
   };
 }
 
-module.exports = { OPERATOR, DOCS, COLLECTED, RETENTION, TRANSFERS, RESPONSE_DAYS,
+module.exports = { DEFAULT_OPERATOR, DOCS, COLLECTED, RETENTION, TRANSFERS, RESPONSE_DAYS,
   consentVersion, consentRecord, clientIp, operatorReady, isPlaceholder,
-  localisationRequired, publicConfig };
+  operator, publicOperator, operatorSave, operatorMissing, adminConfig,
+  REQUIRED_REQUISITES, localisationRequired, publicConfig };

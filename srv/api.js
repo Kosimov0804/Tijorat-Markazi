@@ -23,6 +23,7 @@ const H = require("./store");
 const B = require("./bozor");
 const M = require("./moliya");
 const K = require("./moliya-capital");
+const MOLIYA_ROUTES = require("./moliya-routes");
 const W = require("./mehnat");
 const I = require("./intel");
 const CP = require("./copilot");
@@ -65,6 +66,14 @@ function person(b){
 const actor = (ctx, b) => company(ctx, b) || buyer(ctx, b) || person(b);
 
 /** Strictly a buyer. Used by every route in the buyer's own cabinet. */
+/* Skoring navbati uchun aktyor. Admin paroli bilan kelgan so'rov ekspert
+   vakolatida ishlaydi: alohida "ekspert" hisob turi hali yo'q, va u paydo
+   bo'lganda rol FAQAT shu yerda qo'yiladi — domen moduli o'zgarmaydi.
+   Rol hech qachon tanadan olinmaydi. */
+const scoringActor = (ctx, b) => ctx.isAdmin(b.pass)
+  ? { id: "admin", name: "Administrator", role: "admin" }
+  : actor(ctx, b);
+
 const needBuyer = (ctx, b) => buyer(ctx, b);
 
 const need = (res, ctx, what) => ctx.json(res, 401, { error: what });
@@ -325,6 +334,13 @@ async function handle(req, res, pathname, query, ctx){
     return out(res, ctx, K.capitalStack(body));
   if(pathname === "/api/moliya/intel" && GET)
     return ctx.json(res, 200, I.capitalIntel(query.days));
+  /* Skoring va investor yo'llari o'z modulida — srv/moliya-routes.js.
+     true qaytsa, javob allaqachon yuborilgan. */
+  if(MOLIYA_ROUTES({ pathname: pathname, GET: GET, POST: POST, req: req, res: res,
+      body: body, query: query, ctx: ctx, actor: actor, company: company,
+      scoringActor: scoringActor, need: need, out: out })) return;
+
+
   if(pathname === "/api/moliya/meta" && GET)
     return ctx.json(res, 200, { categories: M.CATEGORIES, currencies: M.CURRENCIES,
       segments: M.SEGMENTS, islamic: M.ISLAMIC, investorTypes: K.INVESTOR_TYPES,
@@ -451,6 +467,25 @@ async function handle(req, res, pathname, query, ctx){
   if(pathname === "/api/legal" && GET)
     return ctx.json(res, 200, Object.assign({ ok: true }, L.publicConfig()));
 
+  /* The requisites themselves. Oversight only, and an association is refused
+     here as it is on every other oversight route: an association speaks for
+     its own members, not for the legal identity of the platform.
+
+     A GET would have been simpler, but the editing view carries the template
+     alongside the real values and there is no reason to serve that to anyone
+     who has not proved they may change it. */
+  if(pathname === "/api/legal/operator" && POST){
+    const a = approver(ctx, body);
+    if(!a || a.type === "assoc") return need(res, ctx, "oversight_login_required");
+    if(body.op === "save"){
+      const r = L.operatorSave(body.operator);
+      /* Who last touched the requisites is itself a compliance fact. */
+      console.log(`  [legal] operator requisites saved by ${a.type} (${a.name})`
+        + (r.missing.length ? ` — still missing: ${r.missing.join(", ")}` : " — complete"));
+      return out(res, ctx, r);
+    }
+    return ctx.json(res, 200, L.adminConfig());
+  }
   if(pathname === "/api/legal/export" && POST){
     const sub = RT.subjectOf(ctx.core, body);
     if(!sub) return need(res, ctx, "login_required");

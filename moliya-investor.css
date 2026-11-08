@@ -1,0 +1,242 @@
+/* ============================================================
+   MOLIYA · INVESTOR TOMONI — INSTITUT QABULXONASI  (msi-*)
+
+   Varaqlar qat'iy tartibda yuklanadi — styles.css -> markets.css ->
+   moliya-scoring.css -> moliya-investor.css -> legal.css — va bu
+   yerda na @layer, na @import, na ichma-ich yozuv bor: kaskadni
+   faqat MANBA TARTIBI hal qiladi. Shuning uchun bu varaq eng
+   oxirida turadi va o'zi kengaytirayotgan ms-* qoidalarini
+   ustunlikni oshirmasdan tuzata oladi.
+
+   Nega yangi prefiks kerak bo'ldi: ms-* — tashabbuskorning ekrani,
+   u yerda "qaror" degan tushuncha yo'q. Qabulxonaning o'zagi esa
+   aynan qaror va uning YASHIRINLIGI: institut yozgan izoh loyiha
+   egasiga hech qachon ko'rsatilmaydi, va bu shartnoma ekranda
+   ko'rinib turishi kerak — shuning uchun .msi-seal muhr kabi
+   chiziladi, bezak sifatida emas.
+
+   Ranglar faqat tokenlardan; holat --mk-good/--mk-warn/--mk-bad
+   orqali. Yagona literal — to'ldirilgan aksent ustidagi #fff, va
+   u kechasi --bg ga almashtiriladi. Izohlar o'zbekcha.
+   ============================================================ */
+
+/* ---------- 1 · aktyor chizig'i ----------
+   Bitta sahifani ikki xil huquqli odam ochadi. Chiziq .mk-id ni
+   meros qiladi, ammo uchinchi ustun — sozlamalarga o'tish — o'ng
+   chekkaga surilishi kerak, aks holda u jumlaning davomiga
+   o'xshab qolardi. */
+.msi-actor{ gap:6px 14px; align-items:baseline; }
+.msi-actor b{ font-size:14px; letter-spacing:-.01em; }
+.msi-actor span{ color:var(--muted); font-size:13px; line-height:1.5; min-width:0; }
+.msi-actor .ms-link{ margin-left:auto; flex:none; }
+/* Ekspert institut emas: u navbatni boshqaradi, undan foyda
+   ko'rmaydi. Chap rels shuning uchun aksentdan ogohlantirish
+   tusiga o'tadi — "siz boshqa rolda turibsiz". */
+.msi-actor.is-expert{ border-left-color:var(--mk-warn); }
+
+/* ---------- 2 · filtrdagi ball maydoni ----------
+   .mk-filter dagi raqam maydoni matn maydoni bilan bir xil
+   flex-basis oladi (220px) va ikki xonali son uchun bu juda keng:
+   qator uzilib, qidiruv maydoni siqilib qolardi. */
+.msi-num{ flex:0 1 128px; }
+
+/* ---------- 3 · qiziqish chipi ----------
+   Jadvalda bu ustun ko'z bilan SKANERLANADI: institut "qaysilarini
+   hali ko'rmadim" degan savolga qatorlarni o'qimasdan javob olishi
+   kerak. Shu sababli har holat o'z tusiga ega, "ko'rilmagan" esa
+   ataylab rangsiz — u holat emas, holatning yo'qligi. */
+.msi-int{ display:inline-flex; align-items:center; gap:6px; padding:3px 10px;
+  border-radius:var(--radius-pill); font-size:11.5px; font-weight:700;
+  letter-spacing:.03em; white-space:nowrap; }
+.msi-int::before{ content:""; flex:none; width:6px; height:6px; border-radius:50%;
+  background:currentColor; }
+.msi-int.is-new{ background:transparent; border:1px dashed var(--line-2); color:var(--muted); }
+.msi-int.is-interested{ background:var(--mk-soft); color:var(--mk); }
+.msi-int.is-shortlist{ background:color-mix(in srgb,var(--mk-good) 15%,transparent); color:var(--mk-good); }
+.msi-int.is-passed{ background:var(--bg-soft-2); color:var(--muted); }
+
+/* ---------- 3b · navbat jadvali ----------
+   Qabulxonaga tashabbuskorda yo'q uchta ustun qo'shiladi: mos mahsulot,
+   qarorim va yuborilgan sana. .mk-table sarlavhalari nowrap — yettita
+   ustunda bu to'g'ri qaror edi, bu yerda esa "MOS MAHSULOT" bitta raqam
+   ustida 133px joy egallab turardi. Shuning uchun FAQAT shu jadvalda
+   sarlavha o'ralishi mumkin; kataklarning o'zi (nishonlar, sanalar)
+   nowrap bo'lib qoladi — pilyulaning ichida qator uzilishi uni
+   pilyula bo'lib ko'rinishdan chiqarardi. */
+.msi-queue th{ white-space:normal; }
+/* Ikki so'zli sarlavha ikki qatorga tushganda ustunning tabiiy kengligi
+   eng uzun so'z bo'ylab hisoblanadi — shuning uchun shift ham kerak.
+   Beshinchidan boshlab: mos mahsulot, qarorim, yuborilgan. */
+.msi-queue th:nth-child(n+5){ max-width:112px; }
+
+/* ---------- 4 · qaror paneli ----------
+   Panel dossierning o'ng ustunida turadi va u YAGONA yoziladigan
+   joy: qolgan hammasi o'qish uchun. Chap rels shuni aytadi. */
+.msi-panel{ border-left:3px solid var(--mk); gap:14px; }
+.msi-panel.is-locked{ border-left-color:var(--line-2); }
+
+/* Dossierda chap ustun pasport (uzun), o'ng ustun qaror (qisqa) —
+   shuning uchun .ms-split ning 0.85/1.15 nisbati teskari. */
+.msi-split{ grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); }
+@media (max-width:1040px){ .msi-split{ grid-template-columns:1fr; } }
+
+.msi-current{ display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px;
+  padding:10px 13px; background:var(--bg-soft); border-radius:var(--radius-sm); }
+.msi-current > span{ font-size:11.5px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--muted); }
+.msi-current i{ font-style:normal; font-size:12px; color:var(--muted);
+  font-variant-numeric:tabular-nums; margin-left:auto; }
+
+/* Uchta qaror — segment emas, uchta TENG og'irlikdagi tugma:
+   "o'tkazib yuborish" ham xuddi "qiziqdim" kabi to'liq huquqli
+   javob, va uni kichraytirish institutni sukut saqlashga undardi. */
+.msi-choices{ display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:8px; }
+.msi-choice{ appearance:none; font:inherit; font-size:13.5px; font-weight:600; cursor:pointer;
+  padding:11px 12px; border:var(--mk-rail); border-radius:var(--radius-sm);
+  background:var(--card); color:var(--text); text-align:center; min-width:0;
+  transition:border-color .18s var(--ease), background .18s var(--ease), color .18s var(--ease); }
+.msi-choice:hover{ border-color:var(--line-2); color:var(--ink); }
+.msi-choice:focus-visible{ outline:2px solid var(--mk); outline-offset:1px; }
+/* Tanlangan holat RANG bilan ajratiladi, chunki aria-pressed ni
+   ko'rmaydigan foydalanuvchi uchun yagona belgi shu. */
+.msi-choice.is-interested.is-on{ background:var(--mk); border-color:var(--mk); color:#fff; }
+.msi-choice.is-shortlist.is-on{ background:var(--mk-good); border-color:var(--mk-good); color:#fff; }
+.msi-choice.is-passed.is-on{ background:var(--bg-soft-2); border-color:var(--line-2); color:var(--ink); }
+
+/* ---------- 5 · yashirinlik muhri ----------
+   Bu blokning butun vazifasi — bitta noto'g'ri taxminni oldini
+   olish: "izohimni tashabbuskor o'qiydi". Shuning uchun u kartochka
+   emas, MUHR: uzluksiz emas, punktir chegara, qulf belgisi va
+   bo'lakning o'zidan kattaroq bo'shliq. */
+.msi-seal{ position:relative; padding:12px 14px 12px 42px;
+  border:1px dashed color-mix(in srgb,var(--mk) 45%,var(--line));
+  border-radius:var(--radius-sm); background:var(--mk-soft); }
+.msi-seal::before{ content:"\1F512"; position:absolute; left:14px; top:11px;
+  font-size:15px; line-height:1.2; }
+.msi-seal b{ display:block; font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.09em; color:var(--mk); margin-bottom:4px; }
+.msi-seal p{ font-size:12.5px; line-height:1.55; color:var(--text); }
+
+.msi-note label{ text-transform:uppercase; }
+.msi-note textarea{ min-height:96px; }
+
+/* ---------- 6 · dossier yordamchilari ----------
+   Pasport kartochkasida ikkinchi sarlavha kartochka ichida turadi,
+   shuning uchun unga tepadan ajratuvchi kerak: aks holda hujjatlar
+   ro'yxati pasportning davomi bo'lib o'qilardi. */
+.msi-sub-sec{ margin-top:16px; padding-top:14px; border-top:var(--mk-rail); }
+
+.msi-docs{ list-style:none; display:flex; flex-direction:column; gap:1px;
+  background:var(--line); border:var(--mk-rail); border-radius:var(--radius-sm); overflow:hidden; }
+.msi-docs li{ display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:9px 13px; background:var(--card); font-size:13.5px; color:var(--text); }
+.msi-docs span{ min-width:0; overflow-wrap:anywhere; }
+.msi-docs i{ font-style:normal; flex:none; font-size:12px; color:var(--muted);
+  font-variant-numeric:tabular-nums; }
+
+/* Tushuntirish qatori: sarlavha va undan keyingi jumlalar. Jumlalar
+   blok bo'lib tushadi, chunki ular bir-birining davomi emas — har
+   biri mustaqil sabab. */
+.msi-why{ display:flex; flex-direction:column; gap:5px; }
+.msi-why b{ font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--mk); }
+.msi-why span{ font-size:12.5px; line-height:1.55; color:var(--muted); }
+.msi-why.is-bad{ border-left-color:var(--mk-bad); }
+.msi-why.is-bad b{ color:var(--mk-bad); }
+
+/* ---------- 7 · qabul mezonlari ----------
+   Mahsulotlar grid emas, USTUN: har birida ikkita boshqaruv va bitta
+   tushuntirish bor, ya'ni qator balandligi teng emas. Grid ularni
+   bir xil balandlikka cho'zib, bo'sh joyni ma'no deb ko'rsatardi. */
+.msi-prods{ display:flex; flex-direction:column; gap:var(--mk-gap); }
+.msi-prod{ display:flex; flex-direction:column; gap:12px; padding:var(--mk-pad);
+  background:var(--card); border:var(--mk-rail); border-left:3px solid var(--line-2);
+  border-radius:var(--radius);
+  transition:border-left-color .2s var(--ease); }
+/* Yoqilgan mahsulot — reyestrdagi ovoz. Chap rels aksentga o'tadi:
+   ro'yxatni yuqoridan pastga yugurib o'tganda "qaysilari ishlayapti"
+   savoliga matnsiz javob beradi. */
+.msi-prod.is-on{ border-left-color:var(--mk); }
+.msi-prod.is-dead{ border-left-color:var(--mk-bad); background:var(--bg-soft); }
+
+.msi-prod-top{ display:flex; align-items:flex-start; justify-content:space-between;
+  gap:10px; flex-wrap:wrap; }
+.msi-prod-top h4{ font-size:15.5px; font-weight:700; letter-spacing:-.018em; color:var(--ink); }
+.msi-prod-meta{ display:block; margin-top:3px; font-size:12px; color:var(--muted);
+  text-transform:uppercase; letter-spacing:.05em; }
+
+.msi-prod-ctl{ display:flex; align-items:flex-end; flex-wrap:wrap; gap:12px 18px;
+  padding-top:12px; border-top:var(--mk-rail); }
+.msi-minscore{ flex:0 1 150px; }
+.msi-minscore input{ font-variant-numeric:tabular-nums; }
+.msi-prod-ctl .btn{ margin-left:auto; }
+
+/* Almashtirgich: haqiqiy <input type=checkbox> DOM'da qoladi va
+   fokusni o'zi oladi — u faqat ko'rinmas qilinadi, o'chirilmaydi.
+   Ko'rinadigan yo'lak esa uning qo'shnisi, shu sababli fokus halqasi
+   "input:focus-visible + i" orqali chiziladi. */
+.msi-toggle{ display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  font-size:13.5px; font-weight:600; color:var(--text); }
+.msi-toggle input{ position:absolute; width:1px; height:1px; margin:-1px;
+  padding:0; border:0; overflow:hidden; clip-path:inset(50%); }
+.msi-toggle i{ position:relative; flex:none; width:42px; height:23px; border-radius:var(--radius-pill);
+  background:var(--bg-soft-2); border:1px solid var(--line-2);
+  transition:background .2s var(--ease), border-color .2s var(--ease); }
+.msi-toggle i::after{ content:""; position:absolute; top:2px; left:2px; width:17px; height:17px;
+  border-radius:50%; background:var(--card); box-shadow:var(--shadow-sm);
+  transition:transform .2s var(--ease); }
+.msi-toggle input:checked + i{ background:var(--mk); border-color:var(--mk); }
+.msi-toggle input:checked + i::after{ transform:translateX(19px); }
+.msi-toggle input:focus-visible + i{ outline:2px solid var(--mk); outline-offset:1px; }
+.msi-toggle:hover i{ border-color:var(--mk); }
+/* O'chirilgan almashtirgich bosilmaydi va buni ko'rsatishi kerak —
+   "nega hech narsa bo'lmayapti" savoli tug'ilmasin. */
+.msi-toggle.is-off{ cursor:default; color:var(--muted); }
+.msi-toggle.is-off i{ opacity:.55; }
+.msi-toggle.is-off:hover i{ border-color:var(--line-2); }
+
+/* ---------- 8 · bo'sh ekranlar ----------
+   Uchta bo'sh holat uch xil ishni talab qiladi, shuning uchun ular
+   bir xil ko'rinmaydi: sozlash kerak bo'lsa — aksent va to'ldirilgan
+   tugma; kutish kerak bo'lsa — tinch, punktir; filtr aybdor bo'lsa —
+   ms-empty ning o'z ko'rinishi (bu yerda tuzatish yo'q). */
+.msi-empty.is-setup{ border-style:solid; border-color:color-mix(in srgb,var(--mk) 40%,var(--line));
+  background:var(--mk-soft); }
+.msi-empty.is-setup b{ color:var(--mk); }
+.msi-empty.is-wait{ background:transparent; }
+.msi-empty .ms-link{ margin-top:4px; }
+
+/* ---------- 9 · kechki tuzatishlar ----------
+   Kechasi --mk va --mk-good xira tuslar: ular ustidagi oq matn
+   taxminan 1.3:1 beradi, shuning uchun to'ldirilgan yuzalarda
+   yorliq sahifa fonini oladi — moliya-scoring.css dagi .ms-badge
+   va .ms-step bilan bir xil tuzatish. */
+[data-theme="dark"] .msi-choice.is-interested.is-on{ color:var(--bg); }
+[data-theme="dark"] .msi-choice.is-shortlist.is-on{ color:var(--bg); }
+[data-theme="dark"] .msi-toggle i::after{ background:var(--bg-soft-2); }
+[data-theme="dark"] .msi-toggle input:checked + i::after{ background:var(--bg); }
+/* --mk-soft kechasi to'q indigo bloki: uning ustida punktir chegara
+   yo'qolib ketadi, shuning uchun muhr chegarasi bir pog'ona yorug'
+   tus oladi. */
+[data-theme="dark"] .msi-seal{ border-color:color-mix(in srgb,var(--mk) 60%,var(--line-2)); }
+[data-theme="dark"] .msi-empty.is-setup{ border-color:color-mix(in srgb,var(--mk) 55%,var(--line-2)); }
+
+/* ---------- 10 · harakatni kamaytirish ----------
+   Almashtirgich knopi va tanlov tugmalari — yagona harakatlanadigan
+   qismlar; ular o'chirilganda ham holat RANG bilan o'qiladi. */
+@media (prefers-reduced-motion:reduce){
+  .msi-choice, .msi-prod, .msi-toggle i, .msi-toggle i::after{ transition:none; }
+}
+
+/* ---------- 11 · tor ekran ----------
+   390px da mahsulot boshqaruvlari bitta qatorga sig'maydi: tugma
+   o'z qatoriga tushadi va butun kenglikni oladi, aks holda u
+   almashtirgich bilan yonma-yon siqilib, ikkalasi ham bosilishi
+   qiyin nishonga aylanardi. */
+@media (max-width:560px){
+  .msi-prod-ctl{ flex-direction:column; align-items:stretch; }
+  .msi-minscore{ flex:none; }
+  .msi-prod-ctl .btn{ margin-left:0; width:100%; }
+  .msi-actor .ms-link{ margin-left:0; }
+  .msi-current i{ margin-left:0; }
+}
