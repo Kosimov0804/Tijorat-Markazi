@@ -12,7 +12,7 @@
   // only a REAL account session counts as "logged in" — kg_guest_id is a tracking id
   // that is always present, so it must NOT trigger the logout button.
   var LOGIN_KEYS = ["kg_admin","kg_co","kg_as","kg_rais","kg_an","kg_by"];
-  var LABEL = { uz:"Chiqish", ru:"Выйти", en:"Log out" };
+  var LABEL = { uz:"Çiqiş", ru:"Выйти", en:"Log out" };
   // Which panel each session key belongs to, most privileged first —
   // rais and admin share the admin panel.
   var PANELS = [
@@ -23,7 +23,7 @@
     { key:"kg_an",    url:"tahlil.html" },
     { key:"kg_by",    url:"xaridor.html" }
   ];
-  var CTA_BACK = { uz:"Panelimga qaytish →", ru:"Вернуться в панель →", en:"Back to the profile →" };
+  var CTA_BACK = { uz:"Panelimga qaytiş →", ru:"Вернуться в панель →", en:"Back to the profile →" };
 
   // current localized label — prefer the shared T dictionary, fall back to LABEL
   function label(){

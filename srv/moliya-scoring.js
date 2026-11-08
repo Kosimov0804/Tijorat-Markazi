@@ -399,7 +399,7 @@ function setStatus(actor, id, status, comment){
    "keyin tuzatamiz" deb qoldirib bo'lmaydigan narsa.
    ========================================================================= */
 const CSV_COLS = ["Nomi", "Turi", "STIR", "Sektor", "Hudud", "Summa", "Valyuta",
-  "Ball", "Xom ball", "Knockout", "Yo'naltirish", "Holat", "Yangilangan"];
+  "Ball", "Xom ball", "Knockout", "Yönaltiriş", "Holat", "Yangilangan"];
 
 const csvCell = v => {
   let s = v === null || v === undefined ? "" : String(v);
@@ -436,7 +436,7 @@ function exportCsv(filter){
       pp.valyuta,
       sc ? sc.total : "",
       sc ? sc.rawTotal : "",
-      sc ? (sc.isKnockout ? "ha" : "yo'q") : "",
+      sc ? (sc.isKnockout ? "ha" : "yöq") : "",
       sc ? MSCORE.L(sc.routingStatus, "uz") : "",
       lab(REF.projectStatuses, p.status),
       day(p.updated),

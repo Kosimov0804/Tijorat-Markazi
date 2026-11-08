@@ -18,15 +18,15 @@ const AVATAR_STYLE = {
 } as const;
 
 const TEXT = {
-  title: ["Konferensiyaga kirish", "Вход на конференцию", "Join the conference"],
+  title: ["Konferensiyaga kiriş", "Вход на конференцию", "Join the conference"],
   sub: [
-    "Email kiriting — konferensiyaga qo'shilish uchun.",
+    "Email kiriting — konferensiyaga qöşiliş uçun.",
     "Введите email, чтобы присоединиться к конференции.",
     "Enter your email to join the conference.",
   ],
-  button: ["Davom etish →", "Продолжить →", "Continue →"],
-  invalid: ["To'g'ri email kiriting", "Введите корректный email", "Enter a valid email"],
-  switchEmail: ["Boshqa email", "Сменить email", "Switch email"],
+  button: ["Davom etiş →", "Продолжить →", "Continue →"],
+  invalid: ["Töğri email kiriting", "Введите корректный email", "Enter a valid email"],
+  switchEmail: ["Boşqa email", "Сменить email", "Switch email"],
 } satisfies Record<string, Localized>;
 
 function storedEmail(): string {

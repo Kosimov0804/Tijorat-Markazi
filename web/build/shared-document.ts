@@ -10,7 +10,7 @@ const THEME_BEFORE_PAINT =
 
 /* Qoidalar 24-band: the legal documents stay reachable without JavaScript. */
 const NO_SCRIPT_LEGAL =
-  '<p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalanish shartlari</a></p>';
+  '<p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalaniş şartlari</a></p>';
 
 const headLink = (attrs: Record<string, string | boolean>): HtmlTagDescriptor => ({
   tag: "link",

@@ -67,14 +67,14 @@
                   rights: "mening-malumotlarim.html" };
   /* Not a versioned document, so it carries its own title. It belongs in this
      list anyway: a right nobody can find is a right nobody uses. */
-  const EXTRA_TITLE = { rights: { uz: "Mening ma'lumotlarim", ru: "Мои данные", en: "My data" } };
+  const EXTRA_TITLE = { rights: { uz: "Mening maʼlumotlarim", ru: "Мои данные", en: "My data" } };
 
   const LBL = {
     about:  { uz: "Operator", ru: "Оператор" },
     docs:   { uz: "Huquqiy hujjatlar", ru: "Правовые документы" },
     contact:{ uz: "Aloqa", ru: "Контакты" },
     stir:   { uz: "STIR", ru: "ИНН" },
-    dpo:    { uz: "Shaxsga doir ma'lumotlar bo'yicha", ru: "По персональным данным" },
+    dpo:    { uz: "Şaxsga doir maʼlumotlar böyiça", ru: "По персональным данным" },
   };
 
   function draw(cfg){
@@ -106,7 +106,7 @@
        honest thing is to say so to the one person who can act on it. */
     const todo = (!cfg.ready && isOversight())
       ? `<p class="lg-todo">${esc(pick({
-          uz: "Operator rekvizitlari to'ldirilmagan — Admin panel > Sozlamalar",
+          uz: "Operator rekvizitlari töldirilmagan — Admin panel > Sozlamalar",
           ru: "Реквизиты оператора не заполнены — Админ-панель > Настройки" }))}</p>`
       : "";
 

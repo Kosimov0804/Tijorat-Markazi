@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Lang } from "@legacy/data.js";
 import { FilterSelect } from "../../shell/FilterSelect";
+import { foldUzbek } from "../../shell/foldUzbek";
 import { useI18n } from "../../shell/i18n";
 import { PublicPage } from "../../shell/PublicPage";
 import { SiteFooter } from "../../shell/SiteFooter";
@@ -89,7 +90,7 @@ export function ShowroomPage() {
   const companies = response?.companies ?? NO_OPTIONS;
   /* A ?company= that names no real company must not empty the page. */
   const company = companies.includes(chosenCompany) ? chosenCompany : "";
-  const query = search.trim().toLowerCase();
+  const query = foldUzbek(search.trim());
 
   const visible = (response?.items ?? []).filter(item => {
     if (trade && tradeOf(item) !== trade) return false;
@@ -97,7 +98,7 @@ export function ShowroomPage() {
     if (assoc && item.assoc !== assoc) return false;
     if (company && item.company !== company) return false;
     if (!query) return true;
-    return [item.name, item.company, item.desc, item.sector].join(" ").toLowerCase().includes(query);
+    return foldUzbek([item.name, item.company, item.desc, item.sector].join(" ")).includes(query);
   });
   const isEmpty = catalog.status === "error" || (catalog.status === "ready" && visible.length === 0);
 

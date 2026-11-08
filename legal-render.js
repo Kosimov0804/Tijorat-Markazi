@@ -44,7 +44,7 @@
   };
   /* The rights page is not a versioned document, so it has no DOCS entry to
      take a title from. It gets one here. */
-  var EXTRA_TITLE = { rights: { uz: "Mening ma'lumotlarim", ru: "Мои данные", en: "My data" } };
+  var EXTRA_TITLE = { rights: { uz: "Mening maʼlumotlarim", ru: "Мои данные", en: "My data" } };
 
   var PLACEHOLDER = /^\[(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
 
@@ -107,7 +107,7 @@
     /** A requisite value, or a visible warning where one is still unfilled. */
     function cell(v) {
       var s = String(v == null ? "" : v);
-      if (!s) return '<span class="lg-todo">' + esc(pick({ uz: "ko'rsatilmagan", ru: "не указано" })) + "</span>";
+      if (!s) return '<span class="lg-todo">' + esc(pick({ uz: "körsatilmagan", ru: "не указано" })) + "</span>";
       if (PLACEHOLDER.test(s)) return '<span class="lg-todo">' + esc(s) + "</span>";
       return esc(s);
     }
@@ -136,13 +136,13 @@
       operator: function () {
         var o = (cfg && cfg.operator) || {};
         var rows = [
-          [{ uz: "To'liq nomi", ru: "Полное наименование" }, deep(o.legalName)],
-          [{ uz: "Tashkiliy-huquqiy shakli", ru: "Организационно-правовая форма" }, deep(o.legalForm)],
+          [{ uz: "Töliq nomi", ru: "Полное наименование" }, deep(o.legalName)],
+          [{ uz: "Taşkiliy-huquqiy şakli", ru: "Организационно-правовая форма" }, deep(o.legalForm)],
           [{ uz: "STIR", ru: "ИНН" }, o.stir],
-          [{ uz: "Davlat ro'yxatidan o'tkazilganligi", ru: "Государственная регистрация" },
+          [{ uz: "Davlat röyxatidan ötkazilganligi", ru: "Государственная регистрация" },
             [deep(o.regNumber), deep(o.regDate)].filter(Boolean).join(" · ")],
-          [{ uz: "Joylashgan joyi (pochta manzili)", ru: "Местонахождение (почтовый адрес)" }, deep(o.address)],
-          [{ uz: "Elektron pochta", ru: "Электронная почта" }, o.email],
+          [{ uz: "Joylaşgan joyi (poçta manzili)", ru: "Местонахождение (почтовый адрес)" }, deep(o.address)],
+          [{ uz: "Elektron poçta", ru: "Электронная почта" }, o.email],
           [{ uz: "Telefon", ru: "Телефон" }, o.phone]
         ];
         if (deep(o.licence)) rows.push([{ uz: "Litsenziya", ru: "Лицензия" }, deep(o.licence)]);
@@ -151,7 +151,7 @@
 
       /* The categories table — the substance of modda 22. */
       collected: function () {
-        var head = pick({ uz: ["Ma'lumot toifasi", "Qayta ishlash maqsadi"],
+        var head = pick({ uz: ["Maʼlumot toifasi", "Qayta işlaş maqsadi"],
                           ru: ["Категория данных", "Цель обработки"] });
         return table(head, ((cfg && cfg.collected) || []).map(function (c) {
           return [c[l] || c.uz || "", (c.purpose && (c.purpose[l] || c.purpose.uz)) || ""];
@@ -159,11 +159,11 @@
       },
 
       retention: function () {
-        var head = pick({ uz: ["Ma'lumot turi", "Saqlash muddati"],
+        var head = pick({ uz: ["Maʼlumot turi", "Saqlaş muddati"],
                           ru: ["Вид данных", "Срок хранения"] });
         var label = {
           account: { uz: "Hisob qaydnomasi", ru: "Учётная запись" },
-          application: { uz: "Ro'yxatdan o'tish arizasi", ru: "Заявка на регистрацию" },
+          application: { uz: "Röyxatdan ötiş arizasi", ru: "Заявка на регистрацию" },
           consent: { uz: "Rozilik yozuvi", ru: "Запись о согласии" },
           transaction: { uz: "Bitim hujjatlari", ru: "Документы сделки" }
         };
@@ -176,10 +176,10 @@
       transfers: function () {
         var list = (cfg && cfg.transfers) || [];
         if (!list.length) return "<p>" + esc(pick({
-          uz: "Hozircha shaxsga doir ma'lumotlar O'zbekiston Respublikasidan tashqariga uzatilmaydi.",
+          uz: "Hozirça şaxsga doir maʼlumotlar Özbekiston Respublikasidan taşqariga uzatilmaydi.",
           ru: "В настоящее время персональные данные за пределы Республики Узбекистан не передаются."
         })) + "</p>";
-        var head = pick({ uz: ["Qabul qiluvchi", "Xizmat", "Nima uzatiladi va qanday asosda"],
+        var head = pick({ uz: ["Qabul qiluvçi", "Xizmat", "Nima uzatiladi va qanday asosda"],
                           ru: ["Получатель", "Услуга", "Что передаётся и на каком основании"] });
         return table(head, list.map(function (t) {
           return [t.to, t.service, t[l] || t.uz || ""];
@@ -189,9 +189,9 @@
       dpo: function () {
         var o = (cfg && cfg.operator) || {};
         return kv([
-          [{ uz: "Mas'ul shaxs", ru: "Ответственное лицо" }, o.dpoName],
-          [{ uz: "Elektron pochta", ru: "Электронная почта" }, o.dpoEmail],
-          [{ uz: "Pochta manzili", ru: "Почтовый адрес" }, deep(o.address)]
+          [{ uz: "Masʼul şaxs", ru: "Ответственное лицо" }, o.dpoName],
+          [{ uz: "Elektron poçta", ru: "Электронная почта" }, o.dpoEmail],
+          [{ uz: "Poçta manzili", ru: "Почтовый адрес" }, deep(o.address)]
         ]);
       }
     };
@@ -214,10 +214,10 @@
       var oversight = false;
       try { oversight = sessionStorage.getItem("kg_admin") === "1"; } catch (e) {}
       parts.push('<div class="lg-note lg-note-warn">' + esc(pick(oversight ? {
-        uz: "DIQQAT: operator rekvizitlari to'ldirilmagan. Admin panel > Sozlamalar > Operator rekvizitlari bo'limida real ro'yxatdan o'tish ma'lumotlarini kiriting — hujjat to'liq huquqiy kuchga shundan keyin ega bo'ladi.",
+        uz: "DIQQAT: operator rekvizitlari töldirilmagan. Admin panel > Sozlamalar > Operator rekvizitlari bölimida real röyxatdan ötiş maʼlumotlarini kiriting — hujjat töliq huquqiy kuçga şundan keyin ega böladi.",
         ru: "ВНИМАНИЕ: реквизиты оператора не заполнены. Укажите реальные регистрационные данные в разделе Админ-панель > Настройки > Реквизиты оператора — только после этого документ обретёт полную юридическую силу."
       } : {
-        uz: "Eslatma: operator rekvizitlari hozircha to'liq ko'rsatilmagan. Savollar bo'yicha platforma ma'muriyatiga murojaat qiling.",
+        uz: "Eslatma: operator rekvizitlari hozirça töliq körsatilmagan. Savollar böyiça platforma maʼmuriyatiga murojaat qiling.",
         ru: "Примечание: реквизиты оператора указаны не полностью. По вопросам обращайтесь к администрации платформы."
       })) + "</div>");
     }

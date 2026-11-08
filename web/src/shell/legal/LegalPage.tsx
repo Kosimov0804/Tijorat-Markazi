@@ -10,7 +10,7 @@ import type { LegalConfig, LegalText } from "./types";
 const TABS = [
   { href: "oferta.html", label: "Ommaviy oferta" },
   { href: "maxfiylik.html", label: "Maxfiylik siyosati" },
-  { href: "shartlar.html", label: "Foydalanish shartlari" },
+  { href: "shartlar.html", label: "Foydalaniş şartlari" },
 ] as const;
 
 type LegalPageProps = {

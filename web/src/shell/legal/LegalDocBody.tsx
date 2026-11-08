@@ -14,25 +14,25 @@ const PAGES: Record<string, string | undefined> = {
 };
 
 const EXTRA_TITLE: Record<string, LocalizedText | undefined> = {
-  rights: { uz: "Mening ma'lumotlarim", ru: "Мои данные", en: "My data" },
+  rights: { uz: "Mening maʼlumotlarim", ru: "Мои данные", en: "My data" },
 };
 
 const PLACEHOLDER = /^\[(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
 
 const RETENTION_LABELS: Record<string, LocalizedText | undefined> = {
   account: { uz: "Hisob qaydnomasi", ru: "Учётная запись" },
-  application: { uz: "Ro'yxatdan o'tish arizasi", ru: "Заявка на регистрацию" },
+  application: { uz: "Röyxatdan ötiş arizasi", ru: "Заявка на регистрацию" },
   consent: { uz: "Rozilik yozuvi", ru: "Запись о согласии" },
   transaction: { uz: "Bitim hujjatlari", ru: "Документы сделки" },
 };
 
 const NOTICE = {
   incompleteOversight: {
-    uz: "DIQQAT: operator rekvizitlari to'ldirilmagan. Admin panel > Sozlamalar > Operator rekvizitlari bo'limida real ro'yxatdan o'tish ma'lumotlarini kiriting — hujjat to'liq huquqiy kuchga shundan keyin ega bo'ladi.",
+    uz: "DIQQAT: operator rekvizitlari töldirilmagan. Admin panel > Sozlamalar > Operator rekvizitlari bölimida real röyxatdan ötiş maʼlumotlarini kiriting — hujjat töliq huquqiy kuçga şundan keyin ega böladi.",
     ru: "ВНИМАНИЕ: реквизиты оператора не заполнены. Укажите реальные регистрационные данные в разделе Админ-панель > Настройки > Реквизиты оператора — только после этого документ обретёт полную юридическую силу.",
   },
   incompletePublic: {
-    uz: "Eslatma: operator rekvizitlari hozircha to'liq ko'rsatilmagan. Savollar bo'yicha platforma ma'muriyatiga murojaat qiling.",
+    uz: "Eslatma: operator rekvizitlari hozirça töliq körsatilmagan. Savollar böyiça platforma maʼmuriyatiga murojaat qiling.",
     ru: "Примечание: реквизиты оператора указаны не полностью. По вопросам обращайтесь к администрации платформы.",
   },
 } as const;
@@ -136,7 +136,7 @@ function CrossLinks({ keys, config, docLang }: { keys: string[]; config: LegalCo
    real registration number. */
 function RequisiteValue({ value, docLang }: { value: string | undefined; docLang: DocLang }) {
   const text = value ?? "";
-  if (!text) return <span className="lg-todo">{docLang === "ru" ? "не указано" : "ko'rsatilmagan"}</span>;
+  if (!text) return <span className="lg-todo">{docLang === "ru" ? "не указано" : "körsatilmagan"}</span>;
   if (PLACEHOLDER.test(text)) return <span className="lg-todo">{text}</span>;
   return <>{text}</>;
 }
@@ -193,12 +193,12 @@ function Slot({ name, config, docLang }: { name: string; config: LegalConfig | n
     case "operator": {
       const registration = [field("regNumber"), field("regDate")].filter(Boolean).join(" · ");
       const rows: KvRow[] = [
-        [{ uz: "To'liq nomi", ru: "Полное наименование" }, field("legalName")],
-        [{ uz: "Tashkiliy-huquqiy shakli", ru: "Организационно-правовая форма" }, field("legalForm")],
+        [{ uz: "Töliq nomi", ru: "Полное наименование" }, field("legalName")],
+        [{ uz: "Taşkiliy-huquqiy şakli", ru: "Организационно-правовая форма" }, field("legalForm")],
         [{ uz: "STIR", ru: "ИНН" }, field("stir")],
-        [{ uz: "Davlat ro'yxatidan o'tkazilganligi", ru: "Государственная регистрация" }, registration],
-        [{ uz: "Joylashgan joyi (pochta manzili)", ru: "Местонахождение (почтовый адрес)" }, field("address")],
-        [{ uz: "Elektron pochta", ru: "Электронная почта" }, field("email")],
+        [{ uz: "Davlat röyxatidan ötkazilganligi", ru: "Государственная регистрация" }, registration],
+        [{ uz: "Joylaşgan joyi (poçta manzili)", ru: "Местонахождение (почтовый адрес)" }, field("address")],
+        [{ uz: "Elektron poçta", ru: "Электронная почта" }, field("email")],
         [{ uz: "Telefon", ru: "Телефон" }, field("phone")],
       ];
       const licence = field("licence");
@@ -212,14 +212,14 @@ function Slot({ name, config, docLang }: { name: string; config: LegalConfig | n
     case "collected":
       return (
         <DataTable
-          head={isRu ? ["Категория данных", "Цель обработки"] : ["Ma'lumot toifasi", "Qayta ishlash maqsadi"]}
+          head={isRu ? ["Категория данных", "Цель обработки"] : ["Maʼlumot toifasi", "Qayta işlaş maqsadi"]}
           rows={(config?.collected ?? []).map(row => [pick(row), pick(row.purpose)])}
         />
       );
     case "retention":
       return (
         <DataTable
-          head={isRu ? ["Вид данных", "Срок хранения"] : ["Ma'lumot turi", "Saqlash muddati"]}
+          head={isRu ? ["Вид данных", "Срок хранения"] : ["Maʼlumot turi", "Saqlaş muddati"]}
           rows={Object.entries(config?.retention ?? {}).map(([key, period]) => [
             pick(RETENTION_LABELS[key]) || key,
             pick(period),
@@ -233,7 +233,7 @@ function Slot({ name, config, docLang }: { name: string; config: LegalConfig | n
           <p>
             {isRu
               ? "В настоящее время персональные данные за пределы Республики Узбекистан не передаются."
-              : "Hozircha shaxsga doir ma'lumotlar O'zbekiston Respublikasidan tashqariga uzatilmaydi."}
+              : "Hozirça şaxsga doir maʼlumotlar Özbekiston Respublikasidan taşqariga uzatilmaydi."}
           </p>
         );
       }
@@ -242,7 +242,7 @@ function Slot({ name, config, docLang }: { name: string; config: LegalConfig | n
           head={
             isRu
               ? ["Получатель", "Услуга", "Что передаётся и на каком основании"]
-              : ["Qabul qiluvchi", "Xizmat", "Nima uzatiladi va qanday asosda"]
+              : ["Qabul qiluvçi", "Xizmat", "Nima uzatiladi va qanday asosda"]
           }
           rows={transfers.map(row => [row.to ?? "", row.service ?? "", pick(row)])}
         />
@@ -252,9 +252,9 @@ function Slot({ name, config, docLang }: { name: string; config: LegalConfig | n
       return (
         <KeyValues
           rows={[
-            [{ uz: "Mas'ul shaxs", ru: "Ответственное лицо" }, field("dpoName")],
-            [{ uz: "Elektron pochta", ru: "Электронная почта" }, field("dpoEmail")],
-            [{ uz: "Pochta manzili", ru: "Почтовый адрес" }, field("address")],
+            [{ uz: "Masʼul şaxs", ru: "Ответственное лицо" }, field("dpoName")],
+            [{ uz: "Elektron poçta", ru: "Электронная почта" }, field("dpoEmail")],
+            [{ uz: "Poçta manzili", ru: "Почтовый адрес" }, field("address")],
           ]}
           docLang={docLang}
         />

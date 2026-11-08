@@ -52,7 +52,7 @@ function autoIdentity(){
   const panel=(new URLSearchParams(location.search).get("panel")||"");
   const slug=(COMPANY_TAG||"x").toLowerCase().replace(/[^a-z0-9]+/g,"")||"panel";
   if(panel==="admin")   return { email:"admin@konglomerat", label:"Admin", home:"admin.html" };
-  if(panel==="assoc")   return { email:"assoc-"+slug+"@konglomerat",   label:COMPANY_TAG||"Uyushma",  home:"association.html" };
+  if(panel==="assoc")   return { email:"assoc-"+slug+"@konglomerat",   label:COMPANY_TAG||"Uyuşma",  home:"association.html" };
   if(panel==="company") return { email:"company-"+slug+"@konglomerat", label:COMPANY_TAG||"Kompaniya", home:"company.html" };
   return null;
 }

@@ -60,7 +60,7 @@ describe("LegalPage", () => {
 
     const warnings = [...container.querySelectorAll(".lg-kv .lg-todo")].map(node => node.textContent);
     expect(warnings).toContain("[TO'LDIRILSIN: STIR]");
-    expect(warnings).toContain("ko'rsatilmagan");
+    expect(warnings).toContain("körsatilmagan");
     expect(screen.getAllByText(HOSTILE).length).toBeGreaterThan(0);
     expect(container.querySelector("img")).toBeNull();
   });
@@ -80,7 +80,7 @@ describe("LegalPage", () => {
 
     renderLegal();
 
-    expect(await screen.findByText(/tashqariga uzatilmaydi/)).toBeTruthy();
+    expect(await screen.findByText(/taşqariga uzatilmaydi/)).toBeTruthy();
   });
 
   it("shows English readers the Uzbek text behind a notice", async () => {
@@ -123,6 +123,6 @@ describe("LegalPage", () => {
     renderLegal();
 
     expect((await screen.findByRole("link", { name: "Ommaviy oferta" })).getAttribute("aria-current")).toBe("page");
-    expect(screen.getByRole("link", { name: "Foydalanish shartlari" }).getAttribute("aria-current")).toBeNull();
+    expect(screen.getByRole("link", { name: "Foydalaniş şartlari" }).getAttribute("aria-current")).toBeNull();
   });
 });

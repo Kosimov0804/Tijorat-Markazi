@@ -29,10 +29,21 @@ describe("AssociationsPage", () => {
     renderPage(<AssociationsPage />);
     await screen.findByText("Qurilish");
 
-    fireEvent.change(screen.getByPlaceholderText("Qidirish…"), { target: { value: "строители" } });
+    fireEvent.change(screen.getByPlaceholderText("Qidiriş…"), { target: { value: "строители" } });
 
     expect(screen.getByText("Qurilish")).toBeTruthy();
     expect(screen.queryByText("To'qimachilik")).toBeNull();
+  });
+
+  it("finds text stored in the old alphabet when searching in the new one", async () => {
+    stubApi({ "/api/assoc/list": [QURILISH, { id: "a3", name: "Toshkent uyushmasi", companies: 1 }] });
+    renderPage(<AssociationsPage />);
+    await screen.findByText("Qurilish");
+
+    fireEvent.change(screen.getByPlaceholderText("Qidiriş…"), { target: { value: "Toşkent" } });
+
+    expect(screen.getByText("Toshkent uyushmasi")).toBeTruthy();
+    expect(screen.queryByText("Qurilish")).toBeNull();
   });
 
   it("says when nothing matches", async () => {
@@ -40,9 +51,9 @@ describe("AssociationsPage", () => {
     renderPage(<AssociationsPage />);
     await screen.findByText("Qurilish");
 
-    fireEvent.change(screen.getByPlaceholderText("Qidirish…"), { target: { value: "zzz" } });
+    fireEvent.change(screen.getByPlaceholderText("Qidiriş…"), { target: { value: "zzz" } });
 
-    expect(screen.getByText("Hech narsa topilmadi.")).toBeTruthy();
+    expect(screen.getByText("Heç narsa topilmadi.")).toBeTruthy();
   });
 
   it("renders hostile names as text", async () => {

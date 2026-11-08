@@ -80,11 +80,11 @@ observeReveals();
 /* ---- hero AI chat animation (replaces the old dashboard widget) ---- */
 const HERO_CHAT={
   uz:[["user","Eksport bozorlarini tahlil qil"],
-      ["bot","4 ta yangi tender topildi: Qozogʻiston, BAA, Xitoy. Oʻrtacha marja ~18%."],
+      ["bot","4 ta yangi tender topildi: Qozoğiston, BAA, Xitoy. Örtaça marja ~18%."],
       ["user","Qaysi kompaniya mos keladi?"],
       ["bot","“GreenAgro” — mahsulot va hajm mos. Hamkorlikka tayyor."],
       ["user","Rasmiy hujjatlarni tayyorla"],
-      ["bot","✅ Shartnoma loyihasi va rasmiy xat tayyor. Yuborilsinmi?"]],
+      ["bot","✅ Şartnoma loyihasi va rasmiy xat tayyor. Yuborilsinmi?"]],
   ru:[["user","Проанализируй экспортные рынки"],
       ["bot","Найдено 4 новых тендера: Казахстан, ОАЭ, Китай. Средняя маржа ~18%."],
       ["user","Какая компания подходит?"],

@@ -12,14 +12,14 @@
    ============================================================ */
 (function () {
   var HT = {
-    as_eyebrow: ["Platforma a'zolari", "Участники платформы", "Platform members"],
-    as_h:       ["Uyushmalar <span class=\"grad\">katalogi</span>",
+    as_eyebrow: ["Platforma aʼzolari", "Участники платформы", "Platform members"],
+    as_h:       ["Uyuşmalar <span class=\"grad\">katalogi</span>",
                  "Каталог <span class=\"grad\">ассоциаций</span>",
                  "The <span class=\"grad\">associations</span> catalogue"],
-    as_p:       ["Har bir uyushmaning o'z sahifasi va a'zo kompaniyalari bor.",
+    as_p:       ["Har bir uyuşmaning öz sahifasi va aʼzo kompaniyalari bor.",
                  "У каждой ассоциации своя страница и компании-члены.",
                  "Each association has its own page and member companies."],
-    as_all:     ["Barcha uyushmalar →", "Все ассоциации →", "All associations →"],
+    as_all:     ["Barça uyuşmalar →", "Все ассоциации →", "All associations →"],
     as_chair:   ["Rais", "Председатель", "Chairman"],
     as_comp:    ["kompaniya", "компаний", "companies"],
 
@@ -27,7 +27,7 @@
     sh_h:       ["Kompaniyalar <span class=\"grad\">mahsulotlari</span>",
                  "Продукция <span class=\"grad\">компаний</span>",
                  "Company <span class=\"grad\">products</span>"],
-    sh_p:       ["A'zo kompaniyalar taqdim etgan mahsulot va xizmatlar.",
+    sh_p:       ["Aʼzo kompaniyalar taqdim etgan mahsulot va xizmatlar.",
                  "Товары и услуги, представленные компаниями-участниками.",
                  "Products and services offered by member companies."],
     sh_all:     ["Butun showroom →", "Весь showroom →", "The whole showroom →"]

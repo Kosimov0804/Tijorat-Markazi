@@ -111,9 +111,9 @@ function match(m, title, extra){
     <div class="mk-dial" style="--v:${Math.max(0, Math.min(100, m.score || 0))}"><b>${num(m.score || 0, 0)}</b></div>
     <div>
       ${title ? `<div class="mk-h">${title}</div>` : ""}
-      <ul class="mk-why">${why || `<li class="is-gap">${esc(t("mk_no_reason", "Izoh yo'q"))}</li>`}</ul>
+      <ul class="mk-why">${why || `<li class="is-gap">${esc(t("mk_no_reason", "Izoh yöq"))}</li>`}</ul>
       ${extra || ""}
-      <div class="mk-conf">${esc(t("mk_conf", "Ishonchlilik"))}: ${num(m.confidence || 0, 0)}%</div>
+      <div class="mk-conf">${esc(t("mk_conf", "Işonçlilik"))}: ${num(m.confidence || 0, 0)}%</div>
     </div>
   </div>`;
 }
@@ -135,7 +135,7 @@ function ranks(rows, opts){
   const o = opts || {};
   const key = o.value || "n", label = o.label || "label";
   const list = (rows || []).slice(0, o.limit || 8);
-  if(!list.length) return `<p class="mk-loading">${esc(t("mk_nodata", "Ma'lumot yo'q"))}</p>`;
+  if(!list.length) return `<p class="mk-loading">${esc(t("mk_nodata", "Maʼlumot yöq"))}</p>`;
   const max = Math.max.apply(null, list.map(r => Number(r[key]) || 0)) || 1;
   return `<div class="mk-ranks">${list.map(r => {
     const v = Number(r[key]) || 0;
@@ -183,17 +183,17 @@ function draft(res, rows){
     <div class="mk-draft-note">⚠ ${esc(res.review || "")}</div>
     <dl class="mk-kv">${body}</dl>
     ${assume ? `<div class="mk-assume"><b>${esc(t("mk_assumptions", "AI taxminlari"))}</b><ul>${assume}</ul></div>` : ""}
-    ${missing ? `<div class="mk-assume"><b>${esc(t("mk_missing", "To'ldirilishi kerak"))}</b><ul>${missing}</ul></div>` : ""}
-    ${expert ? `<div class="mk-assume"><b>${esc(t("mk_expert", "Ekspert ko'rigi kerak"))}</b><ul>${expert}</ul></div>` : ""}
+    ${missing ? `<div class="mk-assume"><b>${esc(t("mk_missing", "Töldirilişi kerak"))}</b><ul>${missing}</ul></div>` : ""}
+    ${expert ? `<div class="mk-assume"><b>${esc(t("mk_expert", "Ekspert körigi kerak"))}</b><ul>${expert}</ul></div>` : ""}
   </div>`;
 }
 
 function aiError(res){
   const code = (res && res.error) || "unknown";
   if(res && res.limit) return t("mk_ai_limit", "Bepul AI limiti tugadi.");
-  if(code === "ai_off") return t("mk_ai_off", "AI hozircha yoqilmagan.");
+  if(code === "ai_off") return t("mk_ai_off", "AI hozirça yoqilmagan.");
   if(code === "identify_first") return t("mk_ai_id", "Avval email kiriting yoki kompaniya sifatida kiring.");
-  return t("mk_ai_err", "AI javob bermadi. Qayta urinib ko'ring.");
+  return t("mk_ai_err", "AI javob bermadi. Qayta urinib köring.");
 }
 
 const empty = msg => `<p class="mk-empty">${esc(msg)}</p>`;

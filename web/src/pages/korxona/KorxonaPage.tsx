@@ -32,7 +32,7 @@ function Layout({ crumbAssoc, crumbName, children }: LayoutProps) {
         <div className="container">
           <nav className="pd-crumb" aria-label="breadcrumb">
             <a href="associations.html" className="active">
-              Uyushmalar
+              Uyuşmalar
             </a>
             <span aria-hidden="true">›</span>
             <a id="koCrumbAssoc" href={crumbAssoc?.href ?? "associations.html"}>

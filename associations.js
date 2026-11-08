@@ -20,17 +20,17 @@ const $ = (s,r=document)=>r.querySelector(s);
 let LIST = [];
 
 const DT = {
-  eyebrow:["TIJORAT MARKAZI a'zolari","Члены TIJORAT MARKAZI","TIJORAT MARKAZI members"],
-  sub:["Har bir uyushmaning o'z sahifasi va boshqaruv paneli bor.","У каждой ассоциации своя страница и панель управления.","Each association has its own page and management panel."],
-  search:["Qidirish…","Поиск…","Search…"],
-  gate_title:["Faqat admin uchun","Только для админа","Admins only"],
-  gate_sub:["Uyushmalar katalogini ko'rish uchun admin paroli kerak.","Для просмотра каталога ассоциаций нужен пароль админа.","The admin password is required to view the associations catalog."],
-  gate_btn:["Kirish →","Войти →","Sign in →"],
-  gate_err:["Noto'g'ri parol","Неверный пароль","Wrong password"],
+  eyebrow:["TIJORAT MARKAZI aʼzolari","Члены TIJORAT MARKAZI","TIJORAT MARKAZI members"],
+  sub:["Har bir uyuşmaning öz sahifasi va boşqaruv paneli bor.","У каждой ассоциации своя страница и панель управления.","Each association has its own page and management panel."],
+  search:["Qidiriş…","Поиск…","Search…"],
+  gate_title:["Faqat admin uçun","Только для админа","Admins only"],
+  gate_sub:["Uyuşmalar katalogini köriş uçun admin paroli kerak.","Для просмотра каталога ассоциаций нужен пароль админа.","The admin password is required to view the associations catalog."],
+  gate_btn:["Kiriş →","Войти →","Sign in →"],
+  gate_err:["Notöğri parol","Неверный пароль","Wrong password"],
   chair:["Rais","Председатель","Chairman"],
   companies:["kompaniya","компаний","companies"],
-  open:["Ochish →","Открыть →","Open →"],
-  none:["Hech narsa topilmadi.","Ничего не найдено.","Nothing found."],
+  open:["Oçiş →","Открыть →","Open →"],
+  none:["Heç narsa topilmadi.","Ничего не найдено.","Nothing found."],
 };
 const dt = k => DT[k][L()];
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}

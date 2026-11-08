@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Lang, Localized } from "@legacy/data.js";
+import { foldUzbek } from "../../shell/foldUzbek";
 import { useI18n } from "../../shell/i18n";
 import { PublicPage } from "../../shell/PublicPage";
 import { SiteFooter } from "../../shell/SiteFooter";
@@ -15,17 +16,17 @@ type Association = {
 };
 
 const TEXT = {
-  eyebrow: ["TIJORAT MARKAZI a'zolari", "Члены TIJORAT MARKAZI", "TIJORAT MARKAZI members"],
+  eyebrow: ["TIJORAT MARKAZI aʼzolari", "Члены TIJORAT MARKAZI", "TIJORAT MARKAZI members"],
   sub: [
-    "Har bir uyushmaning o'z sahifasi va boshqaruv paneli bor.",
+    "Har bir uyuşmaning öz sahifasi va boşqaruv paneli bor.",
     "У каждой ассоциации своя страница и панель управления.",
     "Each association has its own page and management panel.",
   ],
-  search: ["Qidirish…", "Поиск…", "Search…"],
+  search: ["Qidiriş…", "Поиск…", "Search…"],
   chair: ["Rais", "Председатель", "Chairman"],
   companies: ["kompaniya", "компаний", "companies"],
-  open: ["Ochish →", "Открыть →", "Open →"],
-  none: ["Hech narsa topilmadi.", "Ничего не найдено.", "Nothing found."],
+  open: ["Oçiş →", "Открыть →", "Open →"],
+  none: ["Heç narsa topilmadi.", "Ничего не найдено.", "Nothing found."],
 } satisfies Record<string, Localized>;
 
 const displayName = (association: Association, lang: Lang): string =>
@@ -34,10 +35,7 @@ const displayName = (association: Association, lang: Lang): string =>
 /* Every language is searched, so a Russian query still finds an association. */
 function matches(association: Association, lang: Lang, query: string): boolean {
   const { name, i18n, chairman } = association;
-  const haystack = [displayName(association, lang), name, i18n?.uz, i18n?.ru, i18n?.en, chairman]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
+  const haystack = foldUzbek([displayName(association, lang), name, i18n?.uz, i18n?.ru, i18n?.en, chairman].filter(Boolean).join(" "));
   return haystack.includes(query);
 }
 
@@ -84,7 +82,7 @@ export function AssociationsPage() {
 
   const associations =
     catalog.status === "ready" && Array.isArray(catalog.data) ? (catalog.data as Association[]) : [];
-  const query = search.trim().toLowerCase();
+  const query = foldUzbek(search.trim());
   const visible = query ? associations.filter(item => matches(item, lang, query)) : associations;
 
   return (
@@ -94,7 +92,7 @@ export function AssociationsPage() {
       footer={
         <SiteFooter>
           <span>© 2026 TIJORAT MARKAZI.</span>
-          <span>O&apos;zbekiston · Milliy savdo platformasi</span>
+          <span>Özbekiston · Milliy savdo platformasi</span>
         </SiteFooter>
       }
     >
@@ -103,7 +101,7 @@ export function AssociationsPage() {
           <div className="section-head">
             <span className="eyebrow">{pick(TEXT.eyebrow)}</span>
             <h2>
-              Uyushmalar <span className="grad">katalogi</span>
+              Uyuşmalar <span className="grad">katalogi</span>
             </h2>
             <p>{pick(TEXT.sub)}</p>
           </div>

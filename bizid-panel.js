@@ -24,7 +24,7 @@
   var LANGS = ["uz", "ru", "en"];
   var T = {
     title:   ["Business ID", "Business ID", "Business ID"],
-    lead:    ["Bu ma'lumotlar sizning ochiq kartangizda ko'rinadi — uni QR kod orqali istalgan kishi ocha oladi.",
+    lead:    ["Bu maʼlumotlar sizning oçiq kartangizda körinadi — uni QR kod orqali istalgan kişi oça oladi.",
               "Эти данные видны на вашей публичной карточке — её может открыть любой по QR-коду.",
               "These details appear on your public card, which anyone can open from its QR code."],
     number:  ["ID raqamingiz", "Ваш ID номер", "Your ID number"],
@@ -34,18 +34,18 @@
     website: ["Veb-sayt", "Веб-сайт", "Website"],
     ph_phone:["+998 90 123 45 67", "+998 90 123 45 67", "+998 90 123 45 67"],
     ph_mail: ["info@korxona.uz", "info@company.uz", "info@company.uz"],
-    ph_loc:  ["Toshkent, Amir Temur ko'chasi 1", "Ташкент, улица Амира Темура 1", "Tashkent, Amir Temur street 1"],
+    ph_loc:  ["Toşkent, Amir Temur köçasi 1", "Ташкент, улица Амира Темура 1", "Tashkent, Amir Temur street 1"],
     ph_web:  ["korxona.uz", "company.uz", "company.uz"],
-    save:    ["Saqlash", "Сохранить", "Save"],
+    save:    ["Saqlaş", "Сохранить", "Save"],
     saving:  ["Saqlanmoqda…", "Сохранение…", "Saving…"],
     saved:   ["Saqlandi", "Сохранено", "Saved"],
-    view:    ["Kartani ko'rish", "Посмотреть карточку", "View card"],
-    copy:    ["Havolani nusxalash", "Копировать ссылку", "Copy link"],
+    view:    ["Kartani köriş", "Посмотреть карточку", "View card"],
+    copy:    ["Havolani nusxalaş", "Копировать ссылку", "Copy link"],
     copied:  ["Havola nusxalandi", "Ссылка скопирована", "Link copied"],
-    fail:    ["Saqlab bo'lmadi. Qaytadan urinib ko'ring.", "Не удалось сохранить. Попробуйте ещё раз.", "Could not save. Please try again."],
-    email_invalid:  ["E-pochta manzili noto'g'ri.", "Неверный адрес e-mail.", "That email address is not valid."],
-    phone_invalid:  ["Telefon raqami noto'g'ri.", "Неверный номер телефона.", "That phone number is not valid."],
-    website_invalid:["Veb-sayt manzili noto'g'ri.", "Неверный адрес сайта.", "That website address is not valid."],
+    fail:    ["Saqlab bölmadi. Qaytadan urinib köring.", "Не удалось сохранить. Попробуйте ещё раз.", "Could not save. Please try again."],
+    email_invalid:  ["E-poçta manzili notöğri.", "Неверный адрес e-mail.", "That email address is not valid."],
+    phone_invalid:  ["Telefon raqami notöğri.", "Неверный номер телефона.", "That phone number is not valid."],
+    website_invalid:["Veb-sayt manzili notöğri.", "Неверный адрес сайта.", "That website address is not valid."],
   };
 
   function L(){

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Lang } from "@legacy/data.js";
 import { FilterSelect } from "../../shell/FilterSelect";
+import { foldUzbek } from "../../shell/foldUzbek";
 import { useI18n } from "../../shell/i18n";
 import { PublicPage } from "../../shell/PublicPage";
 import { trustedHtml } from "../../shell/trustedHtml";
@@ -56,14 +57,14 @@ export function XizmatlarPage() {
   const response = catalog.status === "ready" ? catalog.data : undefined;
   const isSettled = catalog.status !== "loading";
   const items = response?.items ?? [];
-  const query = search.trim().toLowerCase();
+  const query = foldUzbek(search.trim());
 
   const visible = items.filter(item => {
     if (sector && item.sector !== sector) return false;
     if (assoc && item.assoc !== assoc) return false;
     if (company && item.company !== company) return false;
     if (!query) return true;
-    return [item.title, item.company, item.body, item.sector].join(" ").toLowerCase().includes(query);
+    return foldUzbek([item.title, item.company, item.body, item.sector].join(" ")).includes(query);
   });
 
   return (

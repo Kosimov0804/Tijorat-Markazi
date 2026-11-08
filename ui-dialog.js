@@ -30,12 +30,12 @@
      only the buttons and fallback headings live here. */
   var LABEL = {
     ok:      ["OK", "OK", "OK"],
-    cancel:  ["Bekor qilish", "Отмена", "Cancel"],
+    cancel:  ["Bekor qiliş", "Отмена", "Cancel"],
     yes:     ["Ha", "Да", "Yes"],
-    no:      ["Yo‘q", "Нет", "No"],
+    no:      ["Yöq", "Нет", "No"],
     confirm: ["Tasdiqlang", "Подтвердите", "Confirm"],
     notice:  ["Xabar", "Уведомление", "Notice"],
-    input:   ["Ma’lumot kiriting", "Введите данные", "Enter a value"]
+    input:   ["Maʼlumot kiriting", "Введите данные", "Enter a value"]
   };
 
   function langIndex() {

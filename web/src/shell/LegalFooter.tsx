@@ -15,7 +15,7 @@ const PAGES = {
 
 /* Not a versioned document, so it carries its own title. */
 const EXTRA_TITLE: Record<string, LocalizedText | undefined> = {
-  rights: { uz: "Mening ma'lumotlarim", ru: "Мои данные", en: "My data" },
+  rights: { uz: "Mening maʼlumotlarim", ru: "Мои данные", en: "My data" },
 };
 
 const LABELS = {
@@ -23,9 +23,9 @@ const LABELS = {
   docs: { uz: "Huquqiy hujjatlar", ru: "Правовые документы" },
   contact: { uz: "Aloqa", ru: "Контакты" },
   stir: { uz: "STIR", ru: "ИНН" },
-  dpo: { uz: "Shaxsga doir ma'lumotlar bo'yicha", ru: "По персональным данным" },
+  dpo: { uz: "Şaxsga doir maʼlumotlar böyiça", ru: "По персональным данным" },
   todo: {
-    uz: "Operator rekvizitlari to'ldirilmagan — Admin panel > Sozlamalar",
+    uz: "Operator rekvizitlari töldirilmagan — Admin panel > Sozlamalar",
     ru: "Реквизиты оператора не заполнены — Админ-панель > Настройки",
   },
 } as const;

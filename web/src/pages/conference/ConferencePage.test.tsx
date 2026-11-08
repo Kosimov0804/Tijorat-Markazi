@@ -47,7 +47,7 @@ describe("ConferencePage gate", () => {
 
     fireEvent.change(input, { target: { value: "a@b" } });
     fireEvent.submit(container.querySelector("#emailForm")!);
-    expect(screen.getByText("To'g'ri email kiriting")).toBeTruthy();
+    expect(screen.getByText("Töğri email kiriting")).toBeTruthy();
 
     fireEvent.change(input, { target: { value: " Ali@X.uz " } });
     fireEvent.submit(container.querySelector("#emailForm")!);
@@ -85,7 +85,7 @@ describe("ConferencePage card", () => {
   it("says so when nothing is scheduled", async () => {
     await renderAt({});
 
-    expect(screen.getByText("Konferensiya rejalashtirilmagan")).toBeTruthy();
+    expect(screen.getByText("Konferensiya rejalaştirilmagan")).toBeTruthy();
   });
 
   it("counts down and keeps the join link closed before the window opens", async () => {

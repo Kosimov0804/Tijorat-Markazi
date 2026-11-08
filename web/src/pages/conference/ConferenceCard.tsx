@@ -16,17 +16,17 @@ const TICK_MS = 1000;
 const OPEN_BEFORE_MS = 10 * 60 * 1000;
 
 const TEXT = {
-  noneTitle: ["Konferensiya rejalashtirilmagan", "Конференция не назначена", "No conference scheduled"],
+  noneTitle: ["Konferensiya rejalaştirilmagan", "Конференция не назначена", "No conference scheduled"],
   noneSub: [
-    "Administrator konferensiya vaqtini belgilaganda, u shu yerda paydo bo'ladi.",
+    "Administrator konferensiya vaqtini belgilaganda, u şu yerda paydo böladi.",
     "Когда администратор назначит время конференции, она появится здесь.",
     "When the admin schedules a conference, it will appear here.",
   ],
-  startsIn: ["Boshlanishigacha", "До начала", "Starts in"],
+  startsIn: ["Boşlanişigaça", "До начала", "Starts in"],
   liveNow: ["Konferensiya jonli efirda", "Конференция идёт сейчас", "Conference is live"],
-  join: ["Konferensiyaga qo'shilish →", "Присоединиться к конференции →", "Join the conference →"],
+  join: ["Konferensiyaga qöşiliş →", "Присоединиться к конференции →", "Join the conference →"],
   joinSoon: [
-    "Tugma boshlanishidan oldin faollashadi",
+    "Tugma boşlanişidan oldin faollaşadi",
     "Кнопка станет активной перед началом",
     "The button activates before the start",
   ],

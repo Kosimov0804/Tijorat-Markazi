@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Lang } from "@legacy/data.js";
+import { foldUzbek } from "../../shell/foldUzbek";
 import { useI18n } from "../../shell/i18n";
 import { formatNumber, marketApi, queryString } from "../../shell/market/mk";
 import type { Translate } from "../../shell/market/mk";
@@ -101,13 +102,13 @@ export function BusinessLookup({ t }: { t: Translate }) {
   };
 
   const isDirectoryPending = directory.status === "loading";
-  const query = search.trim().toLowerCase();
+  const query = foldUzbek(search.trim());
   /* Kind and text narrow the same list, so a filter pair means both. */
   const rows = (directory.status === "ready" ? (directory.data.items ?? []) : []).filter(row => {
     if (kind && row.kind !== kind) return false;
     if (!query) return true;
-    const name = (row.i18n?.[lang] || row.name || "").toLowerCase();
-    return name.includes(query) || (row.bizId ?? "").toLowerCase().includes(query) || (row.sector ?? "").toLowerCase().includes(query);
+    const name = foldUzbek(row.i18n?.[lang] || row.name || "");
+    return name.includes(query) || foldUzbek(row.bizId ?? "").includes(query) || foldUzbek(row.sector ?? "").includes(query);
   });
 
   return (

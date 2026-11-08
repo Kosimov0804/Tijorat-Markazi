@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FilterSelect } from "../../shell/FilterSelect";
+import { foldUzbek } from "../../shell/foldUzbek";
 import { useI18n } from "../../shell/i18n";
 import { PublicPage } from "../../shell/PublicPage";
 import { trustedHtml } from "../../shell/trustedHtml";
@@ -54,13 +55,13 @@ export function DavlatXizmatlariPage() {
 
   const response = catalog.status === "ready" ? catalog.data : undefined;
   const isSettled = catalog.status !== "loading";
-  const query = search.trim().toLowerCase();
+  const query = foldUzbek(search.trim());
 
   const visible = (response?.items ?? []).filter(item => {
     if (category && item.category !== category) return false;
     if (agency && item.agency !== agency) return false;
     if (!query) return true;
-    return [item.title, item.body, item.agency, item.category].join(" ").toLowerCase().includes(query);
+    return foldUzbek([item.title, item.body, item.agency, item.category].join(" ")).includes(query);
   });
 
   return (
