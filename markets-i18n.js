@@ -127,7 +127,7 @@ const T_BOZOR = Object.assign({}, T_MK, {
   bz_pass: ["Parol","Пароль","Password"],
   bz_enter: ["Kiriş","Войти","Sign in"],
   bz_login_fail: ["Login yoki parol notöğri.","Неверный логин или пароль.","Wrong login or password."],
-  bz_login_needed: ["Kабинetni ko'rish uchun kompaniya sifatida kiring.","Войдите как компания, чтобы открыть кабинет.","Sign in as a company to open the cabinet."],
+  bz_login_needed: ["Kabinetni köriş uçun kompaniya sifatida kiring.","Войдите как компания, чтобы открыть кабинет.","Sign in as a company to open the cabinet."],
 
   bz_trust: ["Işonç darajasi","Уровень доверия","Trust level"],
   bz_products: ["Mahsulotlar","Товары","Products"],
