@@ -114,6 +114,8 @@ const T = {
   stat2:["Markaz","Центров","Centers"],
   stat3:["Kompaniya","Компаний","Companies"],
   stat4:["AI yordam","AI-поддержка","AI support"],
+  hub_markets_lead:["Mahsulot, moliya va mehnat bozorlari — bitta platformada.","Товары, финансы и труд — на одной платформе.","Goods, finance and labour markets on one platform."],
+  hub_assoc_all:["Barça uyuşmalar →","Все ассоциации →","All associations →"],
   kpi1:["Faol kompaniyalar","Активные компании","Active companies"],
   kpi2:["Investitsiya oqimi","Инвестиционный поток","Investment flow"],
   kpi3:["Eksport bitimlari","Экспортные сделки","Export deals"],

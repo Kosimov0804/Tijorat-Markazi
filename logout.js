@@ -51,7 +51,7 @@
   function retargetHeroCta(){
     var panel = myPanel();
     if(!panel) return;
-    var cta = document.querySelector(".hero-cta .btn-primary");
+    var cta = document.querySelector(".hero-cta .btn-primary,.hub-cta .btn-primary");
     if(!cta) return;                       // not the home page
     var lang = localStorage.getItem("kg_lang") || "uz";
     cta.href = panel;

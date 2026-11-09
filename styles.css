@@ -2985,3 +2985,82 @@ textarea.dsr-ans{min-width:260px;font-family:inherit;font-size:13px;line-height:
 #view-dsr .admin-table td:nth-child(5){white-space:nowrap}
 #view-dsr .admin-table td:nth-child(6){min-width:16rem}
 #view-dsr .admin-table td:nth-child(2){min-width:11rem}
+
+/* ══ hub · the home hero as three rounded panels ══════════════
+   Markets, the seal, the associations, with the remaining figures in a row
+   beneath them. The seal comes first in the markup so the h1 leads the page
+   for readers and on phones; the columns put it back in the middle.
+
+   One arc of the ring per market row: pointing at a row lights its arc.
+   At the end of the file because .stat is restyled late in it. */
+.hub{--t1:#8a5f14;--t2:#0f766e;--t3:#1f4e79;--t4:#5b3fa0;max-width:1360px}
+[data-theme="dark"] .hub{--t1:#ecc98c;--t2:#6fd3ad;--t3:#93b7e0;--t4:#b9a2ea}
+.hub .t1{--tone:var(--t1)}
+.hub .t2{--tone:var(--t2)}
+.hub .t3{--tone:var(--t3)}
+.hub .t4{--tone:var(--t4)}
+.hero.hero-hub{padding-top:28px}
+.hub{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1fr);gap:20px}
+.hub-panel{display:flex;flex-direction:column;align-items:flex-start;padding:30px 28px;border-radius:20px;
+  background:var(--sh-face-tint);border:1px solid var(--sh-edge);
+  -webkit-backdrop-filter:var(--sh-blur);backdrop-filter:var(--sh-blur);
+  box-shadow:inset 0 1px 0 var(--sh-sheen),var(--sh-cast)}
+.hub-core{grid-column:2;grid-row:1;align-items:center;text-align:center;position:relative;overflow:hidden;
+  border-color:color-mix(in srgb,var(--gold) 42%,transparent);transition:border-color .4s var(--ease)}
+.hub-core:hover{border-color:var(--gold)}
+.hub-core::before{content:'';position:absolute;left:50%;top:-30px;width:280px;height:280px;margin-left:-140px;
+  border-radius:50%;pointer-events:none;background:radial-gradient(circle,color-mix(in srgb,var(--t3) 20%,transparent),transparent 68%)}
+.hub-markets{grid-column:1;grid-row:1}
+.hub-assoc{grid-column:3;grid-row:1}
+
+.hub-seal{position:relative;display:block;width:124px;height:124px;margin:18px 0 34px}
+.hub-ring{position:absolute;inset:-18%;width:136%;height:136%;animation:hub-spin 48s linear infinite}
+.hub-arc{fill:none;stroke:var(--tone);stroke-width:2;stroke-linecap:round;opacity:.65;transition:opacity .4s var(--ease),stroke-width .4s var(--ease)}
+.hub:has(.hub-row.t1:is(:hover,:focus-visible)) .hub-arc.t1,
+.hub:has(.hub-row.t2:is(:hover,:focus-visible)) .hub-arc.t2,
+.hub:has(.hub-row.t3:is(:hover,:focus-visible)) .hub-arc.t3,
+.hub:has(.hub-row.t4:is(:hover,:focus-visible)) .hub-arc.t4{opacity:1;stroke-width:4.4}
+.hub-mark{position:relative;display:block;width:100%;height:100%}
+.hub-mark circle{fill:var(--deep)}
+.hub-mark-line{fill:none;stroke:var(--gold-soft);stroke-width:3.5}
+.hub-mark-fill{fill:var(--gold-soft);opacity:.85}
+@keyframes hub-spin{to{transform:rotate(360deg)}}
+
+.hub-core h1{position:relative;font-size:clamp(30px,2.9vw,42px);margin-bottom:10px}
+.hub-eyebrow{position:relative;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t1)}
+.hub-eyebrow-cool{color:var(--t3)}
+.hub-note{position:relative;margin-top:14px;font-size:15px;line-height:1.62;color:var(--text)}
+.hub-note strong{color:var(--ink);font-weight:600}
+.hub-cta{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:auto;padding-top:22px}
+
+.hub-list{list-style:none;width:100%;margin:18px 0 0;padding:0;display:grid;gap:6px}
+.hub-row{display:flex;align-items:center;gap:13px;padding:8px;border-radius:14px;color:var(--ink);font-size:15px;font-weight:600;transition:background .25s var(--ease),color .25s var(--ease)}
+.hub-row:hover,.hub-row:focus-visible{background:var(--bg-soft-2);color:var(--tone)}
+.hub-badge{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;font-size:12.5px;font-weight:700;color:var(--tone);background:color-mix(in srgb,var(--tone) 14%,transparent)}
+.hub-go{margin-left:auto;margin-right:6px;opacity:0;transform:translateX(-5px);transition:.25s var(--ease)}
+.hub-row:hover .hub-go,.hub-row:focus-visible .hub-go{opacity:1;transform:none}
+.hub-link{margin-top:auto;padding-top:22px;font-size:14.5px;font-weight:600;color:var(--t3)}
+.hub-link:hover{color:var(--gold)}
+.hub-row:focus-visible,.hub-link:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.hub-count{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-top:16px}
+.hub-count b{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.hub-count span{font-size:15px;color:var(--muted)}
+
+.hub .stat{border-radius:16px}
+.hub .stat:last-child{border:1px solid var(--sh-edge)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .hub-panel{background:var(--card)}
+}
+@media(max-width:980px){
+  .hub{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .hub-core{grid-column:1/-1}
+  .hub-markets,.hub-assoc{grid-column:span 3;grid-row:auto}
+  .hub .stat{grid-column:span 2}
+}
+@media(max-width:640px){
+  .hub-markets,.hub-assoc{grid-column:1/-1}
+  .hub-panel{padding:24px 20px}
+  .hub .stat{padding:14px 10px;min-width:0}
+  .hub .stat b{font-size:clamp(22px,6.4vw,32px)}
+}
