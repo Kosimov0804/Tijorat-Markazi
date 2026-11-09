@@ -42,6 +42,27 @@
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   };
 
+  /* The hero's three live figures. Real counts only: a muted dash while
+     the platform is empty or the endpoint is unreachable, never a
+     stand-in number. The figure animates in once it is known. */
+  function setHeroCount(id, n) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (!(n > 0)) { el.textContent = "—"; el.style.opacity = "0.45"; return; }
+    el.style.opacity = "";
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = String(n); return;
+    }
+    var start = null, dur = 900;
+    function tick(ts) {
+      if (start === null) start = ts;
+      var p = Math.min(1, (ts - start) / dur);
+      el.textContent = String(Math.round(n * p));
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = String(n);
+    }
+    requestAnimationFrame(tick);
+  }
+
   /* Section shell — same .section-head the rest of the site uses, so it
      picks up the ayvan mark and rules without any new styling. */
   function shell(id, eyebrow, h, p, gridClass, gridId, allHref, allText) {
@@ -61,7 +82,9 @@
     return fetch("/api/assoc/list")
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (list) {
-        if (!Array.isArray(list) || !list.length) return false;
+        if (!Array.isArray(list)) list = [];
+        setHeroCount("heroAssoc", list.length);
+        if (!list.length) return false;
         // busiest first — a preview should lead with the ones that have members
         var top = list.slice().sort(function (a, b) {
           return (b.companies || 0) - (a.companies || 0);
@@ -89,6 +112,8 @@
     return fetch("/api/showroom")
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
+        setHeroCount("heroCompanies", d && Array.isArray(d.companies) ? d.companies.length : 0);
+        setHeroCount("heroProducts", d && typeof d.total === "number" ? d.total : 0);
         var items = d && Array.isArray(d.items) ? d.items : [];
         if (!items.length) return false;
         // lead with the ones that have a photo — a preview grid of
