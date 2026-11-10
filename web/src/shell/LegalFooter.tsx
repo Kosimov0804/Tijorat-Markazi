@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useI18n } from "./i18n";
 import { readOperatorField } from "./legal/types";
 import type { DocLang, LegalConfig, LocalizedText, OperatorField } from "./legal/types";
-import { readStored } from "./storage";
 
 /* Fixed on purpose: an href built from fetched data is one refactor away from
    an href built from user data. */
@@ -19,20 +18,14 @@ const EXTRA_TITLE: Record<string, LocalizedText | undefined> = {
 };
 
 const LABELS = {
-  about: { uz: "Operator", ru: "Оператор" },
   docs: { uz: "Huquqiy hujjatlar", ru: "Правовые документы" },
   contact: { uz: "Aloqa", ru: "Контакты" },
-  stir: { uz: "STIR", ru: "ИНН" },
   dpo: { uz: "Şaxsga doir maʼlumotlar böyiça", ru: "По персональным данным" },
-  todo: {
-    uz: "Operator rekvizitlari töldirilmagan — Admin panel > Sozlamalar",
-    ru: "Реквизиты оператора не заполнены — Админ-панель > Настройки",
-  },
 } as const;
 
 /* The server already redacts unfilled requisites before they leave /api/legal.
    This stays as a second line of defence for a surface every visitor reads. */
-const PLACEHOLDER = /^\[(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
+const PLACEHOLDER = /^\[(TO'LDIRILSIN|TÖLDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
 
 function filled(value: string): string {
   const text = value.trim();
@@ -67,42 +60,16 @@ export function LegalFooter() {
   const operator = config.operator ?? {};
   const field = (name: string): string => readField(operator[name], docLang);
 
-  const legalName = field("legalName");
-  const legalForm = field("legalForm");
-  const stir = field("stir");
-  const address = field("address");
   const email = field("email");
   const phone = field("phone");
   const dpoEmail = field("dpoEmail");
 
   /* When the data contact is the general mailbox, the column already shows it. */
   const showDpo = dpoEmail && dpoEmail.toLowerCase() !== email.toLowerCase();
-  const hasAbout = Boolean(legalName || legalForm || stir || address);
   const hasContact = Boolean(email || phone || showDpo);
-
-  /* Only oversight learns the requisites are unfilled, and where to fix it. */
-  const showTodo = !config.ready && readStored("sessionStorage", "kg_admin") === "1";
 
   return (
     <div className="footer-legal" id="footerLegal">
-      {(hasAbout || showTodo) && (
-        <div>
-          <h3>{LABELS.about[docLang]}</h3>
-          {legalName && (
-            <p>
-              <strong>{legalName}</strong>
-            </p>
-          )}
-          {legalForm && <p>{legalForm}</p>}
-          {stir && (
-            <p>
-              {LABELS.stir[docLang]}: {stir}
-            </p>
-          )}
-          {address && <p>{address}</p>}
-          {showTodo && <p className="lg-todo">{LABELS.todo[docLang]}</p>}
-        </div>
-      )}
       <div>
         <h3>{LABELS.docs[docLang]}</h3>
         <ul>

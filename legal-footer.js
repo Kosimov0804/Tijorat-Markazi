@@ -1,5 +1,5 @@
 /* ============================================================
-   LEGAL FOOTER — operator requisites on every page
+   LEGAL FOOTER — legal documents and contact on every page
 
    Deliberately dependency-free. market-kit.js is not loaded on
    every page of this site, and the requisites have to appear on
@@ -40,7 +40,7 @@
   const pick = o => (o && (o[tl()] || o.uz)) || "";
   const val = v => (v && typeof v === "object") ? (v[tl()] || v.uz || "") : (v || "");
 
-  const PLACEHOLDER = /^\[(TO'LDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
+  const PLACEHOLDER = /^\[(TO'LDIRILSIN|TÖLDIRILSIN|ZAPOLNIT|TO BE COMPLETED)/;
   /* The server redacts every unfilled requisite to an empty string before it
      leaves /api/legal, so nothing bracketed can arrive here any more. This
      test stays as a second line of defence: it costs nothing, and a footer is
@@ -52,14 +52,6 @@
   const row = (v, wrap) => { const s = filled(v);
     return s ? (wrap ? wrap(esc(s)) : "<p>" + esc(s) + "</p>") : ""; };
 
-  /* Oversight sees what a visitor must not: that the requisites are unfilled,
-     and where to fix it. Everyone else sees a shorter footer, because naming
-     an obligation the operator has not met does a visitor no good and stating
-     a placeholder as though it were a requisite actively misleads them. */
-  const isOversight = () => {
-    try { return sessionStorage.getItem("kg_admin") === "1"; } catch(e){ return false; }
-  };
-
 
   /* Fixed, like the cross-links in legal-page.js — an href built from fetched
      data is one refactor away from being an href built from user data. */
@@ -70,10 +62,8 @@
   const EXTRA_TITLE = { rights: { uz: "Mening maʼlumotlarim", ru: "Мои данные", en: "My data" } };
 
   const LBL = {
-    about:  { uz: "Operator", ru: "Оператор" },
     docs:   { uz: "Huquqiy hujjatlar", ru: "Правовые документы" },
     contact:{ uz: "Aloqa", ru: "Контакты" },
-    stir:   { uz: "STIR", ru: "ИНН" },
     dpo:    { uz: "Şaxsga doir maʼlumotlar böyiça", ru: "По персональным данным" },
   };
 
@@ -87,13 +77,6 @@
       return `<li><a href="${PAGES[k]}">${esc(nm)}</a></li>`;
     }).join("");
 
-    const stir = filled(val(o.stir))
-      ? `<p>${esc(pick(LBL.stir))}: ${esc(filled(val(o.stir)))}</p>`
-      : "";
-
-    const about = row(val(o.legalName), s => `<p><strong>${s}</strong></p>`)
-      + row(val(o.legalForm)) + stir + row(val(o.address));
-
     /* When the data contact is the general mailbox, the column already shows
        it; printing it a second time adds a line, not a channel. */
     const dpoMail = filled(val(o.dpoEmail));
@@ -102,19 +85,7 @@
       : "";
     const contact = row(val(o.email)) + row(val(o.phone)) + dpo;
 
-    /* Qoidalar 24-band wants these on every page; when they are absent the
-       honest thing is to say so to the one person who can act on it. */
-    const todo = (!cfg.ready && isOversight())
-      ? `<p class="lg-todo">${esc(pick({
-          uz: "Operator rekvizitlari töldirilmagan — Admin panel > Sozlamalar",
-          ru: "Реквизиты оператора не заполнены — Админ-панель > Настройки" }))}</p>`
-      : "";
-
     host.innerHTML = `
-      ${about || todo ? `<div>
-        <h3>${esc(pick(LBL.about))}</h3>
-        ${about}${todo}
-      </div>` : ""}
       <div>
         <h3>${esc(pick(LBL.docs))}</h3>
         <ul>${links}</ul>

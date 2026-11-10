@@ -12,7 +12,7 @@ const DOCS = { oferta: { title: { uz: "Ommaviy oferta", ru: "Публичная 
 describe("LegalFooter", () => {
   it("renders hostile operator values as text, never as markup", async () => {
     const payload = "<img src=x onerror=alert(1)>";
-    stubLegalResponse({ ok: true, ready: true, docs: DOCS, operator: { legalName: payload } });
+    stubLegalResponse({ ok: true, ready: true, docs: DOCS, operator: { email: payload } });
 
     const { container } = renderPage(<LegalFooter />);
 
@@ -21,13 +21,26 @@ describe("LegalFooter", () => {
   });
 
   it("omits placeholder requisites instead of printing them", async () => {
-    stubLegalResponse({ ok: true, docs: DOCS, operator: { legalName: "[TO'LDIRILSIN: nom]", email: "a@b.uz" } });
+    stubLegalResponse({ ok: true, docs: DOCS, operator: { email: "[TÖLDIRILSIN: poçta]", phone: "+998 71 000 00 00" } });
+
+    const { container } = renderPage(<LegalFooter />);
+
+    expect(await screen.findByText("+998 71 000 00 00")).toBeTruthy();
+    expect(container.textContent).not.toContain("TÖLDIRILSIN");
+  });
+
+  it("never shows an operator column, even with full requisites", async () => {
+    stubLegalResponse({ ok: true, ready: true, docs: DOCS, operator: {
+      legalName: "Tijorat MChJ", legalForm: "MChJ", stir: "123456789", address: "Toshkent", email: "a@b.uz",
+    } });
 
     const { container } = renderPage(<LegalFooter />);
 
     expect(await screen.findByText("a@b.uz")).toBeTruthy();
-    expect(container.textContent).not.toContain("TO'LDIRILSIN");
     expect(screen.queryByText("Operator")).toBeNull();
+    expect(container.textContent).not.toContain("Tijorat MChJ");
+    expect(container.textContent).not.toContain("123456789");
+    expect(container.textContent).not.toContain("Toshkent");
   });
 
   it("shows the data contact only when it differs from the general mailbox", async () => {
@@ -39,16 +52,8 @@ describe("LegalFooter", () => {
     expect(container.textContent).not.toContain("info@b.uz");
   });
 
-  it("tells only oversight that requisites are unfilled", async () => {
+  it("shows no unfilled-requisites notice, even to oversight", async () => {
     sessionStorage.setItem("kg_admin", "1");
-    stubLegalResponse({ ok: true, ready: false, docs: DOCS, operator: {} });
-
-    const { container } = renderPage(<LegalFooter />);
-
-    await waitFor(() => expect(container.querySelector(".lg-todo")).not.toBeNull());
-  });
-
-  it("hides the unfilled notice from everyone else", async () => {
     stubLegalResponse({ ok: true, ready: false, docs: DOCS, operator: {} });
 
     const { container } = renderPage(<LegalFooter />);
