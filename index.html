@@ -56,68 +56,183 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero hero-hub">
-    <div class="container hub">
-      <div class="hub-panel hub-core">
-        <span class="hub-seal" aria-hidden="true">
-          <svg class="hub-ring" width="168" height="168" viewBox="0 0 100 100">
-            <circle class="hub-arc t1" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
-            <circle class="hub-arc t2" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-72.26" transform="rotate(-90 50 50)"/>
-            <circle class="hub-arc t3" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-144.51" transform="rotate(-90 50 50)"/>
-            <circle class="hub-arc t4" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-216.77" transform="rotate(-90 50 50)"/>
-          </svg>
-          <svg class="hub-mark" width="124" height="124" viewBox="0 0 64 64">
-            <circle cx="32" cy="32" r="32"/>
-            <path class="hub-mark-line" d="M32 12c-8 0-13 5.6-13 13v27h26V25c0-7.4-5-13-13-13z"/>
-            <path class="hub-mark-fill" d="M32 22c-3.6 0-6 2.6-6 6v24h12V28c0-3.4-2.4-6-6-6z"/>
-          </svg>
-        </span>
-        <h1 data-i18n-html="h1"><span class="grad">Tijorat Markazi</span></h1>
-        <span class="hub-eyebrow" data-i18n="pill">Milliy savdo platformasi</span>
-        <p class="hub-note" data-i18n-html="lead">
-          TIJORAT MARKAZI — bu oddiy veb-sayt emas. U yirik kompaniyalar, investorlar,
-          ilmiy markazlar, davlat idoralari va xalqaro hamkorlarni bitta raqamli
-          infratuzilmada birlaştiradi.
-        </p>
-        <div class="hub-cta">
+  <main>
+  <!-- ===== HERO: wordmark and idea on the left, the member wall on the right ===== -->
+  <section class="hero hero-hm">
+    <div class="container hm-container hm-hero" id="hmHero">
+      <div class="hm-hero-copy">
+        <span class="hm-pill" data-i18n="hm_pill">Bozor · Moliya · Mehnat · Showroom</span>
+        <div class="hm-brandline">
+          <span class="hm-seal hub" aria-hidden="true">
+            <svg class="hub-ring" viewBox="0 0 100 100">
+              <circle class="hub-arc t1" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+              <circle class="hub-arc t2" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-72.26" transform="rotate(-90 50 50)"/>
+              <circle class="hub-arc t3" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-144.51" transform="rotate(-90 50 50)"/>
+              <circle class="hub-arc t4" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-216.77" transform="rotate(-90 50 50)"/>
+            </svg>
+            <svg class="hub-mark" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="32"/>
+              <path class="hub-mark-line" d="M32 12c-8 0-13 5.6-13 13v27h26V25c0-7.4-5-13-13-13z"/>
+              <path class="hub-mark-fill" d="M32 22c-3.6 0-6 2.6-6 6v24h12V28c0-3.4-2.4-6-6-6z"/>
+            </svg>
+          </span>
+          <h1><small data-i18n="pill">Milliy savdo platformasi</small><span class="grad">Tijorat Markazi</span></h1>
+        </div>
+        <div class="hm-idea">
+          <p class="hm-idea-label" data-i18n="hm_idea_label">Asosiy ğoya</p>
+          <button class="hm-idea-btn" type="button" id="hmIdeaBtn">
+            <span data-i18n="hm_idea_btn">«Yagona milliy savdo maydoni»</span><span aria-hidden="true">→</span>
+          </button>
+          <dialog class="hm-dialog" id="hmIdea" aria-labelledby="hmIdeaTitle">
+            <div class="hm-dialog-head">
+              <h2 id="hmIdeaTitle" data-i18n="hm_idea_btn">«Yagona milliy savdo maydoni»</h2>
+              <button class="hm-dialog-x" type="button" id="hmIdeaClose" data-i18n-aria="hm_idea_close" aria-label="Yopiş">✕</button>
+            </div>
+            <div class="hm-dialog-body">
+              <p data-i18n="hm_idea_p1">Tijorat Markazi ğoyasining maqsadi — Özbekistondagi uyuşmalar, korxonalar, investorlar va davlat idoralarini bitta raqamli infratuzilmada birlaştiriş.</p>
+              <p data-i18n="lead">TIJORAT MARKAZI — bu oddiy veb-sayt emas. U yirik kompaniyalar, investorlar, ilmiy markazlar, davlat idoralari va xalqaro hamkorlarni bitta raqamli infratuzilmada birlaştiradi.</p>
+              <p data-i18n="hm_idea_p2">Ğoya amalga oşirilsa:</p>
+              <ul>
+                <li><span data-i18n="hm_idea_l1">har bir korxona öz mahsulotini milliy vitrinada körsatadi;</span></li>
+                <li><span data-i18n="hm_idea_l2">moliya bozori investorlar bilan loyihalarni bir joyda uçraştiradi;</span></li>
+                <li><span data-i18n="hm_idea_l3">mehnat bozori kadrlar va iş beruvçilarni boğlaydi;</span></li>
+                <li><span data-i18n="hm_idea_l4">davlat xizmatlari va Business ID bitta kabinetdan oçiladi;</span></li>
+                <li><span data-i18n="hm_idea_l5">sunʼiy intellekt yordamçisi 24/7 maslahat beradi.</span></li>
+              </ul>
+            </div>
+          </dialog>
+        </div>
+        <div class="hm-hero-cta hub-cta">
           <a class="btn btn-primary" href="royxatdan-otish.html" data-i18n="nav_register">Röyxatdan ötiş</a>
           <a class="btn btn-ghost" href="associations.html" data-i18n="hero_cta1">Platformani köriş →</a>
         </div>
       </div>
 
-      <div class="hub-panel hub-markets">
-        <span class="hub-eyebrow" data-i18n="nav_markets">Bozorlar</span>
-        <p class="hub-note" data-i18n="hub_markets_lead">Mahsulot, moliya va mehnat bozorlari — bitta platformada.</p>
-        <ul class="hub-list">
+      <aside class="hm-wall" data-i18n-aria="hm_wall_aria" aria-label="Platforma aʼzolari">
+        <div class="hm-wall-head">
+          <span class="hub-eyebrow" data-i18n="hm_wall_eyebrow">Platforma aʼzolari</span>
+          <span class="hm-wall-count" id="hmWallCount"></span>
+        </div>
+        <div class="hm-wall-grid" id="hmWall"></div>
+        <a class="hm-wall-all hub-link" href="associations.html" data-i18n="hm_wall_all">Barça aʼzolar →</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== STRUCTURE BAND: markets · seal · associations, the five values, the ecosystem ===== -->
+  <section class="hm-band" aria-labelledby="hmStructTitle">
+    <div class="container hm-container">
+      <div class="hm-head">
+        <div class="hm-head-copy">
+          <h2 id="hmStructTitle" data-i18n="hm_str_h">Platforma tuzilmasi</h2>
+          <p data-i18n="hm_str_p">Tijorat Markazi — milliy savdo integratori: u uyuşmalar, korxonalar, investorlar, davlat idoralari va xalqaro hamkorlar imkoniyatlarini bitta natija atrofida birlaştiradi.</p>
+        </div>
+        <a class="hm-head-link" href="about.html" data-i18n="hm_str_link">Platforma haqida →</a>
+      </div>
+
+      <div class="hub">
+        <div class="hub-panel hub-markets">
+          <span class="hub-eyebrow" data-i18n="hm_markets_eyebrow">Asosiy bozorlar</span>
+          <p class="hub-note" data-i18n="hm_markets_p">Har bir korxona mahsulot, moliya va mehnat bozorlariga şu tört eşik orqali çiqadi.</p>
+          <ul class="hub-list">
             <li><a class="hub-row t1" href="bozor.html"><span class="hub-badge" aria-hidden="true">BZ</span><span data-i18n="nav_bozor">Bozor</span><span class="hub-go" aria-hidden="true">→</span></a></li>
             <li><a class="hub-row t2" href="moliya.html"><span class="hub-badge" aria-hidden="true">MB</span><span data-i18n="nav_moliya">Moliya bozori</span><span class="hub-go" aria-hidden="true">→</span></a></li>
             <li><a class="hub-row t3" href="mehnat.html"><span class="hub-badge" aria-hidden="true">MH</span><span data-i18n="nav_mehnat">Mehnat bozori</span><span class="hub-go" aria-hidden="true">→</span></a></li>
             <li><a class="hub-row t4" href="showroom.html"><span class="hub-badge" aria-hidden="true">SR</span><span data-i18n="nav_showroom">Showroom</span><span class="hub-go" aria-hidden="true">→</span></a></li>
-        </ul>
-        <a class="hub-link" href="xizmatlar.html"><span data-i18n="nav_services">Xizmatlar</span> →</a>
+          </ul>
+          <a class="hub-link" href="xizmatlar.html" data-i18n="hm_markets_all">Xizmatlarni köriş →</a>
+        </div>
+
+        <a class="hub-panel hub-core" href="showroom.html">
+          <span class="hub-seal" aria-hidden="true">
+            <svg class="hub-ring" viewBox="0 0 100 100">
+              <circle class="hub-arc t1" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+              <circle class="hub-arc t2" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-72.26" transform="rotate(-90 50 50)"/>
+              <circle class="hub-arc t3" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-144.51" transform="rotate(-90 50 50)"/>
+              <circle class="hub-arc t4" cx="50" cy="50" r="46" stroke-dasharray="58.26 230.77" stroke-dashoffset="-216.77" transform="rotate(-90 50 50)"/>
+            </svg>
+            <svg class="hub-mark" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="32"/>
+              <path class="hub-mark-line" d="M32 12c-8 0-13 5.6-13 13v27h26V25c0-7.4-5-13-13-13z"/>
+              <path class="hub-mark-fill" d="M32 22c-3.6 0-6 2.6-6 6v24h12V28c0-3.4-2.4-6-6-6z"/>
+            </svg>
+          </span>
+          <b class="hub-big hub-live" id="heroCompanies">—</b>
+          <span class="hub-eyebrow" data-i18n="hm_core_eyebrow">Aʼzo kompaniyalar</span>
+          <p class="hub-note" data-i18n="hm_core_p">Işlab çiqaruvçilar, eksportçilar, xizmat körsatuvçilar va startaplar — platformaning portfeli.</p>
+          <span class="hub-link" data-i18n="hm_core_link">Showroomga kiriş →</span>
+        </a>
+
+        <div class="hub-panel hub-assoc">
+          <span class="hub-eyebrow hub-eyebrow-cool" data-i18n="hm_assoc_eyebrow">Tarmoq uyuşmalari</span>
+          <div class="hub-count"><b id="heroAssoc" class="hub-live">—</b><span data-i18n="hm_assoc_unit">tarmoq uyuşmasi</span></div>
+          <p class="hub-note" data-i18n="hm_assoc_p">Har bir soha platformaga öz uyuşmasi orqali keladi. Tadbirkorlar, kompaniyalar va xizmat körsatuvçilar ayni şu tarmoqda uçraşadi.</p>
+          <a class="hub-link" href="associations.html" data-i18n="hm_assoc_link">Uyuşmalarni köriş →</a>
+        </div>
       </div>
 
-      <div class="hub-panel hub-assoc">
-        <span class="hub-eyebrow hub-eyebrow-cool" data-i18n="nav_uyush">Uyuşmalar</span>
-        <div class="hub-count"><b id="heroAssoc" class="hub-live">—</b><span data-i18n="stat1">Uyuşma</span></div>
-        <p class="hub-note" data-i18n-html="ab_lead">Uyuşmalar, ularning aʼzo korxonalari va rahbariyat bitta raqamli maydonda işlaydigan platforma: mahsulot vitrinasi, investitsiya loyihalari, onlayn uçraşuvlar, rasmiy hujjatlar va <strong>sunʼiy intellekt yordamçisi</strong> — hammasi bir joyda.</p>
-        <a class="hub-link" href="associations.html" data-i18n="hub_assoc_all">Barça uyuşmalar →</a>
-      </div>
+      <ul class="hm-values">
+        <li><i>01</i><b data-i18n="hm_v1_t">Savdo</b><span data-i18n="hm_v1_s">bitta bozor</span></li>
+        <li><i>02</i><b data-i18n="hm_v2_t">Moliya</b><span data-i18n="hm_v2_s">investitsiya oqimi</span></li>
+        <li><i>03</i><b data-i18n="hm_v3_t">Mehnat</b><span data-i18n="hm_v3_s">kadrlar bozori</span></li>
+        <li><i>04</i><b data-i18n="hm_v4_t">Business ID</b><span data-i18n="hm_v4_s">raqamli pasport</span></li>
+        <li><i>05</i><b data-i18n="hm_v5_t">AI yordamçi</b><span data-i18n="hm_v5_s">24/7 maslahat</span></li>
+      </ul>
 
-      <div class="stat"><b id="heroCompanies" class="hub-live">—</b><span data-i18n="stat3">Kompaniya</span></div>
-      <div class="stat"><b id="heroProducts" class="hub-live">—</b><span data-i18n="stat_products">Mahsulot</span></div>
-      <div class="stat"><b>24/7</b><span data-i18n="stat4">AI yordam</span></div>
+      <div class="hm-eco hub">
+        <div class="hm-eco-head">
+          <h3 data-i18n="hm_eco_h">Xizmatlar ekotizimi</h3>
+          <p data-i18n="hm_eco_p">Aʼzo korxonalar, davlat xizmatlari, Business ID, onlayn uçraşuvlar va sunʼiy intellekt yordamçisi.</p>
+        </div>
+        <div class="hm-eco-grid">
+          <a class="hm-eco-card t3" href="xizmatlar.html"><h4 data-i18n="hm_eco1_h">Aʼzo korxonalar</h4><span class="rule"></span><ul data-i18n-list="hm_eco1_l"><li>Xizmatlar katalogi</li><li>Mahsulot vitrinasi</li><li>Eksport va import takliflari</li><li>Korxona sahifasi</li></ul></a>
+          <a class="hm-eco-card t2" href="davlat-xizmatlari.html"><h4 data-i18n="hm_eco2_h">Davlat xizmatlari</h4><span class="rule"></span><ul data-i18n-list="hm_eco2_l"><li>Litsenziya va ruxsatnomalar</li><li>Soliq va bojxona</li><li>Rasmiy söroqlar</li><li>Oylik hisobot</li></ul></a>
+          <a class="hm-eco-card t1" href="biznes-id.html"><h4 data-i18n="hm_eco3_h">Business ID</h4><span class="rule"></span><ul data-i18n-list="hm_eco3_l"><li>Korxonaning raqamli pasporti</li><li>Yagona identifikator</li><li>QR orqali tekşiriş</li></ul></a>
+          <a class="hm-eco-card t4" href="conference.html"><h4 data-i18n="hm_eco4_h">Onlayn uçraşuvlar</h4><span class="rule"></span><ul data-i18n-list="hm_eco4_l"><li>Konferensiya zali</li><li>Guruh çatlari</li><li>Uyuşma yiğilişlari</li></ul></a>
+          <a class="hm-eco-card t3" href="assistant.html"><h4 data-i18n="hm_eco5_h">AI yordamçi</h4><span class="rule"></span><ul data-i18n-list="hm_eco5_l"><li>24/7 maslahat</li><li>Hujjat tayyorlaş</li><li>Bozor tahlili</li></ul></a>
+        </div>
+        <p class="hm-eco-more" data-i18n="hm_eco_more">va boşqa köplab imkoniyatlar</p>
+      </div>
     </div>
+    <span class="hm-band-foot" aria-hidden="true"></span>
   </section>
-
 
   <!-- Associations + showroom, rendered live from the public API -->
   <div id="homeSections"></div>
 
+  <!-- ===== JOIN ===== -->
+  <section class="hm-join">
+    <div class="container hm-container">
+      <div class="hm-join-card">
+        <h2 data-i18n="hm_join_h">Platformaga qoşiling</h2>
+        <p data-i18n="hm_join_p">Uyuşmangizni röyxatdan ötkazing yoki korxona sifatida qoşiling — birgalikda köproq natijaga erişamiz.</p>
+        <a class="hm-join-btn" href="royxatdan-otish.html" data-i18n="hm_join_btn">Röyxatdan ötiş →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MOTTO ===== -->
+  <section class="hm-band hm-motto" aria-labelledby="hmMotto">
+    <div class="container hm-container">
+      <p class="big" id="hmMotto" data-i18n="hm_motto">Bir maqsad — bir bozor — bir kelajak!</p>
+      <p class="sub" data-i18n="hm_motto_p">Birgalikda Yangi Özbekistonning milliy savdo maydonini quramiz.</p>
+      <nav class="hm-chips" data-i18n-aria="hm_go" aria-label="Bölimga ötiş">
+        <a class="hm-chip" href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+        <a class="hm-chip" href="associations.html" data-i18n="nav_uyush">Uyuşmalar</a>
+        <a class="hm-chip" href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+        <a class="hm-chip" href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+        <a class="hm-chip" href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+        <a class="hm-chip" href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+        <a class="hm-chip" href="xizmatlar.html" data-i18n="nav_services">Xizmatlar</a>
+      </nav>
+    </div>
+    <span class="hm-band-foot" aria-hidden="true"></span>
+  </section>
+  </main>
+
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
-  <div class="container">
+    <div class="container">
       <div class="footer-legal" id="footerLegal"></div>
       <noscript><p style="font-size:.82rem"><a href="oferta.html">Ommaviy oferta</a> · <a href="maxfiylik.html">Maxfiylik siyosati</a> · <a href="shartlar.html">Foydalaniş şartlari</a></p></noscript>
     </div>
@@ -126,9 +241,25 @@
         <div>
           <strong>TIJORAT MARKAZI</strong>
           <p data-i18n="foot_tagline">Milliy savdo platformasi</p>
+          <p class="foot-about" data-i18n="foot_about_p">Tijorat Markazi — uyuşmalar, korxonalar va investorlar uçun milliy savdo platformasi.</p>
         </div>
       </div>
       <div class="footer-cols">
+        <div>
+          <h4 data-i18n="foot_col_sections">Bölimlar</h4>
+          <a href="about.html" data-i18n="nav_about">Biz haqimizda</a>
+          <a href="associations.html" data-i18n="nav_uyush">Uyuşmalar</a>
+          <a href="showroom.html" data-i18n="nav_showroom">Showroom</a>
+          <a href="xizmatlar.html" data-i18n="nav_svc_members">Aʼzo korxonalar</a>
+          <a href="davlat-xizmatlari.html" data-i18n="nav_gov_services">Davlat xizmatlari</a>
+          <a href="biznes-id.html" data-i18n="nav_bizid">Business ID</a>
+        </div>
+        <div>
+          <h4 data-i18n="nav_markets">Bozorlar</h4>
+          <a href="bozor.html" data-i18n="nav_bozor">Bozor</a>
+          <a href="moliya.html" data-i18n="nav_moliya">Moliya bozori</a>
+          <a href="mehnat.html" data-i18n="nav_mehnat">Mehnat bozori</a>
+        </div>
         <div>
           <h4 data-i18n="foot_col_cab">Kabinetlar</h4>
           <a href="kirish.html" data-i18n="foot_cab_in">Kiriş</a>
