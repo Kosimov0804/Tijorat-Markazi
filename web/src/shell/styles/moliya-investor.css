@@ -1,0 +1,7 @@
+/* The investor cabinet: its sheet EXTENDS the scoring layer, so it follows both. See standard.css. */
+@import "@legacy/styles.css";
+@import "@legacy/markets.css";
+@import "@legacy/moliya-scoring.css";
+@import "@legacy/moliya-scoring-page.css";
+@import "@legacy/moliya-investor.css";
+@import "@legacy/legal.css";

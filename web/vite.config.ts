@@ -21,7 +21,7 @@ const proxied = ["/assets", "/favicon.svg", ...legacyPages.map(name => `/${name}
 
 /* The project root holds anthropic.key and credentials.*, so the dev server
    may read only this folder and the exact legacy files the pages import. */
-const LEGACY_STYLES = ["styles.css", "legal.css", "markets.css", "biznes-id.css"];
+const LEGACY_STYLES = ["styles.css", "legal.css", "markets.css", "biznes-id.css", "moliya-scoring.css", "moliya-scoring-page.css", "moliya-investor.css"];
 const allowedFiles = [...Object.keys(LEGACY_MODULES), ...LEGACY_STYLES].map(file => path.join(projectRoot, file));
 
 export default defineConfig({

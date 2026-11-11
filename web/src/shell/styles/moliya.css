@@ -1,0 +1,6 @@
+/* The scoring pages. legal.css stays last, as the old pages load it. See standard.css. */
+@import "@legacy/styles.css";
+@import "@legacy/markets.css";
+@import "@legacy/moliya-scoring.css";
+@import "@legacy/moliya-scoring-page.css";
+@import "@legacy/legal.css";

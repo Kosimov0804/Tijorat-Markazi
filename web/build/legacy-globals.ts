@@ -5,11 +5,16 @@ import type { Plugin } from "vite";
    export statements. Adding the exports at build time lets React share the
    same translations and painters instead of a copy that would drift. */
 export const LEGACY_MODULES: Readonly<Record<string, readonly string[]>> = {
+  "group-chat.js": ["KG_GROUP_T"],
   "data.js": ["LANGS", "T", "ICONS", "ICON_SUN", "ICON_MOON", "AB_FEATURES", "AB_ROLES", "AB_HOW", "CAPS", "OVERVIEW", "CENTERS"],
   "legal-text-oferta.js": ["LEGAL_OFERTA"],
   "legal-text-maxfiylik.js": ["LEGAL_MAXFIYLIK"],
   "legal-text-shartlar.js": ["LEGAL_SHARTLAR"],
-  "markets-i18n.js": ["T_MK", "T_KORXONA", "T_PRODUCT", "T_BIZID"],
+  "markets-i18n.js": ["T_MK", "T_KORXONA", "T_PRODUCT", "T_BIZID", "T_REGISTER", "T_BREG", "T_MOLIYA", "T_BOZOR", "T_MEHNAT", "T_ANALYST", "T_XARIDOR"],
+  "dsr-i18n.js": ["T_DSR"],
+  "moliya-scoring-config.js": [],
+  "moliya-scoring-i18n.js": ["T_MS"],
+  "moliya-investor-i18n.js": ["T_MS_INV"],
   "ui-dialog.js": [],
   "skyline.js": ["kgSkyline"],
   "monument-bg.js": ["kgMonumentBackground"],
