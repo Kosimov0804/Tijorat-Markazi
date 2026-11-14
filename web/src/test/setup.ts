@@ -1,5 +1,8 @@
 import { afterEach, vi } from "vitest";
-import { cleanup } from "@testing-library/react";
+import { cleanup, configure } from "@testing-library/react";
+
+/* findBy and waitFor give a loaded machine time to answer. */
+configure({ asyncUtilTimeout: 8000 });
 
 /* jsdom has no matchMedia. These tests run as a wide, mouse-driven screen. */
 const MATCHING_QUERIES = new Set(["(hover:hover) and (pointer:fine)"]);

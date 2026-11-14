@@ -1,0 +1,22 @@
+/* Copied by script from the style block bizid-panel.js injects. */
+.bidp{background:var(--card,#fffdf7);border:1px solid var(--line,#e2dac9);border-radius:16px;padding:22px 24px;max-width:760px}
+.bidp-head{display:flex;gap:20px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
+.bidp-head h3{font-family:'Source Serif 4',Georgia,serif;font-size:19px;color:var(--ink,#1a2333);margin:0 0 6px}
+.bidp-head p{color:var(--muted,#838ba0);font-size:13.5px;line-height:1.55;margin:0;max-width:46ch}
+.bidp-id{text-align:right;flex:0 0 auto}
+.bidp-id span{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted,#838ba0);margin-bottom:5px}
+.bidp-id b{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:15px;letter-spacing:.09em;color:var(--navy,#1f4e79);background:var(--bg-soft,#f3ecdf);border:1px solid var(--line-2,#d3c8b0);border-radius:8px;padding:5px 11px;display:inline-block}
+.bidp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bidp-grid[data-cols="1"],.bidp-grid[data-cols="2"]{grid-template-columns:1fr 1fr}
+.bidp-grid[data-cols="1"]{grid-template-columns:1fr;max-width:360px}
+.bidp-field{display:block}
+.bidp-field span{display:block;font-size:12.5px;color:var(--muted,#838ba0);margin-bottom:5px}
+.bidp-field input{width:100%;padding:10px 13px;font:inherit;font-size:14.5px;color:var(--ink,#1a2333);background:var(--bg-soft,#f3ecdf);border:1px solid var(--line,#e2dac9);border-radius:10px;outline:none;transition:border-color .16s ease,box-shadow .16s ease}
+.bidp-field input:focus{border-color:var(--navy-3,#2f6ba3);box-shadow:0 0 0 3px rgba(47,107,163,.16)}
+.bidp-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.bidp-say{font-size:13.5px;color:var(--muted,#838ba0)}
+.bidp-say.is-ok{color:var(--green,#15795c)}
+.bidp-say.is-bad{color:#b4453f}
+@media (max-width:640px){.bidp-grid{grid-template-columns:1fr}
+.bidp-id{text-align:left}
+}

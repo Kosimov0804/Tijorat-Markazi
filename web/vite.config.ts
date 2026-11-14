@@ -54,5 +54,10 @@ export default defineConfig({
     setupFiles: ["src/test/setup.ts"],
     css: false,
     restoreMocks: true,
+    /* A cabinet test renders a whole panel; with every file in parallel the
+       defaults (5 s per test) are too tight on a laptop. */
+    testTimeout: 30000,
+    /* More workers than this starve each other of CPU and make waits time out. */
+    maxWorkers: 6,
   },
 });
