@@ -267,7 +267,9 @@ describe("AssociationPage cabinet", () => {
 
     expect(await screen.findByRole("cell", { name: "Alfa MChJ" })).toBeTruthy();
     expect(container.querySelector<HTMLInputElement>("#repMonth")?.value).toBe("2026-03");
-    expect(container.querySelector("#repDl")?.getAttribute("href")).toBe("/api/assoc/report.doc?login=chair&password=secret&ym=2026-03");
+    /* a button that POSTs the credentials, not a link that carries them */
+    expect(container.querySelector("#repDl")?.tagName).toBe("BUTTON");
+    expect(container.querySelector('a[href*="password"]')).toBeNull();
   });
 
   it("supports a member's appeal with a note", async () => {
@@ -279,7 +281,8 @@ describe("AssociationPage cabinet", () => {
     openView(AT.nav_appeals[0]);
 
     expect(await screen.findByText(HOSTILE)).toBeTruthy();
-    expect(container.querySelector(".gov-act a")?.getAttribute("href")).toBe("/api/appeal/doc?id=ap%2F1&login=chair&password=secret");
+    expect(screen.getByRole("button", { name: AT.ap_doc[0] })).toBeTruthy();
+    expect(container.querySelector('a[href*="password"]')).toBeNull();
     fireEvent.change(screen.getByPlaceholderText(AT.ap_note[0]), { target: { value: "Ma'qul" } });
     fireEvent.click(screen.getByRole("button", { name: AT.ap_support[0] }));
 

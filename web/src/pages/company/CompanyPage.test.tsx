@@ -310,7 +310,8 @@ describe("CompanyPage cabinet", () => {
     expect(await screen.findByText(OT.gov_sent[0])).toBeTruthy();
     expect(bodiesSentTo(calls, "/api/company/appeal")[1]).toEqual({ ...WHO, agency: "DBQ", subject: "Bojxona", body: "Rasmiy matn" });
     expect(screen.getByText(OT.gov_s_new[0])).toBeTruthy();
-    expect(container.querySelector(".gov-doc")?.getAttribute("href")).toBe("/api/appeal/doc?id=ap1&login=alfa&password=secret");
+    expect(container.querySelector(".gov-doc")?.tagName).toBe("BUTTON");
+    expect(container.querySelector('a[href*="password"]')).toBeNull();
     expect(container.querySelector<HTMLInputElement>("#gov-subject")?.value).toBe("");
   });
 

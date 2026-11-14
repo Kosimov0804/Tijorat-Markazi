@@ -6,7 +6,8 @@
  *
  * Session and sign-in
  *   readCabinetSession(key) / writeCabinetSession(key, pair) / clearCabinetSession(key)
- *   credentialQuery(pair)                    "login=…&password=…" for GET downloads
+ *   downloadDocument(path, body, name)       POST for a guarded file and save it
+ *   <DocButton path body fallbackName>       the "download as Word" button
  *   cabinetPost(path, pair, body?)           → { isOk, status, body }; never rejects
  *   cabinetGet(path)                         → the same shape
  *   useCabinetLogin({ storageKey, ownPage, signIn })
@@ -53,7 +54,6 @@ export {
   cabinetGet,
   cabinetPost,
   clearCabinetSession,
-  credentialQuery,
   readCabinetSession,
   writeCabinetSession,
 } from "./session";
@@ -62,3 +62,5 @@ export { useCabinetDrawer } from "./useCabinetDrawer";
 export type { CabinetDrawer } from "./useCabinetDrawer";
 export { useCabinetLogin } from "./useCabinetLogin";
 export type { CabinetLogin as CabinetLoginControl, CabinetLoginOptions, CabinetLoginState } from "./useCabinetLogin";
+export { downloadDocument } from "./download";
+export { DocButton } from "./DocButton";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cabinetPost, classToken, credentialQuery, FlashNote, formatDateTime, useFlash } from "../../shell/cabinet";
+import { cabinetPost, classToken, DocButton, FlashNote, formatDateTime, useFlash } from "../../shell/cabinet";
 import type { CabinetCredentials } from "../../shell/cabinet";
 import { useI18n } from "../../shell/i18n";
 import { listOf, record, text, texts } from "../../shell/market/narrow";
@@ -51,7 +51,6 @@ type CardProps = { appeal: Appeal; ot: CompanyText; credentials: CabinetCredenti
 
 function AppealCard({ appeal, ot, credentials }: CardProps) {
   const { lang } = useI18n();
-  const doc = `/api/appeal/doc?id=${encodeURIComponent(appeal.id)}&${credentialQuery(credentials)}`;
   /* The route the appeal travelled: who moved it and what they said. */
   const trail = appeal.history.slice(1);
   return (
@@ -83,9 +82,9 @@ function AppealCard({ appeal, ot, credentials }: CardProps) {
           })}
         </div>
       )}
-      <a className="btn btn-ghost gov-doc" href={doc}>
+      <DocButton className="btn btn-ghost gov-doc" path="/api/appeal/doc" body={{ id: appeal.id, ...credentials }} fallbackName="murojaat.doc">
         {ot("gov_doc")}
-      </a>
+      </DocButton>
     </div>
   );
 }

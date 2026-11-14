@@ -210,13 +210,14 @@ const appeal = {
 };
 
 describe("government appeals view", () => {
-  it("lists an appeal with its trail and Word link", async () => {
+  it("lists an appeal with its trail and Word download", async () => {
     stubRoutes({ [APPEALS]: { items: [appeal] } });
     renderView("appeals");
 
     expect(await screen.findByText(HOSTILE)).toBeTruthy();
     expect(screen.getByText(/uyushma · maʼqul/)).toBeTruthy();
-    expect(screen.getByRole("link", { name: uz("ap_doc") }).getAttribute("href")).toBe("/api/appeal/doc?id=p%201&pass=admin");
+    expect(screen.getByRole("button", { name: uz("ap_doc") })).toBeTruthy();
+    expect(document.querySelector('a[href*="pass="]')).toBeNull();
   });
 
   it("records the next stage together with the note", async () => {

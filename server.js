@@ -890,12 +890,14 @@ async function handleApi(req, res, pathname, query){
   }
   /* ---- Super Admin: monthly report Word download (own companies) ---- */
   if(pathname==="/api/assoc/report.doc"){
+    /* The React cabinets POST the credentials; the old pages still link with GET. */
+    const input = req.method==="POST" ? await readBody(req) : query;
     const o = C.getOrgs();
-    const a = authAssoc(o, query.login, query.password);
+    const a = authAssoc(o, input.login, input.password);
     if(!a){ res.writeHead(401,{ "Content-Type":"text/plain" }); return res.end("invalid credentials"); }
-    const doc = await C.assocReportOne(a.id, query.ym||"", { force: query.fresh==="1" });
+    const doc = await C.assocReportOne(a.id, input.ym||"", { force: input.fresh==="1" });
     res.writeHead(200,{ "Content-Type":"application/msword",
-      "Content-Disposition":`attachment; filename="${String(a.name||"uyushma").toLowerCase().replace(/[^a-z0-9]+/g,"-").slice(0,40)}-${(query.ym||"all").replace(/[^0-9a-zA-Z-]/g,"")}.doc"` });
+      "Content-Disposition":`attachment; filename="${String(a.name||"uyushma").toLowerCase().replace(/[^a-z0-9]+/g,"-").slice(0,40)}-${String(input.ym||"all").replace(/[^0-9a-zA-Z-]/g,"")}.doc"` });
     return res.end(doc);
   }
   /* ============================================================
@@ -952,13 +954,15 @@ async function handleApi(req, res, pathname, query){
   }
   /* the finished appeal as an official Word letter */
   if(pathname==="/api/appeal/doc"){
+    /* The React cabinets POST the credentials; the old pages still link with GET. */
+    const input = req.method==="POST" ? await readBody(req) : query;
     const o = C.getOrgs();
-    const item = C.appealFind(String(query.id||""));
+    const item = C.appealFind(String(input.id||""));
     if(!item){ res.writeHead(404,{ "Content-Type":"text/plain" }); return res.end("not found"); }
-    const c = C.findCompany(o, query.login, query.password);
-    const a = authAssoc(o, query.login, query.password);
-    const isRais = raisAuth(o, query.login, query.password);
-    const allowed = isAdmin(query.pass) || isRais
+    const c = C.findCompany(o, input.login, input.password);
+    const a = authAssoc(o, input.login, input.password);
+    const isRais = raisAuth(o, input.login, input.password);
+    const allowed = isAdmin(input.pass) || isRais
       || (c && c.id===item.companyId) || (a && a.id===item.assocId);
     if(!allowed){ res.writeHead(401,{ "Content-Type":"text/plain" }); return res.end("invalid credentials"); }
     const name = String(item.subject||"murojaat").toLowerCase().replace(/[^a-z0-9]+/g,"-").slice(0,40) || "murojaat";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cabinetPost, classToken, credentialQuery, localDateTime } from "../../shell/cabinet";
+import { cabinetPost, classToken, DocButton, localDateTime } from "../../shell/cabinet";
 import type { CabinetCredentials } from "../../shell/cabinet";
 import { listOf, record, text } from "../../shell/market/narrow";
 import type { AssocTextKey } from "./text";
@@ -78,7 +78,6 @@ type CardProps = {
 function AppealCard({ appeal, at, credentials, onDecide }: CardProps) {
   const [note, setNote] = useState("");
   const [isBusy, setIsBusy] = useState(false);
-  const doc = `/api/appeal/doc?id=${encodeURIComponent(appeal.id)}&${credentialQuery(credentials)}`;
   /* Once it has left the association there is nothing more for it to decide. */
   const isOpen = appeal.stage === "new";
 
@@ -103,9 +102,9 @@ function AppealCard({ appeal, at, credentials, onDecide }: CardProps) {
       </p>
       <Trail steps={appeal.history} at={at} />
       <div className="gov-act">
-        <a className="btn btn-ghost" href={doc}>
+        <DocButton path="/api/appeal/doc" body={{ id: appeal.id, ...credentials }} fallbackName="murojaat.doc">
           {at("ap_doc")}
-        </a>
+        </DocButton>
         {isOpen && (
           <>
             <input

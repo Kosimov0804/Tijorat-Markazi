@@ -8,8 +8,6 @@
  *   readCabinetSession(key)          the stored pair, or null (absent or corrupt)
  *   writeCabinetSession(key, pair)
  *   clearCabinetSession(key)
- *   credentialQuery(pair)            "login=…&password=…" for the download links
- *                                    the server only accepts as GET
  *   cabinetPost(path, pair, body?)   POST JSON with the pair merged in. Never
  *                                    rejects: answers { isOk, status, body }, where
  *                                    body is the parsed object ({} when unreadable)
@@ -43,10 +41,6 @@ export function writeCabinetSession(key: string, credentials: CabinetCredentials
 
 export function clearCabinetSession(key: string): void {
   removeStored("sessionStorage", key);
-}
-
-export function credentialQuery(credentials: CabinetCredentials): string {
-  return `login=${encodeURIComponent(credentials.login)}&password=${encodeURIComponent(credentials.password)}`;
 }
 
 async function readAnswer(request: Promise<Response>): Promise<CabinetAnswer> {

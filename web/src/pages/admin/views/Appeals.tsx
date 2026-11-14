@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { asArray, asString, isRecord } from "../../../shell/chat";
-import { adminPost, appealDocHref } from "../api";
+import { DocButton } from "../../../shell/cabinet";
+import { adminPost, appealDocRequest } from "../api";
 import { classToken, Intro, localDateTime, useLoader } from "../parts";
 import type { AdminTextKey } from "../text";
 import { useText } from "../useText";
@@ -115,9 +116,9 @@ function AppealCard({ appeal, onMoved }: { appeal: Appeal; onMoved: (appeals: Ap
       </p>
       <Trail steps={appeal.history.slice(1)} />
       <div className="gov-act">
-        <a className="btn btn-ghost" href={appealDocHref(appeal.id)}>
+        <DocButton path="/api/appeal/doc" body={appealDocRequest(appeal.id)} fallbackName="murojaat.doc">
           {tx("ap_doc")}
-        </a>
+        </DocButton>
         {actions.length > 0 && (
           <input
             className="gov-note"

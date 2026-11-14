@@ -30,7 +30,7 @@ export async function getJson(path: string): Promise<unknown> {
   return (await response.json()) as unknown;
 }
 
-/** The Word export of one appeal: a plain download link, so the pass rides in the query as before. */
-export function appealDocHref(id: string): string {
-  return `/api/appeal/doc?id=${encodeURIComponent(id)}&pass=${ADMIN_PASS}`;
+/** What the Word export of one appeal is asked with; the pass travels in the request body. */
+export function appealDocRequest(id: string): Record<string, unknown> {
+  return { id, pass: ADMIN_PASS };
 }

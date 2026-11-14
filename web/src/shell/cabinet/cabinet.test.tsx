@@ -11,7 +11,7 @@ import {
   CabinetLogin,
   CabinetShell,
   classToken,
-  credentialQuery,
+  downloadDocument,
   formatDate,
   formatDateTime,
   mailHref,
@@ -62,8 +62,28 @@ describe("cabinet session", () => {
     expect(readCabinetSession("kg_as")).toBeNull();
   });
 
-  it("encodes the credentials for a download link", () => {
-    expect(credentialQuery(WHO)).toBe("login=alfa&password=p%26ss%20word");
+  it("downloads a guarded document with the credentials in the body, never in the address", async () => {
+    const fetchMock = vi.fn(async () => ({
+      ok: true,
+      blob: async () => new Blob(["doc"]),
+      headers: { get: () => 'attachment; filename="../xat-1.doc"' },
+    }));
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("URL", Object.assign(URL, { createObjectURL: vi.fn(() => "blob:doc"), revokeObjectURL: vi.fn() }));
+
+    const isSaved = await downloadDocument("/api/appeal/doc", { id: "ap/1", ...WHO }, "murojaat.doc");
+
+    expect(isSaved).toBe(true);
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe("/api/appeal/doc");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(String(init.body))).toEqual({ id: "ap/1", ...WHO });
+  });
+
+  it("reports a refused download instead of saving anything", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => ({ ok: false, status: 401 })));
+
+    expect(await downloadDocument("/api/appeal/doc", { id: "x", ...WHO }, "murojaat.doc")).toBe(false);
   });
 });
 

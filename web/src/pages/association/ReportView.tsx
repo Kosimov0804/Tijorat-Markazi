@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { CSSProperties } from "react";
-import { cabinetPost, credentialQuery } from "../../shell/cabinet";
+import { cabinetPost, DocButton } from "../../shell/cabinet";
 import { listOf, record, text } from "../../shell/market/narrow";
 import type { Json } from "../../shell/market/narrow";
 import type { AssocText, ViewProps } from "./types";
@@ -82,11 +82,6 @@ export function ReportView({ credentials, at }: ViewProps) {
     void load("");
   }, [load]);
 
-  /* The Word export is a plain download, so the server takes the credentials as a query. */
-  const download = report
-    ? `/api/assoc/report.doc?${credentialQuery(credentials)}&ym=${encodeURIComponent(report.ym)}`
-    : "#";
-
   return (
     <div className="admin-panel">
       <h2>{at("nav_report")}</h2>
@@ -106,9 +101,15 @@ export function ReportView({ credentials, at }: ViewProps) {
             }}
           />
         </div>
-        <a className="btn btn-primary" id="repDl" href={download} target="_blank" rel="noopener">
+        <DocButton
+          className="btn btn-primary"
+          id="repDl"
+          path="/api/assoc/report.doc"
+          body={{ ...credentials, ym: report?.ym ?? "" }}
+          fallbackName="hisobot.doc"
+        >
           ⬇ {at("rep_download")}
-        </a>
+        </DocButton>
       </div>
       <div id="repPreview" style={{ marginTop: 18 }}>
         {report && <Preview report={report} at={at} />}
